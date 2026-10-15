@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERONEX - Agencia de Viajes</title>
+    <style>
+        :root {
+            --bg-color: #F9F5EB;
+            --coral: #EA5455;
+            --orange: #F07B3F;
+            --slate: #2D4059;
+            --navy: #002B5B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--slate);
+        }
+
+        /* Barra de Navegación */
+        nav {
+            background-color: var(--navy);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .btn-login-nav {
+            background-color: var(--coral);
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .btn-login-nav:hover {
+            background-color: #d64344;
+        }
+
+        /* Banner de Alerta Fijo (Arriba) */
+        #alert-banner {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--coral);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-weight: 600;
+            display: none;
+            z-index: 1100;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Contenido Principal / Hero */
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(rgba(0,43,91,0.8), rgba(45,64,89,0.8)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--bg-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #f1f1f1;
+        }
+
+        .search-box {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: inline-flex;
+            gap: 1rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .search-box input, .search-box select {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .btn-search {
+            background-color: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-search:hover {
+            background-color: var(--coral);
+        }
+
+        /* Secciones de Destinos / Paquetes */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--orange);
+            display: inline-block;
+            padding-bottom: 0.3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            background-color: var(--navy);
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-card:hover {
+            background-color: var(--orange);
+        }
+
+        /* Pie de página con alerta inferior opcional */
+        footer {
+            background-color: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Alerta Global Fija (Sin pop-up) -->
+    <div id="alert-banner">⚠️ Necesitas iniciar sesión para realizar esta acción.</div>
+
+    <!-- Barra de Navegación -->
+    <nav>
+        <a href="index.html" class="nav-logo">GERONEX</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Destinos</a></li>
+            <li><a href="index.html">Paquetes</a></li>
+            <li><a href="index.html">Servicios</a></li>
+            <li><a href="login.html" class="btn-login-nav">Iniciar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sección Hero y Búsqueda -->
+    <header class="hero">
+        <h1>Gestiona, Conecta y Crece</h1>
+        <p>Descubre los mejores destinos turísticos diseñados para ti.</p>
+        
+        <div class="search-box">
+            <input type="text" placeholder="¿A dónde quieres viajar?">
+            <select>
+                <option>Tipo de Viajero</option>
+                <option>Individual</option>
+                <option>Pareja</option>
+                <option>Familia</option>
+            </select>
+            <button class="btn-search" onclick="triggerRestrictedAction()">Buscar</button>
+        </div>
+    </header>
+
+    <!-- Catálogo Público -->
+    <main class="container">
+        <h2 class="section-title">Paquetes Populares</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Playa">
+                <div class="card-content">
+                    <h3>Paraíso Tropical en Cancún</h3>
+                    <p>Disfrute de playas cristalinas, hoteles todo incluido y tours guiados.</p>
+                    <a href="#" class="btn-card" onclick="triggerRestrictedAction(); return false;">Reservar / Cotizar</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="Ciudad">
+                <div class="card-content">
+                    <h3>Aventura Urbana en CDMX</h3>
+                    <p>Conoce la historia, museos y gastronomía de la gran ciudad.</p>
+                    <a href="#" class="btn-card" onclick="triggerRestrictedAction(); return false;">Reservar / Cotizar</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Montaña">
+                <div class="card-content">
+                    <h3>Escapada a las Montañas</h3>
+                    <p>Conexión total con la naturaleza, cabañas y senderismo seguro.</p>
+                    <a href="#" class="btn-card" onclick="triggerRestrictedAction(); return false;">Reservar / Cotizar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GERONEX - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function triggerRestrictedAction() {
+            const banner = document.getElementById('alert-banner');
+            banner.style.display = 'block';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

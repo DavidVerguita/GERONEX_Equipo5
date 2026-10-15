@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERONEX - Iniciar Sesión / Registro</title>
+    <style>
+        :root {
+            --bg-color: #F9F5EB;
+            --coral: #EA5455;
+            --orange: #F07B3F;
+            --slate: #2D4059;
+            --navy: #002B5B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--slate);
+        }
+
+        /* Barra de Navegación */
+        nav {
+            background-color: var(--navy);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .auth-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--slate);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--coral);
+        }
+
+        .divider {
+            margin: 2.5rem 0 1.5rem 0;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            top: -10px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .error-msg {
+            color: var(--coral);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        footer {
+            background-color: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación con retorno rápido a index -->
+    <nav>
+        <a href="index.html" class="nav-logo">GERONEX</a>
+        <ul class="nav-links">
+            <li><a href="index.html">← Volver al Inicio</a></li>
+        </ul>
+    </nav>
+
+    <!-- Apartado de Inicio de Sesión -->
+    <div class="auth-container">
+        <h2>Iniciar Sesión</h2>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Nombre de Usuario (Máx. 15 caracteres):</label>
+                <input type="text" id="login-user" maxlength="15" required placeholder="Ej. usuario123">
+            </div>
+            <div class="form-group">
+                <label>Contraseña (6 a 10 caracteres):</label>
+                <input type="password" id="login-pass" minlength="6" maxlength="10" required placeholder="******">
+            </div>
+            <button type="submit" class="btn-submit">Entrar</button>
+        </form>
+
+        <!-- Apartado más abajo: Crear una cuenta -->
+        <div class="divider"><span>¿No tienes cuenta?</span></div>
+
+        <h2>Crear una Cuenta</h2>
+        <form onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label>Nombre de Usuario (Máx. 15 caracteres):</label>
+                <input type="text" id="reg-user" maxlength="15" required placeholder="Elige tu usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña (6 a 10 caracteres, cualquier carácter):</label>
+                <input type="password" id="reg-pass" minlength="6" maxlength="10" required placeholder="Mínimo 6, Máx 10">
+                <div id="pass-error" class="error-msg">Las contraseñas no coinciden o no cumplen los requisitos.</div>
+            </div>
+            <div class="form-group">
+                <label>Confirmar Contraseña:</label>
+                <input type="password" id="reg-pass-confirm" minlength="6" maxlength="10" required placeholder="Repite tu contraseña">
+            </div>
+            <button type="submit" class="btn-submit" style="background-color: var(--navy);">Crear Cuenta</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GERONEX - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            alert("¡Sesión iniciada correctamente (Simulación estática)!");
+            window.location.href = "index.html";
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const pass = document.getElementById('reg-pass').value;
+            const confirmPass = document.getElementById('reg-pass-confirm').value;
+            const errorDiv = document.getElementById('pass-error');
+
+            if (pass !== confirmPass) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText = "Las contraseñas no coinciden.";
+                return;
+            }
+
+            if (pass.length < 6 || pass.length > 10) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText = "La contraseña debe tener entre 6 y 10 caracteres.";
+                return;
+            }
+
+            errorDiv.style.display = 'none';
+            alert("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
+            location.reload();
+        }
+    </script>
+</body>
+</html>
