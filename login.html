@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERONEX - Iniciar Sesión / Registro</title>
+    <style>
+        :root {
+            --bg-color: #F9F5EB;
+            --coral: #EA5455;
+            --orange: #F07B3F;
+            --slate: #2D4059;
+            --navy: #002B5B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--slate);
+        }
+
+        /* Barra de Navegación */
+        nav {
+            background-color: var(--navy);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .auth-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--slate);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--orange);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--coral);
+        }
+
+        .divider {
+            margin: 2.5rem 0 1.5rem 0;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            top: -10px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .error-msg {
+            color: var(--coral);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        footer {
+            background-color: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        /* Mejoras ligeras (misma paleta) */
+        .form-group input:focus-visible, .btn-submit:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+        .btn-submit:disabled { opacity: 0.6; cursor: wait; }
+        .msg { display: none; margin-top: 0.8rem; padding: 0.7rem 0.9rem; border-radius: 4px; font-size: 0.9rem; }
+        .msg-error { display: block; background: #fdeaea; color: #b3282a; border-left: 4px solid var(--coral); }
+        .msg-ok { display: block; background: #e8eef5; color: var(--navy); border-left: 4px solid var(--navy); }
+        @media (max-width: 600px) { nav { padding: 1rem; } .auth-container { margin: 1rem; padding: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación con retorno rápido a index -->
+    <nav>
+        <a href="index.html" class="nav-logo">GERONEX</a>
+        <ul class="nav-links">
+            <li><a href="index.html">← Volver al Inicio</a></li>
+        </ul>
+    </nav>
+
+    <!-- Apartado de Inicio de Sesión -->
+    <div class="auth-container">
+        <h2>Iniciar Sesión</h2>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Nombre de Usuario (Máx. 15 caracteres):</label>
+                <input type="text" id="login-user" maxlength="15" required placeholder="Ej. usuario123">
+            </div>
+            <div class="form-group">
+                <label>Contraseña:</label>
+                <input type="password" id="login-pass" maxlength="50" required placeholder="Tu contraseña">
+            </div>
+            <button type="submit" class="btn-submit">Entrar</button>
+            <div id="login-msg" class="msg"></div>
+        </form>
+
+        <!-- Apartado más abajo: Crear una cuenta -->
+        <div class="divider"><span>¿No tienes cuenta?</span></div>
+
+        <h2>Crear una Cuenta</h2>
+        <form onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label>Nombre de Usuario (Máx. 15 caracteres):</label>
+                <input type="text" id="reg-user" maxlength="15" required placeholder="Elige tu usuario">
+            </div>
+            <div class="form-group">
+                <label>Correo electrónico:</label>
+                <input type="email" id="reg-correo" maxlength="254" required placeholder="tucorreo@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Contraseña (8 a 50 caracteres):</label>
+                <input type="password" id="reg-pass" minlength="8" maxlength="50" required placeholder="Mínimo 8 caracteres">
+                <div id="pass-error" class="error-msg">Las contraseñas no coinciden o no cumplen los requisitos.</div>
+            </div>
+            <div class="form-group">
+                <label>Confirmar Contraseña:</label>
+                <input type="password" id="reg-pass-confirm" minlength="8" maxlength="50" required placeholder="Repite tu contraseña">
+            </div>
+            <button type="submit" class="btn-submit" style="background-color: var(--navy);">Crear Cuenta</button>
+            <div id="reg-msg" class="msg"></div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GERONEX - Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/geronex.js"></script>
+    <script>
+        if (Sesion.token()) location.href = "index.html";
+
+        async function iniciarSesion(nombreUsuario, contrasena) {
+            const r = await api("/auth/login", { method: "POST", body: JSON.stringify({ nombreUsuario, contrasena }) });
+            Sesion.guardar(r.token, r.usuario);
+            location.href = "index.html";
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const boton = e.submitter; boton.disabled = true;
+            try {
+                await iniciarSesion(document.getElementById("login-user").value.trim(), document.getElementById("login-pass").value);
+            } catch (err) {
+                mostrarMensaje("login-msg", textoError(err), "error");
+                boton.disabled = false;
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const usuario = document.getElementById("reg-user").value.trim();
+            const correo = document.getElementById("reg-correo").value.trim();
+            const pass = document.getElementById("reg-pass").value;
+            const errorDiv = document.getElementById("pass-error");
+            if (pass !== document.getElementById("reg-pass-confirm").value) {
+                errorDiv.style.display = "block";
+                errorDiv.innerText = "Las contraseñas no coinciden.";
+                return;
+            }
+            errorDiv.style.display = "none";
+            const boton = e.submitter; boton.disabled = true;
+            try {
+                await api("/auth/registro", { method: "POST", body: JSON.stringify({ nombreUsuario: usuario, correo, contrasena: pass }) });
+            } catch (err) {
+                mostrarMensaje("reg-msg", textoError(err), "error");
+                boton.disabled = false;
+                return;
+            }
+            try {
+                await iniciarSesion(usuario, pass); // cuenta creada: entra directo
+            } catch (err) {
+                mostrarMensaje("reg-msg", "Tu cuenta se creó. Ahora inicia sesión arriba.", "ok");
+                boton.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

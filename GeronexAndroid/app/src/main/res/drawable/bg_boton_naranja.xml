@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Boton con efecto de "sombra" desplazada, como en el diseno de referencia -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="5dp" android:top="5dp">
+        <shape>
+            <solid android:color="@color/azul_grisaceo"/>
+            <corners android:radius="14dp"/>
+        </shape>
+    </item>
+    <item android:right="5dp" android:bottom="5dp">
+        <shape>
+            <solid android:color="@color/naranja"/>
+            <corners android:radius="14dp"/>
+        </shape>
+    </item>
+</layer-list>

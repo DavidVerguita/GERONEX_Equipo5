@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERONEX - Mi cuenta</title>
+    <link rel="stylesheet" href="css/geronex.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-logo">GERONEX</a>
+        <ul class="nav-links"><li id="nav-sesion"><a href="index.html">← Volver al Inicio</a></li></ul>
+    </nav>
+
+    <div class="auth-container">
+        <h2>Mi cuenta</h2>
+        <p class="sub">Revisa y actualiza tus datos.</p>
+        <dl class="datos">
+            <dt>Usuario</dt><dd id="d-usuario">…</dd>
+            <dt>Rol</dt><dd id="d-rol">…</dd>
+            <dt>Miembro desde</dt><dd id="d-fecha">…</dd>
+        </dl>
+        <form id="form-cuenta">
+            <div class="form-group"><label for="c-nombre">Nombre</label>
+                <input type="text" id="c-nombre" maxlength="100" placeholder="Tu nombre completo"></div>
+            <div class="form-group"><label for="c-correo">Correo electrónico</label>
+                <input type="email" id="c-correo" maxlength="254" required></div>
+            <button type="submit" class="btn-submit">Guardar cambios</button>
+            <div id="msg-cuenta" class="msg"></div>
+        </form>
+    </div>
+
+    <div class="auth-container">
+        <h2>Cambiar contraseña</h2>
+        <form id="form-pass">
+            <div class="form-group"><label for="p-actual">Contraseña actual</label>
+                <input type="password" id="p-actual" required></div>
+            <div class="form-group"><label for="p-nueva">Contraseña nueva (8 a 50 caracteres)</label>
+                <input type="password" id="p-nueva" minlength="8" maxlength="50" required></div>
+            <div class="form-group"><label for="p-confirma">Confirmar contraseña nueva</label>
+                <input type="password" id="p-confirma" minlength="8" maxlength="50" required></div>
+            <button type="submit" class="btn-submit" style="background:var(--navy)">Cambiar contraseña</button>
+            <div id="msg-pass" class="msg"></div>
+        </form>
+    </div>
+
+    <footer><p>&copy; 2026 GERONEX - Todos los derechos reservados.</p></footer>
+
+    <script src="js/geronex.js"></script>
+    <script>
+        if (!Sesion.token()) location.href = 'login.html';
+        pintarNav();
+
+        function pintarCuenta(u) {
+            document.getElementById('d-usuario').textContent = u.nombreUsuario;
+            document.getElementById('d-rol').textContent = u.rol;
+            const f = new Date(u.fechaCreacion);
+            document.getElementById('d-fecha').textContent = isNaN(f) ? '' : f.toLocaleDateString('es-MX', { dateStyle: 'long' });
+            document.getElementById('c-nombre').value = u.nombre || '';
+            document.getElementById('c-correo').value = u.correo;
+        }
+
+        async function cargar() {
+            try {
+                const u = await api('/usuarios/me');
+                Sesion.guardar(Sesion.token(), u);
+                pintarCuenta(u);
+            } catch (e) {
+                if (e.estado === 401) location.href = 'login.html';
+                else mostrarMensaje('msg-cuenta', textoError(e), 'error');
+            }
+        }
+
+        document.getElementById('form-cuenta').addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const boton = ev.submitter; boton.disabled = true;
+            try {
+                const u = await api('/usuarios/me', { method: 'PUT', body: JSON.stringify({
+                    nombre: document.getElementById('c-nombre').value,
+                    correo: document.getElementById('c-correo').value }) });
+                Sesion.guardar(Sesion.token(), u);
+                pintarCuenta(u);
+                mostrarMensaje('msg-cuenta', 'Tus datos se guardaron.', 'ok');
+            } catch (e) {
+                if (e.estado === 401) location.href = 'login.html';
+                else mostrarMensaje('msg-cuenta', textoError(e), 'error');
+            } finally { boton.disabled = false; }
+        });
+
+        document.getElementById('form-pass').addEventListener('submit', async (ev) => {
+            ev.preventDefault();
+            const nueva = document.getElementById('p-nueva').value;
+            if (nueva !== document.getElementById('p-confirma').value) {
+                mostrarMensaje('msg-pass', 'Las contraseñas nuevas no coinciden.', 'error');
+                return;
+            }
+            const boton = ev.submitter; boton.disabled = true;
+            try {
+                await api('/usuarios/me/password', { method: 'PATCH', body: JSON.stringify({
+                    contrasenaActual: document.getElementById('p-actual').value, contrasenaNueva: nueva }) });
+                ev.target.reset();
+                mostrarMensaje('msg-pass', 'Tu contraseña se cambió.', 'ok');
+            } catch (e) {
+                if (e.estado === 401) location.href = 'login.html';
+                else mostrarMensaje('msg-pass', textoError(e), 'error');
+            } finally { boton.disabled = false; }
+        });
+
+        cargar();
+    </script>
+</body>
+</html>
