@@ -71,6 +71,7 @@ public class AuthService {
 
         Perfil perfil = new Perfil();
         perfil.setUsuario(usuario);
+        perfil.setNombre(nombreUsuario);
         usuario.setPerfil(perfil);
 
         usuarioRepository.save(usuario); // el cascade guarda tambien el perfil
