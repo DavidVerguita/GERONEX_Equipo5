@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GERONEX">
+  <rect width="64" height="64" rx="14" fill="#002B5B"/>
+  <circle cx="32" cy="34" r="17" fill="none" stroke="#F07B3F" stroke-width="5"/>
+  <path d="M32 34h15" stroke="#F07B3F" stroke-width="5" stroke-linecap="round"/>
+  <g transform="translate(40 16) rotate(-30)" fill="#F9F5EB">
+    <path d="M-9 0h16q3 0 3 1.5t-3 1.5h-16z"/><path d="M-1 1.5l-5 8h3l8-8z"/><path d="M-1 1.5l-5-7h3l8 7z"/>
+  </g>
+</svg>

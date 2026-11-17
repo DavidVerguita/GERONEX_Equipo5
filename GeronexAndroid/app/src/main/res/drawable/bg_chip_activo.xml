@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filtro (chip) seleccionado -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/azul_marino"/>
+    <corners android:radius="20dp"/>
+</shape>

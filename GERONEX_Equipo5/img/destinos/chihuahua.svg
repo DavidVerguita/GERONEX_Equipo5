@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tren en las Barrancas del Cobre, Chihuahua">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd3ec"/><stop offset="1" stop-color="#f3e6cf"/></linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#cielo)"/>
+  <path d="M0 120l50-34 40 20 60-54 50 40 40-22 70 46 50-30 40 24v130H0z" fill="#c26b3a"/>
+  <path d="M0 150l70-30 50 20 60-36 60 34 50-18 60 30 50-14v104H0z" fill="#a1542a"/>
+  <path d="M0 180l80-24 70 18 80-28 70 22 100-16v88H0z" fill="#7a3d1e"/>
+  <g fill="#1f7a4d" opacity=".85">
+    <path d="M40 176l8-18 8 18z"/><path d="M58 172l7-16 7 16z"/><path d="M330 160l8-18 8 18z"/><path d="M348 164l7-16 7 16z"/>
+  </g>
+  <path d="M0 206h400" stroke="#2D4059" stroke-width="4"/>
+  <path d="M0 212h400" stroke="#2D4059" stroke-width="2" stroke-dasharray="6 8"/>
+  <g transform="translate(110 176)">
+    <rect x="0" y="0" width="62" height="28" rx="4" fill="#002B5B"/><rect x="66" y="2" width="56" height="26" rx="4" fill="#EA5455"/>
+    <rect x="126" y="2" width="56" height="26" rx="4" fill="#EA5455"/>
+    <g fill="#F9F5EB"><rect x="8" y="6" width="12" height="9" rx="2"/><rect x="74" y="7" width="12" height="9" rx="2"/><rect x="92" y="7" width="12" height="9" rx="2"/><rect x="134" y="7" width="12" height="9" rx="2"/><rect x="152" y="7" width="12" height="9" rx="2"/></g>
+    <rect x="44" y="-10" width="8" height="12" fill="#2D4059"/>
+    <g fill="#2D4059"><circle cx="14" cy="30" r="5"/><circle cx="46" cy="30" r="5"/><circle cx="80" cy="30" r="5"/><circle cx="108" cy="30" r="5"/><circle cx="140" cy="30" r="5"/><circle cx="168" cy="30" r="5"/></g>
+    <path d="M48-12q-10-14 4-22q-6 10 8 14" fill="#F9F5EB" opacity=".8"/>
+  </g>
+  <circle cx="330" cy="48" r="20" fill="#F07B3F" opacity=".85"/>
+</svg>

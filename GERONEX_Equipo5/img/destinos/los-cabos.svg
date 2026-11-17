@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="El Arco de Los Cabos al atardecer">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2D4059"/><stop offset=".55" stop-color="#EA5455"/><stop offset="1" stop-color="#F07B3F"/></linearGradient>
+    <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d4e79"/><stop offset="1" stop-color="#002B5B"/></linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#cielo)"/>
+  <circle cx="250" cy="150" r="40" fill="#F9F5EB" opacity=".85"/>
+  <rect y="150" width="400" height="90" fill="url(#mar)"/>
+  <g stroke="#F07B3F" stroke-width="3" stroke-linecap="round" opacity=".7">
+    <path d="M220 166h60"/><path d="M230 180h40"/><path d="M240 194h20"/>
+  </g>
+  <path d="M0 150V110q20-30 46-36q22 4 30 30q10-30 34-34q18 12 18 40v40z" fill="#1b2a3d"/>
+  <path d="M300 150q0-70 34-88q30-6 44 26q10 22 22 22v40h-34q-4-34-22-36q-18 4-20 36z" fill="#1b2a3d"/>
+  <path d="M310 150q-2-20 6-26" stroke="#2D4059" stroke-width="2" fill="none"/>
+  <g fill="#F9F5EB" opacity=".8">
+    <path d="M60 50l8 3-8 3-2 6-2-6-8-3 8-3 2-6z"/>
+    <circle cx="130" cy="34" r="1.6"/><circle cx="180" cy="22" r="1.4"/><circle cx="340" cy="30" r="1.6"/>
+  </g>
+  <path d="M150 70q8-6 16 0q8-6 16 0" stroke="#1b2a3d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M176 84q6-5 12 0q6-5 12 0" stroke="#1b2a3d" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

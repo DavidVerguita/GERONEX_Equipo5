@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- La app usa la paleta clara de GERONEX tambien en modo oscuro (las pantallas tienen fondo crema). -->
+    <style name="Base.Theme.Geronex" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/azul_marino</item>
+        <item name="colorSecondary">@color/naranja</item>
+        <item name="colorAccent">@color/naranja</item>
+        <item name="android:statusBarColor">@color/azul_marino</item>
+    </style>
+</resources>

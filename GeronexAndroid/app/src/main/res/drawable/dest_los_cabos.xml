@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustracion de Los Cabos (el Arco al atardecer). Version vectorial de img/destinos/los-cabos.svg de la web -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp" android:height="240dp"
+    android:viewportWidth="400" android:viewportHeight="240">
+    <path android:fillColor="#2D4059" android:pathData="M0,0h400v60h-400z"/>
+    <path android:fillColor="#8C4A5A" android:pathData="M0,60h400v40h-400z"/>
+    <path android:fillColor="#EA5455" android:pathData="M0,100h400v30h-400z"/>
+    <path android:fillColor="#F07B3F" android:pathData="M0,130h400v20h-400z"/>
+    <path android:fillColor="#F9F5EB" android:fillAlpha="0.85" android:pathData="M210,150a40,40 0,1 1,80 0z"/>
+    <path android:fillColor="#1D4E79" android:pathData="M0,150h400v40h-400z"/>
+    <path android:fillColor="#002B5B" android:pathData="M0,190h400v50h-400z"/>
+    <path android:strokeColor="#F07B3F" android:strokeWidth="3" android:strokeLineCap="round" android:strokeAlpha="0.7" android:pathData="M220,166h60M230,180h40M240,194h20"/>
+    <path android:fillColor="#1B2A3D" android:pathData="M0,150V110q20,-30 46,-36q22,4 30,30q10,-30 34,-34q18,12 18,40v40z"/>
+    <path android:fillColor="#1B2A3D" android:pathData="M300,150q0,-70 34,-88q30,-6 44,26q10,22 22,22v40h-34q-4,-34 -22,-36q-18,4 -20,36z"/>
+    <path android:strokeColor="#1B2A3D" android:strokeWidth="2.5" android:strokeLineCap="round" android:pathData="M150,70q8,-6 16,0q8,-6 16,0M176,84q6,-5 12,0q6,-5 12,0"/>
+    <path android:fillColor="#F9F5EB" android:fillAlpha="0.8" android:pathData="M60,44l2,6 8,3 -8,3 -2,6 -2,-6 -8,-3 8,-3z"/>
+</vector>

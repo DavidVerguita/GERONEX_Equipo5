@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-11-17T06:59:08.944Z",
+  "pagina": "admin.html (sesión de administrador, backend real)",
+  "agenteDePrueba": "qavccsgf",
+  "resultados": {
+    "V-01": { "ok": true, "obtenido": "Con rol Supervisor el campo Teléfono queda oculto; con rol Agente, visible." },
+    "V-02": { "ok": true, "obtenido": "Aviso: \"Cuenta \"qavccsgf\" creada con rol Agente.\" y el agente aparece en la tabla de agentes." },
+    "V-03": { "ok": true, "obtenido": "Mensaje: \"Ese nombre de usuario ya está en uso\"; el formulario conserva los datos capturados." },
+    "V-04": { "ok": true, "obtenido": "Encabezados Nombre, Usuario, Contacto y Estatus; fila: Vista Prueba ccsgf · qavccsgf · qavccsgf@prueba.geronex.mx · 5544445555 · Activo · Editar · Dar de baja." },
+    "V-05": { "ok": true, "obtenido": "La tarjeta \"Agentes activos\" pasó de 2 a 3 al crear el agente." },
+    "V-06": { "ok": true, "obtenido": "Con el filtro de rol Agente la tabla muestra 5 filas, todas con rol Agente (5 de 18 cuentas)." },
+    "V-07": { "ok": true, "obtenido": "El panel Editar agente se abre con nombre \"Vista Prueba ccsgf\" y teléfono \"5544445555\"." },
+    "V-08": { "ok": true, "obtenido": "Aviso: \"Se guardaron los datos de Vista Editado ccsgf.\"; la fila muestra el nombre, correo y teléfono nuevos (5566667777)." },
+    "V-09": { "ok": true, "obtenido": "Con teléfono \"12AB\" el navegador no envía (\"Haz coincidir el formato solicitado\"); el correo \"sin-arroba\" también se marca como inválido." },
+    "V-10": { "ok": true, "obtenido": "Aparece \"¿Dar de baja a este agente? Su cuenta quedará inactiva…\"; al elegir Cancelar el agente sigue Activo." },
+    "V-11": { "ok": true, "obtenido": "Al confirmar, la fila muestra Inactivo y el botón Reactivar; agentes activos 3 → 2." },
+    "V-12": { "ok": true, "obtenido": "Al elegir Reactivar, la fila vuelve a Activo con el botón Dar de baja." }
+  }
+}

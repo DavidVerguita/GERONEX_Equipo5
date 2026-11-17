@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 900" width="1260" height="900" font-family='Segoe UI, Arial, sans-serif'>
+<title>GERONEX - Diagrama de casos de uso</title>
+<defs>
+  <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2D4059"/></marker>
+  <marker id="triangulo" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#2D4059" stroke-width="1.2"/></marker>
+</defs>
+<rect width="1260" height="900" fill="#ffffff"/>
+<rect x="270" y="40" width="720" height="800" rx="14" fill="#F9F5EB" stroke="#2D4059" stroke-width="1.5"/>
+<text x="630" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="#002B5B">Sistema GERONEX (web + Android + API)</text>
+<line x1="136" y1="154" x2="315" y2="90" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="154" x2="315" y2="150" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="90" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="210" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="270" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="350" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="410" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="470" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="550" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="136" y1="464" x2="315" y2="630" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="144" x2="925" y2="150" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="144" x2="925" y2="230" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="354" x2="925" y2="370" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="354" x2="925" y2="450" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="514" x2="925" y2="150" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="514" x2="925" y2="370" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="514" x2="925" y2="450" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="514" x2="925" y2="740" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="674" x2="925" y2="450" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="674" x2="925" y2="600" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="674" x2="925" y2="670" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="674" x2="925" y2="740" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="824" x2="925" y2="150" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="1104" y1="824" x2="925" y2="450" stroke="#2D4059" stroke-width="1.3"/>
+<line x1="110" y1="395" x2="110" y2="240" stroke="#2D4059" stroke-width="1.5" marker-end="url(#triangulo)"/>
+<text x="118" y="320" font-size="11" fill="#6b7280">es un</text>
+<path d="M450,606 V574" stroke="#F07B3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#flecha)"/>
+<text x="458" y="595" font-size="12" fill="#F07B3F">«extend»</text>
+<path d="M655,230 C620,230 610,100 585,95" stroke="#F07B3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#flecha)"/>
+<text x="600" y="168" font-size="12" fill="#F07B3F">«include»</text>
+<path d="M790,394 V426" stroke="#F07B3F" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#flecha)"/>
+<text x="798" y="416" font-size="12" fill="#F07B3F">«include»</text>
+<ellipse cx="450" cy="90" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="95" text-anchor="middle" font-size="13" fill="#002B5B">CU-01 Consultar catálogo</text>
+<ellipse cx="450" cy="150" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="155" text-anchor="middle" font-size="13" fill="#002B5B">CU-02 Registrarse</text>
+<ellipse cx="450" cy="210" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="215" text-anchor="middle" font-size="13" fill="#002B5B">CU-03 Iniciar / cerrar sesión</text>
+<ellipse cx="450" cy="270" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="275" text-anchor="middle" font-size="13" fill="#002B5B">CU-04 Configurar mi cuenta</text>
+<ellipse cx="450" cy="350" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="355" text-anchor="middle" font-size="13" fill="#002B5B">CU-05 Crear solicitud de viaje</text>
+<ellipse cx="450" cy="410" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="415" text-anchor="middle" font-size="13" fill="#002B5B">CU-06 Consultar mis viajes</text>
+<ellipse cx="450" cy="470" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="475" text-anchor="middle" font-size="13" fill="#002B5B">CU-07 Responder cotización</text>
+<ellipse cx="450" cy="550" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="555" text-anchor="middle" font-size="13" fill="#002B5B">CU-08 Consultar comprobante</text>
+<ellipse cx="450" cy="630" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="450" y="635" text-anchor="middle" font-size="13" fill="#002B5B">CU-09 Cancelar reservación</text>
+<ellipse cx="790" cy="150" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="155" text-anchor="middle" font-size="13" fill="#002B5B">CU-10 Consultar solicitudes</text>
+<ellipse cx="790" cy="230" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="235" text-anchor="middle" font-size="13" fill="#002B5B">CU-11 Elaborar cotización</text>
+<ellipse cx="790" cy="370" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="375" text-anchor="middle" font-size="13" fill="#002B5B">CU-12 Validar reservación</text>
+<ellipse cx="790" cy="450" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="455" text-anchor="middle" font-size="13" fill="#002B5B">CU-13 Consultar reservaciones</text>
+<ellipse cx="790" cy="600" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="605" text-anchor="middle" font-size="13" fill="#002B5B">CU-14 Gestionar cuentas</text>
+<ellipse cx="790" cy="670" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="675" text-anchor="middle" font-size="13" fill="#002B5B">CU-15 Gestionar agentes</text>
+<ellipse cx="790" cy="740" rx="135" ry="24" fill="#fff" stroke="#002B5B" stroke-width="1.6"/>
+<text x="790" y="745" text-anchor="middle" font-size="13" fill="#002B5B">CU-16 Consultar agentes</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="110" cy="126" r="11" fill="#F9F5EB"/>
+  <path d="M110,137 V166 M92,148 H128 M110,166 L96,190 M110,166 L124,190"/>
+</g>
+<text x="110" y="208" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Invitado</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="110" cy="436" r="11" fill="#F9F5EB"/>
+  <path d="M110,447 V476 M92,458 H128 M110,476 L96,500 M110,476 L124,500"/>
+</g>
+<text x="110" y="518" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Cliente</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="1130" cy="116" r="11" fill="#F9F5EB"/>
+  <path d="M1130,127 V156 M1112,138 H1148 M1130,156 L1116,180 M1130,156 L1144,180"/>
+</g>
+<text x="1130" y="198" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Agente</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="1130" cy="326" r="11" fill="#F9F5EB"/>
+  <path d="M1130,337 V366 M1112,348 H1148 M1130,366 L1116,390 M1130,366 L1144,390"/>
+</g>
+<text x="1130" y="408" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Responsable de</text><text x="1130" y="424" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">reservaciones</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="1130" cy="486" r="11" fill="#F9F5EB"/>
+  <path d="M1130,497 V526 M1112,508 H1148 M1130,526 L1116,550 M1130,526 L1144,550"/>
+</g>
+<text x="1130" y="568" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Supervisor</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="1130" cy="646" r="11" fill="#F9F5EB"/>
+  <path d="M1130,657 V686 M1112,668 H1148 M1130,686 L1116,710 M1130,686 L1144,710"/>
+</g>
+<text x="1130" y="728" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Administrador</text>
+<g stroke="#002B5B" stroke-width="2.2" fill="none">
+  <circle cx="1130" cy="796" r="11" fill="#F9F5EB"/>
+  <path d="M1130,807 V836 M1112,818 H1148 M1130,836 L1116,860 M1130,836 L1144,860"/>
+</g>
+<text x="1130" y="878" text-anchor="middle" font-size="14" font-weight="700" fill="#002B5B">Auditor</text>
+<text x="290" y="820" font-size="12" fill="#6b7280">Todos los usuarios registrados (empleados incluidos) pueden iniciar sesión, cerrar sesión y configurar su cuenta (CU-03, CU-04).</text>
+</svg>

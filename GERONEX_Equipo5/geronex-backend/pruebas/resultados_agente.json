@@ -1,0 +1,177 @@
+{
+  "fecha": "2026-11-17T06:58:03.703Z",
+  "api": "http://localhost:8080/api",
+  "agenteDePrueba": "qagkcbz6l",
+  "pasaron": 24,
+  "total": 24,
+  "resultados": [
+    {
+      "id": "C-01",
+      "descripcion": "Alta de agente con datos válidos",
+      "esperado": "201 y rol AGENTE",
+      "obtenido": "201 {\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"correo\":\"qagkcbz6l@prueba.geronex.mx\",\"nombre\":\"Agente Prueba kcbz6l\",\"rol\":\"AGENTE\",\"estatus\":",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-02",
+      "descripcion": "Alta con teléfono de 9 dígitos",
+      "esperado": "400 con error en el campo telefono",
+      "obtenido": "400 {\"estado\":400,\"mensaje\":\"Hay datos inválidos en la solicitud\",\"errores\":{\"telefono\":\"El teléfono debe tener exactamente 10 dígitos\"},\"fecha\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-03",
+      "descripcion": "Alta sin sesión y con sesión de agente",
+      "esperado": "401 sin sesión y 403 con sesión de agente",
+      "obtenido": "401/403 {\"estado\":403,\"mensaje\":\"No tienes permiso para realizar esta acción.\",\"errores\":{},\"fecha\":\"2026-11-17T06:58:02.874651800Z\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-01",
+      "descripcion": "El alta crea la fila en agente ligada a la cuenta, ACTIVO",
+      "esperado": "fila con idUsuario de la cuenta y estatus ACTIVO",
+      "obtenido": "200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Prueba kcbz6l\",\"correo\":\"qagkcbz6l@prueba.geronex.mx\",\"telefono\":\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-02",
+      "descripcion": "Nombre del agente: el enviado, o el nombre de usuario si va vacío; teléfono vacío = null",
+      "esperado": "nombre = \"Agente Prueba kcbz6l\" y nombre = \"qankcbz6l\" con telefono null",
+      "obtenido": "201 {\"conNombre\":\"Agente Prueba kcbz6l\",\"sinNombre\":\"qankcbz6l\",\"telefono\":null}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-03",
+      "descripcion": "Correo repetido: no se crea cuenta ni agente",
+      "esperado": "409 y el número de agentes no cambia",
+      "obtenido": "409 {\"antes\":4,\"despues\":4,\"mensaje\":\"Ese correo ya está registrado\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-04",
+      "descripcion": "Consultar la lista de agentes como administrador",
+      "esperado": "200 y una lista",
+      "obtenido": "200 [{\"idAgente\":2,\"idUsuario\":8,\"nombreUsuario\":\"qa_agente\",\"nombre\":\"Agente de Pruebas\",\"correo\":\"qa_agente@prueba.geronex.mx\",\"telefono\":\"550",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-05",
+      "descripcion": "Consultar un agente como supervisor; id inexistente",
+      "esperado": "200 con el agente y 404 para el inexistente",
+      "obtenido": "200/404 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Prueba kcbz6l\",\"correo\":\"qagkcbz6l@prueba.geronex.mx\",\"telefono\":\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-06",
+      "descripcion": "Consultar agentes como responsable y como cliente",
+      "esperado": "403 en ambos casos",
+      "obtenido": "403/403 {\"estado\":403,\"mensaje\":\"No tienes permiso para realizar esta acción.\",\"errores\":{},\"fecha\":\"2026-11-17T06:58:03.238389400Z\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-04",
+      "descripcion": "La lista viene ordenada por nombre",
+      "esperado": "orden alfabético por nombre",
+      "obtenido": "200 [\"Agente de Pruebas\",\"Agente Prueba kcbz6l\",\"Laura Méndez\",\"qankcbz6l\"]",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-05",
+      "descripcion": "Cada agente trae los datos de su cuenta (relación 1 a 1)",
+      "esperado": "todos con idUsuario y nombreUsuario, sin repetirse",
+      "obtenido": "200 [{\"idAgente\":2,\"idUsuario\":8,\"nombreUsuario\":\"qa_agente\",\"nombre\":\"Agente de Pruebas\",\"correo\":\"qa_agente@prueba.geronex.mx\",\"telefono\":\"550",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-06",
+      "descripcion": "Ficha de agente y cuenta coinciden en correo y nombre",
+      "esperado": "correo y nombre iguales en agente y usuario/perfil",
+      "obtenido": "200 {\"agente\":[\"qagkcbz6l@prueba.geronex.mx\",\"Agente Prueba kcbz6l\"],\"cuenta\":[\"qagkcbz6l@prueba.geronex.mx\",\"Agente Prueba kcbz6l\"]}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-07",
+      "descripcion": "Cambiar nombre, correo y teléfono del agente",
+      "esperado": "200 con los datos nuevos",
+      "obtenido": "200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Editado kcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"telefono\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-08",
+      "descripcion": "Cambio con nombre vacío",
+      "esperado": "400 con error en el campo nombre",
+      "obtenido": "400 {\"estado\":400,\"mensaje\":\"Hay datos inválidos en la solicitud\",\"errores\":{\"nombre\":\"El nombre es obligatorio\"},\"fecha\":\"2026-11-17T06:58:03.2",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-09",
+      "descripcion": "Cambio hecho por un supervisor",
+      "esperado": "403",
+      "obtenido": "403 {\"estado\":403,\"mensaje\":\"No tienes permiso para realizar esta acción.\",\"errores\":{},\"fecha\":\"2026-11-17T06:58:03.303498800Z\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-07",
+      "descripcion": "El cambio también actualiza la cuenta y el perfil",
+      "esperado": "usuario.correo y perfil.nombre iguales a los nuevos",
+      "obtenido": "200 {\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"nombre\":\"Agente Editado kcbz6l\",\"rol\":\"AGENTE\",\"estatus",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-08",
+      "descripcion": "Correo de otra cuenta: se rechaza y no cambia nada",
+      "esperado": "409 y el correo sigue igual",
+      "obtenido": "409 {\"mensaje\":\"Ese correo ya está registrado\",\"correoActual\":\"eqagkcbz6l@prueba.geronex.mx\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-09",
+      "descripcion": "Teléfono vacío se guarda como nulo",
+      "esperado": "200 y telefono null",
+      "obtenido": "200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Editado kcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"telefono\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-10",
+      "descripcion": "Baja lógica del agente",
+      "esperado": "200 y estatus INACTIVO",
+      "obtenido": "200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Editado kcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"telefono\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-11",
+      "descripcion": "Estatus inválido",
+      "esperado": "400 con error en el campo estatus",
+      "obtenido": "400 {\"estado\":400,\"mensaje\":\"Hay datos inválidos en la solicitud\",\"errores\":{\"estatus\":\"El estatus debe ser ACTIVO o INACTIVO\"},\"fecha\":\"2026-11",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "C-12",
+      "descripcion": "Baja de un agente que no existe",
+      "esperado": "404",
+      "obtenido": "404 {\"estado\":404,\"mensaje\":\"El agente no existe\",\"errores\":{},\"fecha\":\"2026-11-17T06:58:03.387636700Z\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-10",
+      "descripcion": "Con la baja la cuenta queda INACTIVO y no puede iniciar sesión",
+      "esperado": "cuenta INACTIVO y login 401",
+      "obtenido": "401 {\"estatusCuenta\":\"INACTIVO\"}",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-11",
+      "descripcion": "La baja es lógica: la fila sigue existiendo",
+      "esperado": "el agente aparece en la lista con estatus INACTIVO",
+      "obtenido": "200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Editado kcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"telefono\"",
+      "resultado": "PASÓ"
+    },
+    {
+      "id": "M-12",
+      "descripcion": "Reactivar: agente y cuenta vuelven a ACTIVO y puede iniciar sesión",
+      "esperado": "200 ACTIVO y login 200",
+      "obtenido": "200/200 {\"idAgente\":3,\"idUsuario\":17,\"nombreUsuario\":\"qagkcbz6l\",\"nombre\":\"Agente Editado kcbz6l\",\"correo\":\"eqagkcbz6l@prueba.geronex.mx\",\"telefono\"",
+      "resultado": "PASÓ"
+    }
+  ]
+}

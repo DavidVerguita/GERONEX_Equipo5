@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "geronex-web",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["GERONEX_Equipo5/servidor_web.mjs"],
+      "port": 8090
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\CAMBIOS.md
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\CLAUDE.md
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\admin.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\agente.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\cliente.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\comprobante.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\cuenta.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\geronex-backend\pruebas\PRUEBAS.md
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\index.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\login.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GERONEX_Equipo5\reservaciones.html
+D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2\GUIA_DEMO.md

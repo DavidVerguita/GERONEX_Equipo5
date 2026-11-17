@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERONEX - Agencia de Viajes</title>
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/geronex.css">
+    <style>
+        .hero { position:relative; text-align:center; padding:5rem 2rem 6rem; color:#fff;
+            background:linear-gradient(rgba(0,43,91,.55), rgba(0,43,91,.35)), url('img/portada.svg') no-repeat center/cover, var(--navy); }
+        .hero h1 { font-size:clamp(2rem, 5vw, 3rem); margin-bottom:.8rem; color:var(--bg-color); text-shadow:0 2px 12px rgba(0,0,0,.3); }
+        .hero p { font-size:1.15rem; margin:0 auto 2rem; color:#f1f1f1; max-width:640px; }
+        .search-box { background:#fff; padding:1rem; border-radius:12px; display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:.7rem; box-shadow:0 12px 30px rgba(0,0,0,.25); max-width:900px; margin:0 auto; }
+        .search-box input, .search-box select { padding:.75rem; border:1px solid #ccc; border-radius:6px; font-size:.95rem; color:var(--slate); min-width:0; }
+        .hero-datos { display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap; margin-top:2rem; }
+        .hero-datos div { font-size:.85rem; color:#e8eef5; }
+        .hero-datos b { display:block; font-size:1.6rem; color:var(--orange); }
+        .pasos { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:1rem; }
+        .paso { background:#fff; border-radius:10px; padding:1.2rem; box-shadow:0 2px 6px rgba(0,43,91,.08); position:relative; overflow:hidden; }
+        .paso b { display:flex; align-items:center; justify-content:center; width:2.2rem; height:2.2rem; border-radius:50%; background:var(--orange); color:#fff; font-size:1.1rem; margin-bottom:.6rem; }
+        .paso strong { display:block; color:var(--navy); margin-bottom:.2rem; }
+        .paso span { color:var(--gris); font-size:.9rem; }
+        .destinos { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:1rem; }
+        .destino { position:relative; height:170px; border-radius:12px; overflow:hidden; cursor:pointer; border:none; padding:0; text-align:left; box-shadow:0 2px 8px rgba(0,43,91,.12); background:var(--slate); }
+        .destino img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+        .destino:hover img, .destino:focus-visible img { transform:scale(1.07); }
+        .destino div { position:absolute; inset:auto 0 0 0; padding:.8rem 1rem; color:#fff; background:linear-gradient(transparent, rgba(0,20,45,.85)); }
+        .destino h3 { font-size:1.15rem; }
+        .destino span { font-size:.82rem; color:#f1e9d8; }
+        .chips { display:flex; gap:.5rem; flex-wrap:wrap; }
+        .chip { border:1px solid var(--borde); background:#fff; color:var(--slate); padding:.45rem .9rem; border-radius:999px; cursor:pointer; font-size:.88rem; }
+        .chip.activo { background:var(--navy); color:#fff; border-color:var(--navy); }
+        .detalle-servicio { max-width:560px; }
+        .detalle-servicio img { width:100%; height:200px; object-fit:cover; display:block; }
+        .detalle-servicio .cuerpo { padding:1.3rem 1.5rem 1.5rem; }
+        .cta { background:linear-gradient(135deg,var(--navy),var(--slate)); color:#fff; border-radius:12px; padding:2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:2.5rem; }
+        .cta h2 { color:var(--bg-color); }
+        .cta p { color:#cfd8e3; }
+        @media (max-width:760px) { .search-box { grid-template-columns:1fr; } .hero { padding:3rem 1rem 4rem; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-logo">GERONEX</a>
+        <ul class="nav-links">
+            <li><a href="#destinos">Destinos</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li id="nav-sesion"><a href="login.html" class="btn-login-nav">Iniciar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Tu próximo viaje, armado por expertos</h1>
+        <p>Cuéntanos a dónde quieres ir y un agente de GERONEX te prepara una cotización a tu medida.</p>
+        <form class="search-box" id="form-buscar">
+            <input type="search" id="buscar-texto" placeholder="¿A dónde quieres viajar? Ej. Cancún" aria-label="Buscar destino o servicio">
+            <select id="buscar-categoria" aria-label="Tipo de servicio"><option value="">Todos los servicios</option></select>
+            <select id="buscar-destino" aria-label="Destino"><option value="">Todos los destinos</option></select>
+            <button class="btn btn-primario" type="submit">Buscar</button>
+        </form>
+        <div class="hero-datos" id="hero-datos"></div>
+    </header>
+
+    <main class="pagina">
+        <h2 class="section-title" id="como-funciona">¿Cómo funciona?</h2>
+        <div class="pasos">
+            <div class="paso"><b>1</b><strong>Pide tu viaje</strong><span>Crea tu cuenta y envía una solicitud con destino, fechas y presupuesto.</span></div>
+            <div class="paso"><b>2</b><strong>Recibe tu cotización</strong><span>Un agente la arma con hoteles, vuelos, transporte y tours.</span></div>
+            <div class="paso"><b>3</b><strong>Acepta y reserva</strong><span>Si te convence, la aceptas y recibes un folio de reservación.</span></div>
+            <div class="paso"><b>4</b><strong>Viaja tranquilo</strong><span>Validamos la disponibilidad, confirmamos y te damos tu comprobante.</span></div>
+        </div>
+
+        <h2 class="section-title" id="destinos">Destinos populares</h2>
+        <div class="destinos" id="lista-destinos"><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div></div>
+
+        <h2 class="section-title" id="catalogo">Catálogo de servicios</h2>
+        <div class="barra-filtros">
+            <div class="chips" id="chips"></div>
+        </div>
+        <div class="barra-filtros">
+            <input type="search" id="f-texto" placeholder="Buscar por nombre, destino o proveedor" aria-label="Buscar en el catálogo">
+            <select id="f-destino" aria-label="Destino"><option value="">Todos los destinos</option></select>
+            <input type="number" id="f-precio" min="0" step="500" placeholder="Precio máx." aria-label="Precio máximo" style="width:130px">
+            <select id="f-orden" aria-label="Ordenar">
+                <option value="">Ordenar: destino</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="nombre">Nombre (A-Z)</option>
+                <option value="cupo">Más lugares disponibles</option>
+            </select>
+            <label><input type="checkbox" id="f-disponibles"> Solo con lugares</label>
+            <button class="btn btn-claro btn-chico" type="button" id="f-limpiar">Limpiar filtros</button>
+            <span class="contador" id="contador"></span>
+        </div>
+        <div id="msg-catalogo" class="msg"></div>
+        <div class="grid" id="grid"><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div></div>
+
+        <div class="cta">
+            <div><h2>¿No encuentras lo que buscas?</h2><p>Envía una solicitud con lo que necesitas y un agente te arma una propuesta.</p></div>
+            <a class="btn btn-primario" href="#" id="btn-solicitar">Solicitar un viaje</a>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 GERONEX - Todos los derechos reservados.</p></footer>
+
+    <script src="js/geronex.js"></script>
+    <script>
+        pintarNav();
+        let catalogo = [];
+        let categoriaActual = '';
+        const $ = id => document.getElementById(id);
+        const capital = t => t.charAt(0) + t.slice(1).toLowerCase();
+
+        // Solo los clientes solicitan viajes. Sin sesión, se les invita a entrar.
+        function irASolicitar(destino) {
+            const rol = Sesion.token() ? Sesion.rol() : null;
+            if (!rol) {
+                toast('Necesitas iniciar sesión o crear una cuenta para solicitar un viaje.', 'info');
+                setTimeout(() => { location.href = 'login.html' + (destino ? '?destino=' + encodeURIComponent(destino) : ''); }, 1200);
+            } else if (rol !== 'CLIENTE') {
+                toast('Esta opción es para clientes. Tu cuenta es de ' + (NOMBRE_ROL[rol] || rol) + '.', 'error');
+            } else {
+                location.href = 'cliente.html' + (destino ? '?destino=' + encodeURIComponent(destino) : '');
+            }
+        }
+        $('btn-solicitar').addEventListener('click', ev => { ev.preventDefault(); irASolicitar(); });
+
+        // ------------------------------------------------ destinos populares
+        function pintarDestinos() {
+            const porDestino = new Map();
+            for (const s of catalogo) {
+                const d = porDestino.get(s.destino) || { destino: s.destino, servicios: 0, desde: Infinity };
+                d.servicios++;
+                d.desde = Math.min(d.desde, Number(s.precio));
+                porDestino.set(s.destino, d);
+            }
+            const lista = [...porDestino.values()].sort((a, b) => b.servicios - a.servicios);
+            $('lista-destinos').innerHTML = lista.map(d => `
+                <button class="destino" data-ir-destino="${esc(d.destino)}" aria-label="Ver servicios en ${esc(d.destino)}">
+                    <img src="${imagenDestino(d.destino)}" alt="" loading="lazy">
+                    <div><h3>${esc(d.destino)}</h3><span>${d.servicios} servicio(s) · desde ${dinero(d.desde)}</span></div>
+                </button>`).join('');
+            $('hero-datos').innerHTML = `<div><b>${lista.length}</b>destinos</div><div><b>${catalogo.length}</b>servicios</div>
+                <div><b>${new Set(catalogo.map(s => s.proveedor)).size}</b>proveedores</div>`;
+            for (const sel of [$('f-destino'), $('buscar-destino')]) {
+                sel.insertAdjacentHTML('beforeend', lista.map(d => `<option value="${esc(d.destino)}">${esc(d.destino)}</option>`).join(''));
+            }
+        }
+
+        $('lista-destinos').addEventListener('click', ev => {
+            const b = ev.target.closest('[data-ir-destino]');
+            if (!b) return;
+            $('f-destino').value = b.dataset.irDestino;
+            pintarCatalogo();
+            $('catalogo').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ------------------------------------------------ categorías
+        async function cargarCategorias() {
+            try {
+                const categorias = await api('/categorias', { publica: true });
+                const chips = $('chips');
+                chips.innerHTML = '<button class="chip activo" data-cat="">🌎 Todos</button>' + categorias.map(c =>
+                    `<button class="chip" data-cat="${esc(c.nombre)}">${ICONO_CATEGORIA[c.nombre] || ''} ${esc(NOMBRE_CATEGORIA[c.nombre] || capital(c.nombre))}</button>`).join('');
+                $('buscar-categoria').insertAdjacentHTML('beforeend', categorias.map(c =>
+                    `<option value="${esc(c.nombre)}">${esc(NOMBRE_CATEGORIA[c.nombre] || capital(c.nombre))}</option>`).join(''));
+            } catch (e) { /* si falla, el catálogo mostrará el error */ }
+        }
+        $('chips').addEventListener('click', ev => {
+            const chip = ev.target.closest('.chip');
+            if (!chip) return;
+            categoriaActual = chip.dataset.cat;
+            pintarCatalogo();
+        });
+
+        // ------------------------------------------------ catálogo
+        function filtrados() {
+            const texto = normalizar($('f-texto').value);
+            const destino = $('f-destino').value;
+            const precioMax = Number($('f-precio').value) || Infinity;
+            const soloDisponibles = $('f-disponibles').checked;
+            const lista = catalogo.filter(s => (!categoriaActual || s.categoria === categoriaActual)
+                && (!destino || s.destino === destino)
+                && Number(s.precio) <= precioMax
+                && (!soloDisponibles || s.cupoDisponible > 0)
+                && (!texto || normalizar(s.nombre + ' ' + s.destino + ' ' + s.proveedor + ' ' + (s.descripcion || '')).includes(texto)));
+            const orden = $('f-orden').value;
+            const comparar = {
+                'precio-asc': (a, b) => a.precio - b.precio, 'precio-desc': (a, b) => b.precio - a.precio,
+                'nombre': (a, b) => a.nombre.localeCompare(b.nombre, 'es'), 'cupo': (a, b) => b.cupoDisponible - a.cupoDisponible
+            }[orden];
+            return comparar ? lista.sort(comparar) : lista;
+        }
+
+        function etiquetaCupo(s) {
+            if (s.cupoDisponible <= 0) return '<span class="cupo agotado">Agotado</span>';
+            if (s.cupoDisponible <= 5) return `<span class="cupo pocos">¡Quedan ${s.cupoDisponible}!</span>`;
+            return `<span class="cupo">${s.cupoDisponible} disponibles</span>`;
+        }
+
+        function pintarCatalogo() {
+            document.querySelectorAll('.chip').forEach(c => c.classList.toggle('activo', c.dataset.cat === categoriaActual));
+            const lista = filtrados();
+            $('contador').textContent = `${lista.length} de ${catalogo.length} servicios`;
+            if (!lista.length) {
+                $('grid').innerHTML = '<div class="vacio" style="grid-column:1/-1">No encontramos servicios con esos filtros. Prueba con otros o <a href="#" data-solicitar>solicita un viaje</a> y un agente te ayuda.</div>';
+                return;
+            }
+            const puedeSolicitar = !Sesion.token() || Sesion.rol() === 'CLIENTE';
+            $('grid').innerHTML = lista.map(s => `
+                <article class="card">
+                    <div class="card-imagen"><img src="${imagenDestino(s.destino)}" alt="${esc(s.destino)}" loading="lazy">
+                        <span class="etiqueta">${ICONO_CATEGORIA[s.categoria] || ''} ${esc(s.categoria)}</span>${etiquetaCupo(s)}</div>
+                    <div class="card-content">
+                        <h3>${esc(s.nombre)}</h3>
+                        <div class="meta" style="margin-bottom:.4rem">📍 ${esc(s.destino)} · ${esc(s.proveedor)}</div>
+                        <p>${esc(s.descripcion || '')}</p>
+                        <div class="precio">${dinero(s.precio)} <small>${esc(s.unidad)}</small></div>
+                        <div class="acciones">
+                            <button class="btn btn-claro" data-detalle="${s.idServicio}">Ver detalle</button>
+                            ${puedeSolicitar ? `<button class="btn btn-azul" data-destino="${esc(s.destino)}">Solicitar</button>` : ''}
+                        </div>
+                    </div>
+                </article>`).join('');
+        }
+
+        async function cargarServicios() {
+            try {
+                catalogo = await api('/servicios', { publica: true });
+                ocultarMensaje('msg-catalogo');
+                pintarDestinos();
+                pintarCatalogo();
+            } catch (e) {
+                $('grid').innerHTML = '';
+                $('lista-destinos').innerHTML = '';
+                mostrarMensaje('msg-catalogo', textoError(e), 'error');
+            }
+        }
+
+        // Detalle de un servicio en una ventana
+        function abrirDetalle(id) {
+            const s = catalogo.find(x => x.idServicio === id);
+            if (!s) return;
+            const puedeSolicitar = !Sesion.token() || Sesion.rol() === 'CLIENTE';
+            const d = document.createElement('dialog');
+            d.className = 'dialogo detalle-servicio';
+            d.innerHTML = `<img src="${imagenDestino(s.destino)}" alt="${esc(s.destino)}">
+                <div class="cuerpo">
+                    <div class="fila-titulo"><h3>${esc(s.nombre)}</h3><span class="badge">${ICONO_CATEGORIA[s.categoria] || ''} ${esc(s.categoria)}</span></div>
+                    <p style="margin:.4rem 0 1rem">${esc(s.descripcion || 'Sin descripción.')}</p>
+                    <div class="datos-grid">
+                        <div><span>Destino</span>${esc(s.destino)}</div>
+                        <div><span>Proveedor</span>${esc(s.proveedor)}</div>
+                        <div><span>Precio</span><strong>${dinero(s.precio)}</strong> ${esc(s.unidad)}</div>
+                        <div><span>Disponibilidad</span>${s.cupoDisponible > 0 ? s.cupoDisponible + ' lugares' : 'Agotado'}</div>
+                    </div>
+                    <p class="meta" style="margin-top:1rem">El precio final lo confirma tu agente en la cotización, según tus fechas y número de personas.</p>
+                    <div class="acciones" style="justify-content:flex-end">
+                        <button class="btn btn-claro" data-cerrar>Cerrar</button>
+                        ${puedeSolicitar ? `<button class="btn btn-primario" data-destino="${esc(s.destino)}">Solicitar viaje a ${esc(s.destino)}</button>` : ''}
+                    </div>
+                </div>`;
+            document.body.appendChild(d);
+            const cerrar = () => { d.close(); d.remove(); };
+            d.addEventListener('cancel', ev => { ev.preventDefault(); cerrar(); });
+            d.addEventListener('click', ev => {
+                if (ev.target === d || ev.target.closest('[data-cerrar]')) return cerrar();
+                const b = ev.target.closest('[data-destino]');
+                if (b) { cerrar(); irASolicitar(b.dataset.destino); }
+            });
+            d.showModal();
+        }
+
+        $('grid').addEventListener('click', ev => {
+            const detalle = ev.target.closest('[data-detalle]');
+            if (detalle) return abrirDetalle(Number(detalle.dataset.detalle));
+            const boton = ev.target.closest('[data-destino]');
+            if (boton) return irASolicitar(boton.dataset.destino);
+            if (ev.target.closest('[data-solicitar]')) { ev.preventDefault(); irASolicitar($('f-destino').value); }
+        });
+
+        for (const id of ['f-texto', 'f-precio']) $(id).addEventListener('input', pintarCatalogo);
+        for (const id of ['f-destino', 'f-orden', 'f-disponibles']) $(id).addEventListener('change', pintarCatalogo);
+        $('f-limpiar').addEventListener('click', () => {
+            $('f-texto').value = ''; $('f-destino').value = ''; $('f-precio').value = ''; $('f-orden').value = '';
+            $('f-disponibles').checked = false; categoriaActual = '';
+            pintarCatalogo();
+        });
+
+        // El buscador de la portada llena los filtros del catálogo
+        $('form-buscar').addEventListener('submit', ev => {
+            ev.preventDefault();
+            categoriaActual = $('buscar-categoria').value;
+            $('f-texto').value = $('buscar-texto').value;
+            $('f-destino').value = $('buscar-destino').value;
+            pintarCatalogo();
+            $('catalogo').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        cargarCategorias().then(cargarServicios);
+    </script>
+</body>
+</html>

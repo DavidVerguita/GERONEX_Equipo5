@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 840" width="1180" height="840" font-family='Segoe UI, Arial, sans-serif'>
+<title>GERONEX - Ciclo de vida de solicitud, cotización y reservación</title>
+<defs>
+  <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2D4059"/></marker>
+  <marker id="triangulo" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#2D4059" stroke-width="1.2"/></marker>
+</defs>
+<rect width="1180" height="840" fill="#ffffff"/>
+<text x="30" y="40" font-size="17" font-weight="700" fill="#002B5B">Solicitud de viaje</text><line x1="30" y1="48" x2="1150" y2="48" stroke="#F07B3F" stroke-width="2"/><rect x="80" y="90" width="150" height="44" rx="22" fill="#a15c07" stroke="#2D4059" stroke-width="1.2"/>
+<text x="155" y="117" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">NUEVA</text><rect x="480" y="90" width="150" height="44" rx="22" fill="#002B5B" stroke="#2D4059" stroke-width="1.2"/>
+<text x="555" y="117" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">COTIZADA</text><rect x="880" y="90" width="150" height="44" rx="22" fill="#1f7a4d" stroke="#2D4059" stroke-width="1.2"/>
+<text x="955" y="117" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">ACEPTADA</text><path d="M230,104 H478" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="255" y="96" font-size="12" fill="#2D4059">el agente envía una cotización</text><path d="M630,104 H878" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="655" y="96" font-size="12" fill="#2D4059">el cliente acepta la cotización</text><path d="M555,136 C555,190 155,190 155,138" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="260" y="200" font-size="12" fill="#2D4059">el cliente rechaza la cotización</text><path d="M955,136 C955,240 155,240 155,138" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="400" y="252" font-size="12" fill="#2D4059">el responsable rechaza la reservación (sin disponibilidad)</text><text x="30" y="310" font-size="17" font-weight="700" fill="#002B5B">Cotización</text><line x1="30" y1="318" x2="1150" y2="318" stroke="#F07B3F" stroke-width="2"/><rect x="80" y="350" width="150" height="44" rx="22" fill="#a15c07" stroke="#2D4059" stroke-width="1.2"/>
+<text x="155" y="377" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">ENVIADA</text><rect x="480" y="330" width="150" height="44" rx="22" fill="#1f7a4d" stroke="#2D4059" stroke-width="1.2"/>
+<text x="555" y="357" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">ACEPTADA</text><rect x="480" y="400" width="150" height="44" rx="22" fill="#EA5455" stroke="#2D4059" stroke-width="1.2"/>
+<text x="555" y="427" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">RECHAZADA</text><path d="M230,366 C350,366 350,352 478,352" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="300" y="345" font-size="12" fill="#2D4059">el cliente acepta</text><path d="M230,380 C350,380 350,422 478,422" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="300" y="418" font-size="12" fill="#2D4059">el cliente rechaza</text><text x="660" y="360" font-size="12" fill="#6b7280">Al aceptar nace la reservación (folio GX-AAMMDD-XXXX).</text>
+<text x="660" y="428" font-size="12" fill="#6b7280">El agente puede enviar una nueva cotización para la misma solicitud.</text><text x="30" y="490" font-size="17" font-weight="700" fill="#002B5B">Reservación</text><line x1="30" y1="498" x2="1150" y2="498" stroke="#F07B3F" stroke-width="2"/><rect x="80" y="590" width="160" height="44" rx="22" fill="#a15c07" stroke="#2D4059" stroke-width="1.2"/>
+<text x="160" y="617" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">POR VALIDAR</text><rect x="500" y="540" width="160" height="44" rx="22" fill="#1f7a4d" stroke="#2D4059" stroke-width="1.2"/>
+<text x="580" y="567" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">CONFIRMADA</text><rect x="500" y="650" width="160" height="44" rx="22" fill="#EA5455" stroke="#2D4059" stroke-width="1.2"/>
+<text x="580" y="677" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">RECHAZADA</text><rect x="920" y="590" width="160" height="44" rx="22" fill="#2D4059" stroke="#2D4059" stroke-width="1.2"/>
+<text x="1000" y="617" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">CANCELADA</text><path d="M240,604 C360,604 360,562 498,562" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="250" y="552" font-size="12" fill="#2D4059">el responsable confirma (se descuenta el cupo)</text><path d="M240,624 C360,624 360,672 498,672" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="270" y="690" font-size="12" fill="#2D4059">el responsable rechaza con motivo</text><path d="M660,562 C800,562 800,604 918,604" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="690" y="552" font-size="12" fill="#2D4059">el cliente cancela: cargo 5%, regresa el cupo</text><path d="M160,636 C160,760 1000,760 1000,636" fill="none" stroke="#2D4059" stroke-width="1.6" marker-end="url(#flecha)"/>
+<text x="380" y="775" font-size="12" fill="#2D4059">el cliente cancela mientras sigue por validar: sin cargo</text><text x="30" y="820" font-size="12" fill="#6b7280">Regla de cancelación: solo con al menos 3 días naturales antes de la fecha de inicio. No se puede cotizar, aceptar ni confirmar un viaje cuya fecha de inicio ya llegó.</text>
+</svg>

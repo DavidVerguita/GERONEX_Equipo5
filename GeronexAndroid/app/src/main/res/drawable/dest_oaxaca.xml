@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustracion de Oaxaca (calle colorida y papel picado). Version vectorial de img/destinos/oaxaca.svg de la web -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp" android:height="240dp"
+    android:viewportWidth="400" android:viewportHeight="240">
+    <path android:fillColor="#FBE3C8" android:pathData="M0,0h400v240h-400z"/>
+    <path android:fillColor="#7CC8E8" android:pathData="M0,0h400v60h-400z"/>
+    <path android:strokeColor="#2D4059" android:strokeWidth="1.5" android:pathData="M0,18q100,30 200,0t200,0"/>
+    <path android:fillColor="#EA5455" android:pathData="M14,22h28v26l-14,8 -14,-8zM174,26h28v26l-14,8 -14,-8zM334,32h28v26l-14,8 -14,-8z"/>
+    <path android:fillColor="#F07B3F" android:pathData="M54,30h28v26l-14,8 -14,-8zM214,22h28v26l-14,8 -14,-8zM374,30h28v26l-14,8 -14,-8z"/>
+    <path android:fillColor="#1F7A4D" android:pathData="M94,34h28v26l-14,8 -14,-8zM254,24h28v26l-14,8 -14,-8z"/>
+    <path android:fillColor="#002B5B" android:pathData="M134,32h28v26l-14,8 -14,-8zM294,30h28v26l-14,8 -14,-8z"/>
+    <path android:fillColor="#F07B3F" android:pathData="M0,86h110v154h-110z"/>
+    <path android:fillColor="#1FB5C2" android:pathData="M110,104h100v136h-100z"/>
+    <path android:fillColor="#EA5455" android:pathData="M210,92h96v148h-96z"/>
+    <path android:fillColor="#F2C14E" android:pathData="M306,110h94v130h-94z"/>
+    <path android:fillColor="#2D4059" android:pathData="M30,240v-62a25,25 0,0 1,50 0v62zM236,240v-58a22,22 0,0 1,44 0v58zM132,138h22v34h-22zM166,138h22v34h-22zM326,146h22v30h-22zM358,146h22v30h-22z"/>
+    <path android:fillColor="#1F7A4D" android:pathData="M123,186a9,9 0,1 0,18 0a9,9 0,1 0,-18 0zM137,190a9,9 0,1 0,18 0a9,9 0,1 0,-18 0zM171,188a9,9 0,1 0,18 0a9,9 0,1 0,-18 0z"/>
+    <path android:fillColor="#A15C07" android:fillAlpha="0.55" android:pathData="M0,228h400v12h-400z"/>
+</vector>

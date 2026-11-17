@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- Paleta de GERONEX (la misma de la web; no cambiar) -->
+    <color name="crema">#F9F5EB</color>
+    <color name="rojo">#EA5455</color>
+    <color name="naranja">#F07B3F</color>
+    <color name="azul_grisaceo">#2D4059</color>
+    <color name="azul_marino">#002B5B</color>
+    <!-- Apoyo para estatus y textos secundarios (iguales a la web) -->
+    <color name="gris">#6B7280</color>
+    <color name="borde">#E3DED2</color>
+    <color name="verde">#1F7A4D</color>
+    <color name="verde_claro">#E6F4EC</color>
+    <color name="ambar">#A15C07</color>
+    <color name="ambar_claro">#FDF1DC</color>
+    <color name="rojo_oscuro">#B3282A</color>
+    <color name="rojo_claro">#FDEAEA</color>
+    <color name="azul_claro">#E8EEF5</color>
+    <color name="naranja_claro">#FFF4EC</color>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustracion generica (avion sobre montanas y mar). Version vectorial de img/destinos/generico.svg de la web -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp" android:height="240dp"
+    android:viewportWidth="400" android:viewportHeight="240">
+    <path android:fillColor="#002B5B" android:pathData="M0,0h400v120h-400z"/>
+    <path android:fillColor="#2D4059" android:pathData="M0,120h400v120h-400z"/>
+    <path android:fillColor="#F07B3F" android:fillAlpha="0.9" android:pathData="M60,70a30,30 0,1 0,60 0a30,30 0,1 0,-60 0z"/>
+    <path android:fillColor="#3B5577" android:pathData="M0,180l70,-60 50,34 70,-74 80,70 50,-30 80,54v66H0z"/>
+    <path android:fillColor="#1D3557" android:pathData="M0,200l90,-40 70,24 80,-36 70,26 90,-20v86H0z"/>
+    <path android:fillColor="#1FB5C2" android:fillAlpha="0.8" android:pathData="M0,214q50,-8 100,0t100,0t100,0t100,0V240H0z"/>
+    <path android:fillColor="#F9F5EB" android:pathData="M292,60h56q8,0 8,4t-8,4h-56zM318,64l-14,22h8l22,-22zM318,64l-14,-20h8l22,20z"/>
+</vector>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Calle colorida y papel picado en Oaxaca">
+  <rect width="400" height="240" fill="#fbe3c8"/>
+  <path d="M0 0h400v60H0z" fill="#7cc8e8"/>
+  <path d="M0 18q100 30 200 0t200 0" stroke="#2D4059" stroke-width="1.5" fill="none"/>
+  <g>
+    <path d="M14 22h28v26l-14 8-14-8z" fill="#EA5455"/><path d="M54 30h28v26l-14 8-14-8z" fill="#F07B3F"/>
+    <path d="M94 34h28v26l-14 8-14-8z" fill="#1f7a4d"/><path d="M134 32h28v26l-14 8-14-8z" fill="#002B5B"/>
+    <path d="M174 26h28v26l-14 8-14-8z" fill="#EA5455"/><path d="M214 22h28v26l-14 8-14-8z" fill="#F07B3F"/>
+    <path d="M254 24h28v26l-14 8-14-8z" fill="#1f7a4d"/><path d="M294 30h28v26l-14 8-14-8z" fill="#002B5B"/>
+    <path d="M334 32h28v26l-14 8-14-8z" fill="#EA5455"/><path d="M374 30h28v26l-14 8-14-8z" fill="#F07B3F"/>
+    <g fill="#fbe3c8"><circle cx="28" cy="34" r="4"/><circle cx="68" cy="42" r="4"/><circle cx="108" cy="46" r="4"/><circle cx="148" cy="44" r="4"/><circle cx="188" cy="38" r="4"/><circle cx="228" cy="34" r="4"/><circle cx="268" cy="36" r="4"/><circle cx="308" cy="42" r="4"/><circle cx="348" cy="44" r="4"/></g>
+  </g>
+  <rect x="0" y="86" width="110" height="154" fill="#F07B3F"/>
+  <rect x="110" y="104" width="100" height="136" fill="#1fb5c2"/>
+  <rect x="210" y="92" width="96" height="148" fill="#EA5455"/>
+  <rect x="306" y="110" width="94" height="130" fill="#f2c14e"/>
+  <g fill="#2D4059">
+    <path d="M30 240v-62a25 25 0 0 1 50 0v62z"/><rect x="132" y="138" width="22" height="34" rx="11"/><rect x="166" y="138" width="22" height="34" rx="11"/>
+    <path d="M236 240v-58a22 22 0 0 1 44 0v58z"/><rect x="326" y="146" width="22" height="30" rx="11"/><rect x="358" y="146" width="22" height="30" rx="11"/>
+  </g>
+  <g fill="#1f7a4d"><circle cx="132" cy="186" r="9"/><circle cx="146" cy="190" r="9"/><circle cx="180" cy="188" r="9"/></g>
+  <rect y="228" width="400" height="12" fill="#a15c07" opacity=".55"/>
+</svg>

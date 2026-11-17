@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustracion de Cancun (playa del Caribe). Version vectorial de img/destinos/cancun.svg de la web -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp" android:height="240dp"
+    android:viewportWidth="400" android:viewportHeight="240">
+    <path android:fillColor="#7CC8E8" android:pathData="M0,0h400v120h-400z"/>
+    <path android:fillColor="#A9DDF0" android:pathData="M0,70h400v50h-400z"/>
+    <path android:fillColor="#F9F5EB" android:fillAlpha="0.9" android:pathData="M294,58a26,26 0,1 0,52 0a26,26 0,1 0,-52 0z"/>
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="4" android:strokeLineCap="round" android:strokeAlpha="0.8" android:pathData="M40,50q12,-8 24,0q10,-6 20,2"/>
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="3" android:strokeLineCap="round" android:strokeAlpha="0.7" android:pathData="M200,36q10,-6 20,0q8,-5 16,1"/>
+    <path android:fillColor="#1FB5C2" android:pathData="M0,118h400v30h-400z"/>
+    <path android:fillColor="#0A7F9E" android:pathData="M0,148h400v32h-400z"/>
+    <path android:strokeColor="#BFF0F2" android:strokeWidth="2" android:strokeAlpha="0.7" android:pathData="M0,140q25,-6 50,0t50,0t50,0t50,0t50,0t50,0t50,0t50,0"/>
+    <path android:fillColor="#F3DFB4" android:pathData="M0,176q100,-22 200,-6t200,-4V240H0z"/>
+    <path android:fillColor="#EAD09A" android:pathData="M0,200q120,-18 240,-4t160,-6V240H0z"/>
+    <path android:strokeColor="#8A5A2B" android:strokeWidth="7" android:strokeLineCap="round" android:pathData="M72,196q6,-60 22,-92"/>
+    <path android:fillColor="#1F7A4D" android:pathData="M94,104q-34,-6 -52,14q26,-4 52,-14zM94,104q-20,-24 -46,-22q24,8 46,22zM94,104q8,-30 34,-36q-20,16 -34,36zM94,104q36,-8 54,10q-28,-2 -54,-10zM94,104q30,8 36,34q-16,-20 -36,-34z"/>
+    <path android:strokeColor="#2D4059" android:strokeWidth="3" android:pathData="M282,214l40,-40"/>
+    <path android:fillColor="#EA5455" android:pathData="M322,174q-46,-26 -74,14q36,-22 74,-14z"/>
+    <path android:fillColor="#F07B3F" android:pathData="M303,208h38a3,3 0,0 1,0 6h-38a3,3 0,0 1,0 -6z"/>
+</vector>

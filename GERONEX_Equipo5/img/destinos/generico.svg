@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Avión sobre montañas y mar">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#002B5B"/><stop offset="1" stop-color="#2D4059"/></linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#cielo)"/>
+  <circle cx="90" cy="70" r="30" fill="#F07B3F" opacity=".9"/>
+  <path d="M0 180l70-60 50 34 70-74 80 70 50-30 80 54v66H0z" fill="#3b5577"/>
+  <path d="M0 200l90-40 70 24 80-36 70 26 90-20v86H0z" fill="#1d3557"/>
+  <path d="M0 214q50-8 100 0t100 0t100 0t100 0V240H0z" fill="#1fb5c2" opacity=".8"/>
+  <path d="M120 96q80-50 200-40" stroke="#F9F5EB" stroke-width="2" stroke-dasharray="4 8" fill="none" opacity=".7"/>
+  <g transform="translate(322 54) rotate(-12)" fill="#F9F5EB">
+    <path d="M-30 0h56q8 0 8 4t-8 4h-56z"/><path d="M-4 4l-14 22h8l22-22z"/><path d="M-4 4l-14-20h8l22 20z"/><path d="M-28 4l-6-12h6l8 12z"/>
+  </g>
+</svg>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GERONEX - Documentación del sistema</title>
+<style>
+  :root { --navy:#002B5B; --slate:#2D4059; --orange:#F07B3F; --coral:#EA5455; --crema:#F9F5EB; --gris:#6b7280; --verde:#1f7a4d; --ambar:#a15c07; }
+  * { box-sizing:border-box; }
+  body { font-family:'Segoe UI', Arial, sans-serif; color:#222; margin:0; background:#fff; line-height:1.5; font-size:11pt; }
+  main { max-width:900px; margin:0 auto; padding:24px; }
+  h1 { color:var(--navy); font-size:22pt; margin:0 0 6px; }
+  h2 { color:var(--navy); font-size:16pt; border-bottom:3px solid var(--orange); padding-bottom:4px; margin:36px 0 12px; page-break-after:avoid; }
+  h3 { color:var(--slate); font-size:13pt; margin:22px 0 8px; page-break-after:avoid; }
+  table { width:100%; border-collapse:collapse; margin:8px 0 16px; font-size:9.5pt; page-break-inside:auto; }
+  th { background:var(--navy); color:#fff; text-align:left; padding:6px 8px; }
+  td { border:1px solid #d8d2c4; padding:5px 8px; vertical-align:top; }
+  tr:nth-child(even) td { background:#faf8f2; }
+  tr { page-break-inside:avoid; }
+  .portada { text-align:center; padding:60px 20px; border:3px solid var(--navy); border-radius:12px; margin-bottom:30px; page-break-after:always; }
+  .portada .logo { font-size:42pt; font-weight:800; color:var(--orange); letter-spacing:2px; }
+  .portada .lema { color:var(--slate); font-style:italic; margin-bottom:40px; }
+  .portada p { margin:4px 0; }
+  .nota { background:var(--crema); border-left:4px solid var(--orange); padding:10px 14px; margin:12px 0; font-size:10pt; }
+  .figura { text-align:center; margin:16px 0; page-break-inside:avoid; }
+  .figura img { max-width:100%; border:1px solid #ddd; border-radius:8px; }
+  .figura figcaption { font-size:9.5pt; color:var(--gris); margin-top:4px; }
+  .si { color:var(--verde); font-weight:700; } .parcial { color:var(--ambar); font-weight:700; } .no { color:var(--coral); font-weight:700; }
+  .cu td:first-child { width:24%; font-weight:700; color:var(--navy); background:#f3efe4; }
+  .indice a { color:var(--navy); text-decoration:none; } .indice li { margin:3px 0; }
+  code { background:#f1ede3; padding:1px 5px; border-radius:4px; font-size:9.5pt; }
+  @media print { main { padding:0; } h2 { page-break-before:always; } .portada + h2, .indice + h2 { page-break-before:auto; } a { color:inherit; } }
+</style>
+</head>
+<body>
+<main>
+
+<section class="portada">
+  <p>Instituto Politécnico Nacional</p>
+  <p>Centro de Estudios Científicos y Tecnológicos No. 9 “Juan de Dios Bátiz”</p>
+  <p>Laboratorio de Desarrollo de Software III · Grupo 5IM8</p>
+  <div style="height:40px"></div>
+  <div class="logo">GERONEX</div>
+  <div class="lema">Gestiona, Conecta y Crece</div>
+  <h1>Documentación del sistema</h1>
+  <p>Plataforma de viajes asistidos para la agencia <strong>Iamonos</strong></p>
+  <p>Objetivos · Requerimientos · Casos de uso · Diagrama entidad-relación · Diccionario de datos</p>
+  <div style="height:40px"></div>
+  <p><strong>Integrantes</strong></p>
+  <p>Cárdenas Hernández Omar Yoel</p>
+  <p>Portillo Morales Yael Sebastián</p>
+  <p>Sánchez Botello María Elizabeth</p>
+  <p>Vega Beid David</p>
+  <div style="height:30px"></div>
+  <p>Noviembre de 2026</p>
+</section>
+
+<nav class="indice">
+  <h2 style="page-break-before:auto">Índice</h2>
+  <ol>
+    <li><a href="#descripcion">Descripción general del sistema</a></li>
+    <li><a href="#objetivos">Objetivos</a></li>
+    <li><a href="#reglas">Reglas de negocio</a></li>
+    <li><a href="#rf">Requerimientos funcionales</a></li>
+    <li><a href="#rnf">Requerimientos no funcionales</a></li>
+    <li><a href="#rs">Requerimientos del sistema</a></li>
+    <li><a href="#cu">Diagrama y especificación de casos de uso</a></li>
+    <li><a href="#estados">Ciclo de vida de las operaciones</a></li>
+    <li><a href="#er">Diagrama entidad-relación</a></li>
+    <li><a href="#dd">Diccionario de datos</a></li>
+    <li><a href="#api">Anexo: rutas de la API REST</a></li>
+  </ol>
+</nav>
+
+<!-- ================================================================== -->
+<h2 id="descripcion">1. Descripción general del sistema</h2>
+<p>GERONEX es la plataforma que moderniza el sistema de la agencia de viajes <strong>Iamonos</strong>. Funciona como una <strong>agencia asistida</strong>: el cliente no compra servicios sueltos, sino que pide un viaje y un agente de la agencia le arma una cotización a su medida con hoteles, vuelos, transporte y tours del catálogo. Si el cliente la acepta, nace una reservación que el responsable de reservaciones valida contra la disponibilidad de los proveedores.</p>
+<p>El sistema está formado por cuatro partes que trabajan sobre una sola base de datos:</p>
+<table>
+  <tr><th>Parte</th><th>Tecnología</th><th>Qué hace</th></tr>
+  <tr><td>Página web</td><td>HTML, CSS y JavaScript</td><td>Catálogo público y páginas de trabajo para cada rol: cliente, agente, responsable de reservaciones, supervisor, auditor y administrador.</td></tr>
+  <tr><td>Aplicación móvil</td><td>Android nativo en Java (Android 7 o superior)</td><td>Todo lo del cliente: catálogo, pedir viajes, responder cotizaciones, reservaciones y comprobante.</td></tr>
+  <tr><td>Backend (API REST)</td><td>Java 21, Spring Boot 4.1, Spring Security con JWT</td><td>Concentra todas las reglas de negocio, la seguridad por roles y el acceso a datos. La web y Android solo se comunican con la API.</td></tr>
+  <tr><td>Base de datos</td><td>MySQL 8</td><td>Base <code>geronex</code> con 12 tablas: cuentas, catálogo, agentes, solicitudes, cotizaciones y reservaciones.</td></tr>
+</table>
+<div class="nota">Arquitectura MVC: el <strong>Modelo</strong> son las entidades JPA y la base MySQL; el <strong>Controlador</strong> es el backend Spring Boot (controladores REST y servicios); las <strong>Vistas</strong> son la página web y la aplicación Android, que consumen la misma API.</div>
+
+<!-- ================================================================== -->
+<h2 id="objetivos">2. Objetivos</h2>
+<h3>2.1 Objetivo general</h3>
+<p>Desarrollar una plataforma digital para la agencia de viajes Iamonos, compuesta por una página web y una aplicación Android conectadas a un mismo backend y a una base de datos MySQL compartida, que permita a los clientes consultar los servicios y contratar viajes armados por un agente de manera práctica, intuitiva y funcional, y que facilite al personal de la agencia la gestión de solicitudes, cotizaciones y reservaciones.</p>
+<h3>2.2 Objetivos específicos</h3>
+<ol>
+  <li>Permitir que cualquier visitante consulte el catálogo de servicios (hoteles, vuelos, transporte y paquetes) sin iniciar sesión, con búsqueda, filtros y detalle de cada servicio.</li>
+  <li>Implementar el registro, el inicio de sesión y la configuración de la cuenta con contraseñas protegidas mediante hash BCrypt y sesiones con token JWT.</li>
+  <li>Controlar el acceso por roles (cliente, agente, responsable de reservaciones, supervisor, auditor y administrador), de modo que cada usuario solo vea y haga lo que le corresponde.</li>
+  <li>Permitir que el cliente registre solicitudes de viaje con destino, fechas, número de personas, presupuesto y necesidades.</li>
+  <li>Permitir que el agente elabore cotizaciones con servicios del catálogo, con el total calculado por el sistema y el precio del momento guardado.</li>
+  <li>Permitir que el cliente acepte o rechace cada cotización y que, al aceptarla, se genere una reservación con folio único.</li>
+  <li>Permitir que el responsable de reservaciones confirme o rechace las reservaciones validando la disponibilidad, y que el cupo se descuente y se restituya de forma consistente.</li>
+  <li>Mostrar un comprobante completo de cada reservación e implementar la cancelación con la regla de 3 días de anticipación y el cargo del 5%.</li>
+  <li>Mantener la información sincronizada entre la web y Android al usar la misma API y la misma base de datos.</li>
+</ol>
+
+<!-- ================================================================== -->
+<h2 id="reglas">3. Reglas de negocio</h2>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Regla</th></tr>
+  <tr><td>RN-01</td><td>Cualquier persona puede consultar el catálogo. Para pedir un viaje se necesita una cuenta de cliente.</td></tr>
+  <tr><td>RN-02</td><td>El registro público siempre crea cuentas con rol CLIENTE. Las cuentas de empleados las crea el administrador; el primer administrador se crea con un script de la base de datos.</td></tr>
+  <tr><td>RN-03</td><td>El nombre de usuario tiene máximo 15 caracteres y es único. El correo es único. La contraseña tiene de 8 a 50 caracteres y se guarda solo como hash BCrypt.</td></tr>
+  <tr><td>RN-04</td><td>Una solicitud de viaje requiere destino, fecha de inicio posterior a hoy, fecha de regreso no anterior al inicio y de 1 a 50 personas. El presupuesto es opcional y no negativo.</td></tr>
+  <tr><td>RN-05</td><td>Solo un agente con ficha ACTIVA puede cotizar, y solo solicitudes en estatus NUEVA. No se repiten servicios en una cotización y cada cantidad debe caber en el cupo disponible.</td></tr>
+  <tr><td>RN-06</td><td>El total de la cotización lo calcula el backend con los precios vigentes del catálogo. Cada renglón guarda el precio del momento, así un cambio posterior de precio no altera la cotización.</td></tr>
+  <tr><td>RN-07</td><td>Si el cliente acepta, la cotización pasa a ACEPTADA y nace una reservación POR_VALIDAR con folio único <code>GX-AAMMDD-XXXX</code>. Si la rechaza, la solicitud vuelve a NUEVA para recibir otra propuesta.</td></tr>
+  <tr><td>RN-08</td><td>El responsable de reservaciones (o el supervisor) confirma la reservación solo si hay cupo para todos los servicios; al confirmar se descuenta el cupo. Si no hay disponibilidad, la rechaza con un motivo y la solicitud regresa a NUEVA.</td></tr>
+  <tr><td>RN-09</td><td>El cliente puede cancelar una reservación POR_VALIDAR o CONFIRMADA si faltan al menos 3 días naturales para la fecha de inicio. Si estaba CONFIRMADA se registra un cargo del 5% del total (sin cobro real) y se devuelve el cupo; si estaba POR_VALIDAR no hay cargo.</td></tr>
+  <tr><td>RN-10</td><td>No se puede cotizar, aceptar ni confirmar un viaje cuya fecha de inicio ya llegó o ya pasó.</td></tr>
+  <tr><td>RN-11</td><td>Las bajas son lógicas (estatus). Dar de baja a un agente desactiva también su cuenta, y su sesión deja de funcionar de inmediato.</td></tr>
+  <tr><td>RN-12</td><td>Un cliente solo puede ver sus propias solicitudes, cotizaciones y reservaciones. Si intenta abrir una ajena, el sistema responde como si no existiera.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="rf">4. Requerimientos funcionales</h2>
+<p>Se conservan las claves del documento de seguimiento (Sprint 2). La columna <em>Estado</em> indica cómo quedó cada requerimiento en esta versión: <span class="si">Implementado</span>, <span class="parcial">Parcial</span> (cubierto en lo esencial, con una diferencia que se explica) o <span class="no">Siguiente fase</span> (fuera de esta entrega).</p>
+
+<h3>Bloque 1. Registro, acceso y administración de usuarios</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-01.1</td><td>Registro de clientes</td><td class="si">Implementado</td><td>Web (login.html) y Android (Registro). POST /auth/registro.</td></tr>
+  <tr><td>RF-01.2</td><td>Nombre de usuario único</td><td class="si">Implementado</td><td>Mensaje “Ese nombre de usuario ya está en uso” (409). También el correo es único.</td></tr>
+  <tr><td>RF-01.3</td><td>Inicio de sesión</td><td class="si">Implementado</td><td>Token JWT de 60 minutos; mensaje genérico si los datos son incorrectos.</td></tr>
+  <tr><td>RF-01.4</td><td>Identificación del rol</td><td class="si">Implementado</td><td>Cada rol entra a su página de trabajo y ve solo sus opciones.</td></tr>
+  <tr><td>RF-01.5</td><td>Acceso de invitado</td><td class="si">Implementado</td><td>Catálogo público sin sesión.</td></tr>
+  <tr><td>RF-01.6</td><td>Registro interno de cuentas</td><td class="si">Implementado</td><td>El administrador crea cuentas de empleados en admin.html; el primero se crea con un script.</td></tr>
+  <tr><td>RF-01.7</td><td>Asignación de roles</td><td class="parcial">Parcial</td><td>El rol se asigna al crear la cuenta; para cambiarlo se crea una cuenta nueva.</td></tr>
+  <tr><td>RF-01.8</td><td>Restricción por permisos</td><td class="si">Implementado</td><td>Reglas por rol en el backend (403) y redirección en la web aunque se escriba la dirección.</td></tr>
+  <tr><td>RF-01.9</td><td>Cierre de sesión</td><td class="si">Implementado</td><td>Web y Android.</td></tr>
+</table>
+
+<h3>Bloque 2. Perfil y datos de los usuarios</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-02.1</td><td>Consulta del perfil propio</td><td class="si">Implementado</td><td>“Mi cuenta” en web y Android; nombre y correo editables.</td></tr>
+  <tr><td>RF-02.4</td><td>Confirmación de contraseña</td><td class="si">Implementado</td><td>Se pide la contraseña actual, la nueva y su confirmación.</td></tr>
+  <tr><td>RF-02.6</td><td>Consulta administrativa de clientes</td><td class="parcial">Parcial</td><td>El administrador consulta todas las cuentas; el historial de cada cliente se ve en las bandejas de solicitudes y reservaciones.</td></tr>
+  <tr><td>RF-02.7</td><td>Búsqueda de clientes</td><td class="si">Implementado</td><td>Búsqueda por usuario, nombre o correo (admin) y por cliente en las bandejas.</td></tr>
+  <tr><td>RF-02.8</td><td>Asociación de operaciones</td><td class="si">Implementado</td><td>Cada solicitud, cotización y reservación queda ligada a su cliente.</td></tr>
+</table>
+
+<h3>Bloque 3. Consulta y búsqueda de paquetes y servicios</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-03.1</td><td>Consulta pública</td><td class="si">Implementado</td><td>Web (inicio) y Android (Catálogo).</td></tr>
+  <tr><td>RF-03.2</td><td>Búsqueda de servicios</td><td class="parcial">Parcial</td><td>Por destino, nombre o proveedor, sin importar acentos. Las fechas y el número de viajeros se capturan en la solicitud; el dato de mascotas aún no existe en el catálogo.</td></tr>
+  <tr><td>RF-03.3</td><td>Filtros de búsqueda</td><td class="parcial">Parcial</td><td>Por tipo, destino, precio máximo y disponibilidad, con orden por precio, nombre o cupo. Falta el filtro por público objetivo.</td></tr>
+  <tr><td>RF-03.4</td><td>Consulta de detalles</td><td class="si">Implementado</td><td>Ventana de detalle con descripción, proveedor, precio, unidad y disponibilidad.</td></tr>
+  <tr><td>RF-03.5 / 03.6</td><td>Público objetivo de paquetes</td><td class="no">Siguiente fase</td><td>Requiere la tabla publico_objetivo del diagrama ER.</td></tr>
+  <tr><td>RF-03.7</td><td>Servicios que admiten mascotas</td><td class="no">Siguiente fase</td><td>Requiere el campo admite_mascotas en servicio.</td></tr>
+  <tr><td>RF-03.8</td><td>Consulta interna de servicios</td><td class="si">Implementado</td><td>Catálogo dentro del cotizador del agente, con cupo y cantidad sugerida.</td></tr>
+  <tr><td>RF-03.9</td><td>Búsqueda administrativa</td><td class="parcial">Parcial</td><td>Por destino, proveedor y categoría en el catálogo general.</td></tr>
+  <tr><td>RF-03.10</td><td>Disponibilidad registrada</td><td class="si">Implementado</td><td>El agente y el responsable ven el cupo de cada servicio.</td></tr>
+</table>
+
+<h3>Bloque 4. Gestión de proveedores, paquetes, servicios y precios</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-04.1 a 04.10</td><td>Registro y modificación de proveedores, servicios, precios, disponibilidad y retiro de publicación</td><td class="no">Siguiente fase</td><td>En esta versión el catálogo son datos de ejemplo que administra el equipo con el script 04_datos_ejemplo.sql. Las tablas ya existen y tienen estatus para el retiro lógico.</td></tr>
+  <tr><td>RF-04.11</td><td>Consulta de precios por agentes</td><td class="si">Implementado</td><td>En el cotizador.</td></tr>
+  <tr><td>RF-04.12</td><td>Validación de datos comerciales</td><td class="si">Implementado</td><td>Restricciones CHECK en la base (precio ≥ 0, cupos válidos).</td></tr>
+  <tr><td>RF-04.13</td><td>Conservación del precio cotizado</td><td class="si">Implementado</td><td>detalle_cotizacion.precio_unitario guarda el precio del momento.</td></tr>
+  <tr><td>RF-04.14</td><td>Seguimiento con proveedores</td><td class="parcial">Parcial</td><td>El resultado se registra al confirmar o rechazar (motivo) la reservación.</td></tr>
+</table>
+
+<h3>Bloque 5. Solicitudes de viaje y cotizaciones</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-05.1</td><td>Registro de solicitudes</td><td class="si">Implementado</td><td>El cliente, desde web y Android.</td></tr>
+  <tr><td>RF-05.2</td><td>Asignación de agente</td><td class="parcial">Parcial</td><td>El agente que cotiza queda asignado a la solicitud; no hay asignación manual por el supervisor.</td></tr>
+  <tr><td>RF-05.3</td><td>Consulta de solicitudes pendientes</td><td class="si">Implementado</td><td>Bandeja del agente con pestañas, búsqueda, orden y aviso de solicitudes nuevas.</td></tr>
+  <tr><td>RF-05.4</td><td>Selección de servicios</td><td class="si">Implementado</td><td>Uno o varios servicios, con cantidad sugerida (noches o personas).</td></tr>
+  <tr><td>RF-05.5</td><td>Cálculo de cotización</td><td class="si">Implementado</td><td>El backend calcula el total; el navegador nunca manda precios.</td></tr>
+  <tr><td>RF-05.6</td><td>Desglose de importes</td><td class="si">Implementado</td><td>Precio, cantidad y subtotal de cada servicio, y el total.</td></tr>
+  <tr><td>RF-05.7</td><td>Ajustes comerciales</td><td class="no">Siguiente fase</td><td>Requiere la tabla ajuste_cotizacion.</td></tr>
+  <tr><td>RF-05.8</td><td>Validación previa</td><td class="si">Implementado</td><td>Cupo, servicios activos, sin repetidos, solicitud NUEVA y fecha vigente.</td></tr>
+  <tr><td>RF-05.9</td><td>Identificador de cotización</td><td class="si">Implementado</td><td>Número de cotización único.</td></tr>
+  <tr><td>RF-05.10</td><td>Modificación de cotización</td><td class="parcial">Parcial</td><td>Si el cliente la rechaza, el agente envía una cotización nueva; las anteriores quedan en el historial.</td></tr>
+  <tr><td>RF-05.11</td><td>Consulta de cotizaciones</td><td class="si">Implementado</td><td>Cliente (Mis viajes) y empleados (bandeja).</td></tr>
+  <tr><td>RF-05.12</td><td>Estado de cotización</td><td class="si">Implementado</td><td>ENVIADA, ACEPTADA o RECHAZADA.</td></tr>
+  <tr><td>RF-05.13</td><td>Aceptación o rechazo</td><td class="si">Implementado</td><td>Con confirmación y comparación contra el presupuesto.</td></tr>
+  <tr><td>RF-05.14</td><td>Seguimiento comercial</td><td class="parcial">Parcial</td><td>Pestaña “Esperando cliente”; no se registran acciones de seguimiento.</td></tr>
+  <tr><td>RF-05.15</td><td>Consulta de supervisión</td><td class="si">Implementado</td><td>El supervisor y el auditor ven la bandeja con importe y agente.</td></tr>
+  <tr><td>RF-05.16</td><td>Historial de cotizaciones</td><td class="si">Implementado</td><td>Cotizaciones anteriores de cada solicitud.</td></tr>
+  <tr><td>RF-05.17</td><td>Comprobante de cotización</td><td class="si">Implementado</td><td>cotizacion.html: identificador, cliente, viaje, servicios, importes, fecha y estado; imprimible o en PDF. Lo abren el cliente y el agente.</td></tr>
+</table>
+
+<h3>Bloque 6. Gestión de reservaciones</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-06.1</td><td>Creación de reservación</td><td class="si">Implementado</td><td>Nace automáticamente al aceptar la cotización (POR_VALIDAR) y el responsable la valida.</td></tr>
+  <tr><td>RF-06.2</td><td>Registro de reservación</td><td class="si">Implementado</td><td>Folio, cliente, servicios, fechas, importe y responsable.</td></tr>
+  <tr><td>RF-06.3</td><td>Confirmación de disponibilidad</td><td class="si">Implementado</td><td>La bandeja muestra si alcanza el cupo de cada servicio.</td></tr>
+  <tr><td>RF-06.4</td><td>Estados de reservación</td><td class="si">Implementado</td><td>POR_VALIDAR, CONFIRMADA, RECHAZADA y CANCELADA.</td></tr>
+  <tr><td>RF-06.5</td><td>Modificación de reservación</td><td class="no">Siguiente fase</td><td>Requiere la tabla solicitud_cambio.</td></tr>
+  <tr><td>RF-06.6 / 06.7</td><td>Solicitud y atención de cancelaciones</td><td class="parcial">Parcial</td><td>El cliente cancela directamente si cumple la regla de 3 días; el sistema aplica la regla sin intervención.</td></tr>
+  <tr><td>RF-06.8</td><td>Cancelación de reservación</td><td class="si">Implementado</td><td>Se registran fecha y cargo; en los rechazos, el motivo.</td></tr>
+  <tr><td>RF-06.9</td><td>Consulta de reservaciones del cliente</td><td class="si">Implementado</td><td>Solo las propias (web y Android).</td></tr>
+  <tr><td>RF-06.10 / 06.11</td><td>Consulta operativa y supervisión</td><td class="si">Implementado</td><td>Bandeja con pestañas, resumen, búsqueda y orden.</td></tr>
+  <tr><td>RF-06.12</td><td>Historial de reservaciones</td><td class="si">Implementado</td><td>Filtro por estatus.</td></tr>
+  <tr><td>RF-06.13</td><td>Prevención de duplicados</td><td class="si">Implementado</td><td>Una reservación por cotización (UNIQUE) y bloqueo de filas en operaciones simultáneas.</td></tr>
+  <tr><td>RF-06.14</td><td>Asociación con proveedores</td><td class="si">Implementado</td><td>Cada renglón liga servicio y proveedor.</td></tr>
+  <tr><td>RF-06.15</td><td>Comprobante de reservación</td><td class="si">Implementado</td><td>Web imprimible / PDF; en Android se comparte y se copia el folio.</td></tr>
+</table>
+
+<h3>Bloques 7 a 10. Historial, administración, reportes y trazabilidad</h3>
+<table>
+  <tr><th style="width:9%">Clave</th><th>Requerimiento</th><th style="width:15%">Estado</th><th style="width:30%">Dónde / observaciones</th></tr>
+  <tr><td>RF-07.1 a 07.3</td><td>Historial comercial (propio, por agentes y administrativo)</td><td class="si">Implementado</td><td>Mis viajes / Mis reservaciones y bandejas de empleados.</td></tr>
+  <tr><td>RF-07.4</td><td>Búsqueda en el historial</td><td class="parcial">Parcial</td><td>Por cliente, folio, destino y estatus; no por rango de fechas.</td></tr>
+  <tr><td>RF-08.1</td><td>Panel administrativo</td><td class="si">Implementado</td><td>Resumen de cuentas, clientes, agentes, servicios, solicitudes por cotizar, reservaciones por validar y ventas.</td></tr>
+  <tr><td>RF-08.2</td><td>Consulta de personal</td><td class="si">Implementado</td><td>Tabla de cuentas con filtro por rol.</td></tr>
+  <tr><td>RF-08.3 / 08.5</td><td>Asignación y reasignación de operaciones</td><td class="no">Siguiente fase</td><td>Requiere la tabla reasignacion.</td></tr>
+  <tr><td>RF-08.4 / 08.6</td><td>Seguimiento e identificación de pendientes</td><td class="si">Implementado</td><td>Pestañas “Por cotizar” y “Por validar” con contadores.</td></tr>
+  <tr><td>RF-08.7</td><td>Indicadores operativos</td><td class="si">Implementado</td><td>Tarjetas de resumen en cada bandeja.</td></tr>
+  <tr><td>RF-08.8</td><td>Restricción de supervisión</td><td class="si">Implementado</td><td>El supervisor valida y consulta, pero no administra cuentas.</td></tr>
+  <tr><td>RF-09.1 a 09.4</td><td>Reportes y consultas</td><td class="parcial">Parcial</td><td>Consultas con filtros en pantalla; no hay reportes exportables.</td></tr>
+  <tr><td>RF-10.1 a 10.3</td><td>Bitácora de auditoría</td><td class="no">Siguiente fase</td><td>Requiere la tabla auditoria. Hoy cada reservación guarda quién y cuándo la validó o canceló.</td></tr>
+  <tr><td>RF-10.4 / 10.5</td><td>Acceso limitado y verificación de permisos</td><td class="si">Implementado</td><td>Se verifica el rol en cada petición; el auditor solo consulta.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="rnf">5. Requerimientos no funcionales</h2>
+<table>
+  <tr><th style="width:10%">Clave</th><th style="width:18%">Tipo</th><th>Requerimiento</th><th style="width:28%">Cómo se cumple</th></tr>
+  <tr><td>RNF-01</td><td>Usabilidad</td><td>Interfaz clara, intuitiva y consistente en web y Android, con la paleta de GERONEX.</td><td>Mismos colores, textos de estatus e imágenes en ambas plataformas; diseño adaptable al celular.</td></tr>
+  <tr><td>RNF-02</td><td>Usabilidad</td><td>Mensajes claros de validación, falta de disponibilidad y condiciones de cancelación.</td><td>Mensajes por campo en español, avisos de cupo y de fecha límite.</td></tr>
+  <tr><td>RNF-03</td><td>Seguridad</td><td>Contraseñas almacenadas solo como hash.</td><td>BCrypt; nunca se devuelven en la API.</td></tr>
+  <tr><td>RNF-04</td><td>Seguridad</td><td>Autenticación y autorización por rol en cada operación.</td><td>JWT HS256 de 60 minutos; reglas por ruta en Spring Security; en Android el token se guarda cifrado (AES-GCM, Android Keystore).</td></tr>
+  <tr><td>RNF-05</td><td>Seguridad</td><td>Mínimo privilegio en la base de datos.</td><td>El backend usa la cuenta geronex_app con permisos SELECT, INSERT y UPDATE solamente.</td></tr>
+  <tr><td>RNF-06</td><td>Integridad</td><td>Las reservaciones y la disponibilidad deben mantenerse consistentes.</td><td>Transacciones con bloqueo de filas (SELECT … FOR UPDATE); restricciones CHECK, UNIQUE y llaves foráneas.</td></tr>
+  <tr><td>RNF-07</td><td>Mantenibilidad</td><td>Código modular, organizado por capas (controlador, servicio, repositorio) y por módulo.</td><td>Paquetes auth, usuario, catálogo, agente, admin y operación; utilidades compartidas en web y Android.</td></tr>
+  <tr><td>RNF-08</td><td>Interoperabilidad</td><td>Web y Android comparten la misma API REST y la misma base de datos.</td><td>Respuestas JSON con un formato único de error: {estado, mensaje, errores, fecha}.</td></tr>
+  <tr><td>RNF-09</td><td>Rendimiento</td><td>Las consultas responden en menos de 2 segundos en el entorno local.</td><td>Consultas con JOIN FETCH; la búsqueda del catálogo se hace en memoria.</td></tr>
+  <tr><td>RNF-10</td><td>Disponibilidad</td><td>El sistema funciona en el entorno local de la demostración, incluso sin internet.</td><td>Imágenes y estilos locales; Android se conecta por USB con adb reverse.</td></tr>
+  <tr><td>RNF-11</td><td>Compatibilidad</td><td>Navegadores actuales (Chrome, Edge, Firefox) y Android 7 o superior.</td><td>minSdk 24 en Android; HTML y CSS estándar en la web.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="rs">6. Requerimientos del sistema</h2>
+<h3>6.1 Para el desarrollo y la demostración</h3>
+<table>
+  <tr><th style="width:18%">Recurso</th><th>Requerimiento</th></tr>
+  <tr><td>Hardware</td><td>Computadora con 8 GB de RAM (mínimo 4 GB) y al menos 10 GB libres en disco. Teléfono Android 7 o superior con cable USB (opcional).</td></tr>
+  <tr><td>Software</td><td>Windows 10/11; JDK 21 o superior; Maven (incluido en IntelliJ IDEA); MySQL Server 8.0 y MySQL Workbench; IntelliJ IDEA (backend y web); Android Studio (app); Node.js 18+ (opcional, para las pruebas automáticas y el servidor web local).</td></tr>
+  <tr><td>Red</td><td>No requiere internet: backend en el puerto 8080, MySQL en el 3306 y web en el 63342 (IntelliJ) o en el 8090 (servidor local). El teléfono se conecta por USB con <code>adb reverse tcp:8080 tcp:8080</code>.</td></tr>
+  <tr><td>Configuración</td><td>Variables de entorno del backend: DB_USER, DB_PASSWORD, JWT_SECRET (32 caracteres o más) y CORS_ORIGENES. Scripts de base de datos 01 a 05 ejecutados en orden.</td></tr>
+</table>
+<h3>6.2 Para los usuarios</h3>
+<table>
+  <tr><th style="width:18%">Recurso</th><th>Requerimiento</th></tr>
+  <tr><td>Web</td><td>Navegador actualizado (Chrome, Edge o Firefox) en computadora o celular.</td></tr>
+  <tr><td>Android</td><td>Teléfono con Android 7.0 o superior.</td></tr>
+  <tr><td>Cuenta</td><td>Para consultar el catálogo no se necesita cuenta; para pedir viajes, una cuenta de cliente; los empleados, una cuenta creada por el administrador.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="cu">7. Diagrama y especificación de casos de uso</h2>
+<figure class="figura"><img src="diagramas/casos_de_uso.svg" alt="Diagrama de casos de uso de GERONEX"><figcaption>Figura 1. Diagrama de casos de uso.</figcaption></figure>
+
+<h3>7.1 Actores</h3>
+<table>
+  <tr><th style="width:24%">Actor</th><th>Descripción</th></tr>
+  <tr><td>Invitado</td><td>Persona sin sesión. Consulta el catálogo y puede crear una cuenta.</td></tr>
+  <tr><td>Cliente</td><td>Invitado con cuenta. Pide viajes, responde cotizaciones y administra sus reservaciones (web y Android).</td></tr>
+  <tr><td>Agente</td><td>Atiende las solicitudes y elabora las cotizaciones.</td></tr>
+  <tr><td>Responsable de reservaciones</td><td>Valida la disponibilidad y confirma o rechaza las reservaciones.</td></tr>
+  <tr><td>Supervisor</td><td>Da seguimiento a solicitudes, valida reservaciones y consulta a los agentes.</td></tr>
+  <tr><td>Administrador</td><td>Gestiona cuentas y agentes y consulta la operación.</td></tr>
+  <tr><td>Auditor</td><td>Consulta solicitudes y reservaciones sin poder modificarlas.</td></tr>
+</table>
+
+<h3>7.2 Especificación de los casos de uso</h3>
+<p>Los casos CU-02 (Registrarse), CU-03 (Iniciar sesión) y CU-04 (Configuración de perfil) se documentaron en los Sprints 4 y 5 y siguen vigentes. A continuación se especifican los casos del negocio.</p>
+
+<table class="cu">
+  <tr><th colspan="2">CU-01 Consultar catálogo</th></tr>
+  <tr><td>Actores</td><td>Invitado, Cliente</td></tr>
+  <tr><td>Descripción</td><td>Permite ver los servicios publicados, buscarlos, filtrarlos y abrir su detalle.</td></tr>
+  <tr><td>Precondición</td><td>Ninguna (no requiere sesión).</td></tr>
+  <tr><td>Flujo básico</td><td>1. El actor abre la página de inicio o la sección Catálogo de la app. 2. El sistema muestra los destinos populares y los servicios activos con su imagen, precio, unidad y cupo. 3. El actor escribe un texto, elige un tipo, un destino, un precio máximo o un orden. 4. El sistema muestra solo los servicios que cumplen los filtros y cuántos son. 5. El actor abre un servicio. 6. El sistema muestra su detalle y la opción “Solicitar viaje a…”.</td></tr>
+  <tr><td>Flujos alternos</td><td>4a. Ningún servicio cumple los filtros: el sistema lo indica e invita a pedir un viaje. 6a. El actor elige “Solicitar” sin sesión: el sistema lo lleva a iniciar sesión y, al entrar como cliente, a la solicitud con ese destino.</td></tr>
+  <tr><td>Postcondición</td><td>No se modifica información.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-05 Crear solicitud de viaje</th></tr>
+  <tr><td>Actor</td><td>Cliente</td></tr>
+  <tr><td>Descripción</td><td>El cliente pide un viaje para que un agente le prepare una cotización.</td></tr>
+  <tr><td>Precondición</td><td>El cliente inició sesión.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El cliente elige “Pedir un viaje”. 2. El sistema muestra el formulario con sugerencias de destinos. 3. El cliente captura destino, fechas, personas y, si quiere, presupuesto y necesidades. 4. El sistema muestra la duración del viaje. 5. El cliente envía la solicitud. 6. El sistema valida RN-04, registra la solicitud en estatus NUEVA y la muestra en “Mis viajes”.</td></tr>
+  <tr><td>Flujos alternos</td><td>6a. Fecha de inicio no posterior a hoy, regreso antes de la ida, personas fuera de 1 a 50 o presupuesto negativo: el sistema indica el error del campo y no registra. 4a. Faltan menos de 3 días: el sistema advierte que no se podrá cancelar.</td></tr>
+  <tr><td>Postcondición</td><td>La solicitud aparece en la bandeja de los agentes.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-06 Consultar mis viajes</th></tr>
+  <tr><td>Actor</td><td>Cliente</td></tr>
+  <tr><td>Descripción</td><td>El cliente revisa sus solicitudes, su progreso y las cotizaciones recibidas.</td></tr>
+  <tr><td>Precondición</td><td>El cliente inició sesión.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El cliente abre “Mis viajes”. 2. El sistema muestra un resumen y sus solicitudes con estatus, fechas, progreso en cuatro pasos y, si existe, la cotización vigente con su desglose. 3. El cliente filtra por “Esperando cotización”, “Por responder” o “Aceptadas”. 4. El sistema se actualiza solo cada pocos segundos y avisa cuando llega una cotización nueva.</td></tr>
+  <tr><td>Flujos alternos</td><td>2a. No tiene solicitudes: el sistema lo indica y ofrece crear una.</td></tr>
+  <tr><td>Postcondición</td><td>No se modifica información.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-07 Responder cotización</th></tr>
+  <tr><td>Actor</td><td>Cliente</td></tr>
+  <tr><td>Descripción</td><td>El cliente acepta o rechaza la cotización que le envió su agente.</td></tr>
+  <tr><td>Precondición</td><td>Existe una cotización ENVIADA de una solicitud del cliente y la fecha del viaje no ha llegado.</td></tr>
+  <tr><td>Flujo básico (aceptar)</td><td>1. El cliente revisa la cotización y su comparación con el presupuesto. 2. Elige “Aceptar y reservar”. 3. El sistema pide confirmación con el total. 4. El cliente confirma. 5. El sistema marca la cotización ACEPTADA, la solicitud ACEPTADA y crea la reservación POR_VALIDAR con folio único. 6. El sistema muestra el folio y el acceso al comprobante.</td></tr>
+  <tr><td>Flujo alterno (rechazar)</td><td>2a. El cliente elige “Rechazar” y confirma. El sistema marca la cotización RECHAZADA y la solicitud vuelve a NUEVA para recibir otra propuesta.</td></tr>
+  <tr><td>Excepciones</td><td>La cotización ya fue respondida o la fecha de inicio ya llegó: el sistema lo informa y no hace cambios.</td></tr>
+  <tr><td>Postcondición</td><td>Aceptada: la reservación aparece en la bandeja del responsable. Rechazada: la solicitud regresa a la bandeja de los agentes.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-08 Consultar comprobante</th></tr>
+  <tr><td>Actores</td><td>Cliente (solo los suyos), Responsable de reservaciones, Supervisor, Administrador, Auditor</td></tr>
+  <tr><td>Descripción</td><td>Muestra todos los datos de una reservación: folio, estatus, cliente, viaje, servicios, total, cargo y regla de cancelación.</td></tr>
+  <tr><td>Precondición</td><td>La reservación existe y el actor tiene permiso para verla.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El actor abre el comprobante desde sus reservaciones o desde la bandeja. 2. El sistema muestra el comprobante con un aviso según el estatus y, si aplica, la cuenta regresiva y la fecha límite para cancelar. 3. El actor puede imprimirlo o guardarlo en PDF (web), o compartirlo y copiar el folio (Android).</td></tr>
+  <tr><td>Flujos alternos</td><td>1a. Un cliente intenta abrir una reservación ajena: el sistema responde que no existe.</td></tr>
+  <tr><td>Postcondición</td><td>No se modifica información.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-09 Cancelar reservación («extend» de CU-08)</th></tr>
+  <tr><td>Actor</td><td>Cliente</td></tr>
+  <tr><td>Descripción</td><td>El cliente cancela su reservación cumpliendo la regla RN-09.</td></tr>
+  <tr><td>Precondición</td><td>La reservación es del cliente, está POR_VALIDAR o CONFIRMADA y faltan al menos 3 días para el viaje.</td></tr>
+  <tr><td>Flujo básico</td><td>1. Desde el comprobante, el cliente elige “Cancelar reservación”. 2. El sistema explica si hay cargo (5% si estaba confirmada) y pide confirmación. 3. El cliente confirma. 4. El sistema marca la reservación CANCELADA, registra la fecha y el cargo y, si estaba confirmada, devuelve el cupo de cada servicio. 5. El comprobante se actualiza.</td></tr>
+  <tr><td>Flujos alternos</td><td>1a. Ya pasó la fecha límite: el botón no aparece y el sistema muestra la fecha límite. 4a. Si se intentara por la API, el sistema responde con el motivo y no cancela.</td></tr>
+  <tr><td>Postcondición</td><td>Reservación cancelada; cupo restituido cuando corresponde.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-10 Consultar solicitudes</th></tr>
+  <tr><td>Actores</td><td>Agente, Supervisor, Auditor</td></tr>
+  <tr><td>Descripción</td><td>Muestra la bandeja de solicitudes con su detalle e historial de cotizaciones.</td></tr>
+  <tr><td>Precondición</td><td>El actor inició sesión con uno de esos roles.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El actor abre “Solicitudes”. 2. El sistema muestra el resumen y las solicitudes “Por cotizar”. 3. El actor cambia de pestaña, busca por destino, cliente o número y ordena. 4. El actor abre una solicitud. 5. El sistema muestra los datos del cliente y del viaje y las cotizaciones enviadas.</td></tr>
+  <tr><td>Flujos alternos</td><td>2a. Llega una solicitud nueva mientras la bandeja está abierta: el sistema la agrega y avisa.</td></tr>
+  <tr><td>Postcondición</td><td>No se modifica información.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-11 Elaborar cotización («include» CU-01)</th></tr>
+  <tr><td>Actor</td><td>Agente</td></tr>
+  <tr><td>Descripción</td><td>El agente arma y envía una cotización con servicios del catálogo.</td></tr>
+  <tr><td>Precondición</td><td>El agente tiene ficha ACTIVA; la solicitud está NUEVA y su fecha no ha llegado.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El agente abre la solicitud. 2. El sistema muestra el catálogo filtrado al destino, con cupo y cantidad sugerida. 3. El agente agrega servicios y ajusta cantidades. 4. El sistema muestra el total estimado y la comparación con el presupuesto. 5. El agente escribe notas y envía. 6. El sistema confirma el envío. 7. El sistema valida RN-05, calcula el total con los precios vigentes, guarda la cotización ENVIADA y la solicitud pasa a COTIZADA.</td></tr>
+  <tr><td>Flujos alternos</td><td>7a. Servicio repetido, inexistente o sin cupo suficiente: el sistema rechaza con el motivo. 7b. Otro agente ya cotizó la solicitud: el sistema lo informa.</td></tr>
+  <tr><td>Postcondición</td><td>El cliente ve la cotización en “Mis viajes”.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-12 Validar reservación («include» CU-13)</th></tr>
+  <tr><td>Actores</td><td>Responsable de reservaciones, Supervisor</td></tr>
+  <tr><td>Descripción</td><td>Confirma la reservación si hay disponibilidad o la rechaza con un motivo.</td></tr>
+  <tr><td>Precondición</td><td>La reservación está POR_VALIDAR y la fecha del viaje no ha llegado.</td></tr>
+  <tr><td>Flujo básico (confirmar)</td><td>1. El actor revisa la disponibilidad de cada servicio. 2. Elige “Confirmar reservación” y confirma. 3. El sistema bloquea el cupo de los servicios, verifica que alcance, lo descuenta y marca la reservación CONFIRMADA con su nombre y la fecha.</td></tr>
+  <tr><td>Flujo alterno (rechazar)</td><td>2a. El actor elige “Rechazar”, escribe o selecciona un motivo y confirma. El sistema marca la reservación RECHAZADA con el motivo y la solicitud vuelve a NUEVA.</td></tr>
+  <tr><td>Excepciones</td><td>3a. Algún servicio ya no tiene cupo o la fecha ya llegó: el sistema no confirma e indica rechazarla.</td></tr>
+  <tr><td>Postcondición</td><td>El cliente ve el nuevo estatus en su comprobante.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-13 Consultar reservaciones</th></tr>
+  <tr><td>Actores</td><td>Responsable de reservaciones, Supervisor, Administrador, Auditor</td></tr>
+  <tr><td>Descripción</td><td>Muestra la bandeja de reservaciones con su desglose y disponibilidad.</td></tr>
+  <tr><td>Precondición</td><td>El actor inició sesión con uno de esos roles.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El actor abre “Reservaciones”. 2. El sistema muestra el resumen (por validar, confirmadas, rechazadas y vendido) y las reservaciones por validar. 3. El actor cambia de pestaña, busca por folio, cliente, destino o agente y ordena.</td></tr>
+  <tr><td>Postcondición</td><td>No se modifica información.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-14 Gestionar cuentas</th></tr>
+  <tr><td>Actor</td><td>Administrador</td></tr>
+  <tr><td>Descripción</td><td>Crea cuentas de cualquier rol y cambia su estatus (ACTIVO, INACTIVO o BLOQUEADO).</td></tr>
+  <tr><td>Precondición</td><td>El administrador inició sesión.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El administrador captura rol, usuario, nombre, correo, contraseña inicial y, si es agente, teléfono. 2. El sistema valida RN-03 y crea la cuenta (si el rol es AGENTE, también su ficha de agente). 3. Para cambiar un estatus, elige el nuevo valor en la tabla de cuentas. 4. El sistema lo guarda; una cuenta no activa ya no puede iniciar sesión.</td></tr>
+  <tr><td>Flujos alternos</td><td>2a. Usuario o correo repetidos: el sistema lo indica. 4a. El administrador intenta cambiar su propio estatus: el sistema no lo permite.</td></tr>
+  <tr><td>Postcondición</td><td>La cuenta queda registrada o actualizada.</td></tr>
+</table>
+
+<table class="cu">
+  <tr><th colspan="2">CU-15 Gestionar agentes / CU-16 Consultar agentes</th></tr>
+  <tr><td>Actores</td><td>Administrador (gestiona); Supervisor (solo consulta)</td></tr>
+  <tr><td>Descripción</td><td>Alta (CU-14 con rol AGENTE), consulta, cambio de datos y baja lógica de los agentes.</td></tr>
+  <tr><td>Precondición</td><td>El actor inició sesión con uno de esos roles.</td></tr>
+  <tr><td>Flujo básico</td><td>1. El actor consulta la lista de agentes. 2. El administrador elige “Editar”, cambia nombre, correo o teléfono y guarda. 3. El sistema valida (correo único, teléfono de 10 dígitos) y actualiza también la cuenta y el perfil. 4. El administrador elige “Dar de baja” y confirma. 5. El sistema marca al agente INACTIVO y desactiva su cuenta.</td></tr>
+  <tr><td>Flujos alternos</td><td>4a. “Reactivar”: el agente y su cuenta vuelven a ACTIVO.</td></tr>
+  <tr><td>Postcondición</td><td>Los datos del agente quedan iguales en agente, usuario y perfil.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="estados">8. Ciclo de vida de las operaciones</h2>
+<figure class="figura"><img src="diagramas/estados.svg" alt="Estados de solicitud, cotización y reservación"><figcaption>Figura 2. Estatus de la solicitud, la cotización y la reservación, y qué los cambia.</figcaption></figure>
+
+<!-- ================================================================== -->
+<h2 id="er">9. Diagrama entidad-relación</h2>
+<p>El modelo implementado respeta los nombres del diagrama ER del equipo (Sprint 3) con un cambio acordado (opción A): la tabla <code>agente</code> tiene <code>id_usuario</code>, para que cada agente sea una cuenta con rol AGENTE que inicia sesión. Las contraseñas se guardan en <code>usuario.contrasena</code> como hash, y el nombre visible está en <code>perfil</code>.</p>
+<figure class="figura"><img src="diagramas/er.svg" alt="Diagrama entidad-relación de GERONEX"><figcaption>Figura 3. Diagrama entidad-relación de la base de datos <code>geronex</code> (12 tablas).</figcaption></figure>
+<div class="nota">Tablas del diagrama original que quedan para la siguiente fase: solicitud_cambio, reasignacion, seguimiento_comercial, seguimiento_proveedor, auditoria (bitácora), ajuste_cotizacion, publico_objetivo, detalle_reservacion, permiso y rol_permiso. En esta versión los permisos se resuelven por rol en el backend, y el detalle de la reservación se obtiene de su cotización.</div>
+
+<!-- ================================================================== -->
+<h2 id="dd">10. Diccionario de datos</h2>
+<p>Motor MySQL 8, base <code>geronex</code>, conjunto de caracteres utf8mb4. Todas las tablas usan InnoDB (transacciones y llaves foráneas). Las bajas son lógicas mediante la columna estatus.</p>
+
+<h3>ROL</h3>
+<p>Catálogo de los 7 roles del sistema.</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_rol</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del rol.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(50)</td><td>No</td><td>UNIQUE</td><td>ADMINISTRADOR, SUPERVISOR, AGENTE, RESPONSABLE_RESERVACIONES, RESPONSABLE_PROVEEDORES, AUDITOR o CLIENTE.</td></tr>
+  <tr><td>descripcion</td><td>VARCHAR(255)</td><td>Sí</td><td>—</td><td>Qué hace el rol.</td></tr>
+</table>
+
+<h3>USUARIO</h3>
+<p>Cuenta de acceso. Una sola tabla para clientes y empleados; los distingue su rol.</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_usuario</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador de la cuenta.</td></tr>
+  <tr><td>nombre_usuario</td><td>VARCHAR(15)</td><td>No</td><td>UNIQUE</td><td>Usuario para iniciar sesión.</td></tr>
+  <tr><td>contrasena</td><td>VARCHAR(100)</td><td>No</td><td>—</td><td>Hash BCrypt de la contraseña (nunca el texto).</td></tr>
+  <tr><td>correo</td><td>VARCHAR(254)</td><td>No</td><td>UNIQUE</td><td>Correo electrónico, guardado en minúsculas.</td></tr>
+  <tr><td>id_rol</td><td>INT</td><td>No</td><td>FK → rol</td><td>Rol de la cuenta.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: ACTIVO, INACTIVO, BLOQUEADO. Default ACTIVO</td><td>Solo las cuentas ACTIVO pueden iniciar sesión.</td></tr>
+  <tr><td>fecha_creacion</td><td>DATETIME</td><td>No</td><td>Default CURRENT_TIMESTAMP</td><td>Fecha de registro.</td></tr>
+  <tr><td>fecha_actualizacion</td><td>DATETIME</td><td>No</td><td>ON UPDATE CURRENT_TIMESTAMP</td><td>Último cambio.</td></tr>
+</table>
+
+<h3>PERFIL</h3>
+<p>Datos personales editables (1 a 1 con usuario).</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_perfil</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del perfil.</td></tr>
+  <tr><td>id_usuario</td><td>INT</td><td>No</td><td>FK → usuario, UNIQUE, ON DELETE CASCADE</td><td>Cuenta dueña del perfil.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(100)</td><td>Sí</td><td>—</td><td>Nombre visible; al registrarse toma el nombre de usuario.</td></tr>
+</table>
+
+<h3>CATEGORIA_SERVICIO</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_categoria</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador de la categoría.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(50)</td><td>No</td><td>UNIQUE</td><td>HOTEL, VUELO, TRANSPORTE o PAQUETE.</td></tr>
+  <tr><td>descripcion</td><td>VARCHAR(255)</td><td>Sí</td><td>—</td><td>Cómo se cobra normalmente.</td></tr>
+</table>
+
+<h3>PROVEEDOR</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_proveedor</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del proveedor.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(100)</td><td>No</td><td>UNIQUE</td><td>Nombre comercial (ficticio).</td></tr>
+  <tr><td>telefono</td><td>VARCHAR(10)</td><td>Sí</td><td>—</td><td>Teléfono de contacto.</td></tr>
+  <tr><td>correo</td><td>VARCHAR(254)</td><td>Sí</td><td>—</td><td>Correo de contacto.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: ACTIVO, INACTIVO. Default ACTIVO</td><td>Baja lógica.</td></tr>
+</table>
+
+<h3>SERVICIO</h3>
+<p>Lo que un agente puede incluir en una cotización.</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_servicio</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del servicio.</td></tr>
+  <tr><td>id_categoria</td><td>INT</td><td>No</td><td>FK → categoria_servicio</td><td>Tipo de servicio.</td></tr>
+  <tr><td>id_proveedor</td><td>INT</td><td>No</td><td>FK → proveedor</td><td>Proveedor que lo ofrece.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(100)</td><td>No</td><td>—</td><td>Nombre del servicio.</td></tr>
+  <tr><td>descripcion</td><td>VARCHAR(500)</td><td>Sí</td><td>—</td><td>Qué incluye.</td></tr>
+  <tr><td>destino</td><td>VARCHAR(100)</td><td>No</td><td>—</td><td>Ciudad o región.</td></tr>
+  <tr><td>precio</td><td>DECIMAL(10,2)</td><td>No</td><td>CHECK ≥ 0</td><td>Precio vigente en pesos mexicanos.</td></tr>
+  <tr><td>unidad</td><td>VARCHAR(30)</td><td>No</td><td>—</td><td>Cómo se cobra: “por noche”, “por persona” o “por viaje”.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: ACTIVO, INACTIVO. Default ACTIVO</td><td>Solo los ACTIVO se publican (retiro lógico).</td></tr>
+</table>
+
+<h3>DISPONIBILIDAD</h3>
+<p>Cupo de cada servicio (1 a 1). Se descuenta al confirmar y se devuelve al cancelar una reservación confirmada.</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_disponibilidad</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador.</td></tr>
+  <tr><td>id_servicio</td><td>INT</td><td>No</td><td>FK → servicio, UNIQUE</td><td>Servicio al que pertenece el cupo.</td></tr>
+  <tr><td>cupo_total</td><td>INT</td><td>No</td><td>—</td><td>Lugares, habitaciones o cupos totales.</td></tr>
+  <tr><td>cupo_disponible</td><td>INT</td><td>No</td><td>CHECK 0 ≤ cupo_disponible ≤ cupo_total</td><td>Lo que queda por apartar.</td></tr>
+</table>
+
+<h3>AGENTE</h3>
+<p>Ficha del agente de viajes; cada agente es una cuenta con rol AGENTE (opción A).</p>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_agente</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del agente.</td></tr>
+  <tr><td>id_usuario</td><td>INT</td><td>No</td><td>FK → usuario, UNIQUE</td><td>Su cuenta de acceso.</td></tr>
+  <tr><td>nombre</td><td>VARCHAR(100)</td><td>No</td><td>—</td><td>Nombre del agente (igual al del perfil).</td></tr>
+  <tr><td>correo</td><td>VARCHAR(254)</td><td>No</td><td>UNIQUE</td><td>Correo (igual al de la cuenta).</td></tr>
+  <tr><td>telefono</td><td>VARCHAR(10)</td><td>Sí</td><td>CHECK: 10 dígitos</td><td>Teléfono de contacto.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: ACTIVO, INACTIVO. Default ACTIVO</td><td>Baja lógica; INACTIVO también desactiva la cuenta.</td></tr>
+</table>
+
+<h3>SOLICITUD_VIAJE</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_solicitud</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador de la solicitud.</td></tr>
+  <tr><td>id_usuario</td><td>INT</td><td>No</td><td>FK → usuario</td><td>Cliente que pide el viaje.</td></tr>
+  <tr><td>id_agente</td><td>INT</td><td>Sí</td><td>FK → agente</td><td>Agente que la cotizó.</td></tr>
+  <tr><td>destino</td><td>VARCHAR(100)</td><td>No</td><td>—</td><td>Destino solicitado.</td></tr>
+  <tr><td>fecha_inicio</td><td>DATE</td><td>No</td><td>—</td><td>Inicio del viaje (posterior a la fecha de registro).</td></tr>
+  <tr><td>fecha_fin</td><td>DATE</td><td>No</td><td>CHECK fecha_fin ≥ fecha_inicio</td><td>Regreso.</td></tr>
+  <tr><td>num_personas</td><td>INT</td><td>No</td><td>CHECK entre 1 y 50</td><td>Viajeros.</td></tr>
+  <tr><td>presupuesto</td><td>DECIMAL(10,2)</td><td>Sí</td><td>—</td><td>Presupuesto aproximado.</td></tr>
+  <tr><td>necesidades</td><td>VARCHAR(500)</td><td>Sí</td><td>—</td><td>Peticiones particulares.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: NUEVA, COTIZADA, ACEPTADA. Default NUEVA</td><td>Ver Figura 2.</td></tr>
+  <tr><td>fecha_creacion</td><td>DATETIME</td><td>No</td><td>Default CURRENT_TIMESTAMP</td><td>Cuándo se registró.</td></tr>
+  <tr><td>fecha_actualizacion</td><td>DATETIME</td><td>No</td><td>ON UPDATE CURRENT_TIMESTAMP</td><td>Último cambio.</td></tr>
+</table>
+
+<h3>COTIZACION</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_cotizacion</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador de la cotización.</td></tr>
+  <tr><td>id_solicitud</td><td>INT</td><td>No</td><td>FK → solicitud_viaje</td><td>Solicitud que atiende.</td></tr>
+  <tr><td>id_agente</td><td>INT</td><td>No</td><td>FK → agente</td><td>Agente que la elaboró.</td></tr>
+  <tr><td>total</td><td>DECIMAL(12,2)</td><td>No</td><td>—</td><td>Suma de subtotales, calculada por el backend.</td></tr>
+  <tr><td>notas</td><td>VARCHAR(500)</td><td>Sí</td><td>—</td><td>Notas del agente para el cliente.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: ENVIADA, ACEPTADA, RECHAZADA. Default ENVIADA</td><td>Respuesta del cliente.</td></tr>
+  <tr><td>fecha_creacion</td><td>DATETIME</td><td>No</td><td>Default CURRENT_TIMESTAMP</td><td>Cuándo se envió.</td></tr>
+  <tr><td>fecha_respuesta</td><td>DATETIME</td><td>Sí</td><td>—</td><td>Cuándo respondió el cliente.</td></tr>
+</table>
+
+<h3>DETALLE_COTIZACION</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_detalle</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador del renglón.</td></tr>
+  <tr><td>id_cotizacion</td><td>INT</td><td>No</td><td>FK → cotizacion; UNIQUE (id_cotizacion, id_servicio)</td><td>Cotización a la que pertenece (sin servicios repetidos).</td></tr>
+  <tr><td>id_servicio</td><td>INT</td><td>No</td><td>FK → servicio</td><td>Servicio cotizado.</td></tr>
+  <tr><td>cantidad</td><td>INT</td><td>No</td><td>CHECK &gt; 0</td><td>Noches, personas o viajes.</td></tr>
+  <tr><td>precio_unitario</td><td>DECIMAL(10,2)</td><td>No</td><td>—</td><td>Precio del momento (no cambia si cambia el catálogo).</td></tr>
+  <tr><td>subtotal</td><td>DECIMAL(12,2)</td><td>No</td><td>—</td><td>cantidad × precio_unitario.</td></tr>
+</table>
+
+<h3>RESERVACION</h3>
+<table>
+  <tr><th>Campo</th><th>Tipo</th><th>Nulo</th><th>Restricción</th><th>Descripción</th></tr>
+  <tr><td>id_reservacion</td><td>INT</td><td>No</td><td>PK, AUTO_INCREMENT</td><td>Identificador de la reservación.</td></tr>
+  <tr><td>folio</td><td>VARCHAR(20)</td><td>No</td><td>UNIQUE</td><td>Folio GX-AAMMDD-XXXX (sin caracteres confusos como 0/O o 1/I).</td></tr>
+  <tr><td>id_cotizacion</td><td>INT</td><td>No</td><td>FK → cotizacion, UNIQUE</td><td>Cotización aceptada (una reservación por cotización).</td></tr>
+  <tr><td>id_usuario</td><td>INT</td><td>No</td><td>FK → usuario</td><td>Cliente titular.</td></tr>
+  <tr><td>id_responsable</td><td>INT</td><td>Sí</td><td>FK → usuario</td><td>Quién la validó o rechazó.</td></tr>
+  <tr><td>total</td><td>DECIMAL(12,2)</td><td>No</td><td>—</td><td>Importe de la reservación.</td></tr>
+  <tr><td>estatus</td><td>VARCHAR(20)</td><td>No</td><td>CHECK: POR_VALIDAR, CONFIRMADA, RECHAZADA, CANCELADA. Default POR_VALIDAR</td><td>Ver Figura 2.</td></tr>
+  <tr><td>motivo_rechazo</td><td>VARCHAR(255)</td><td>Sí</td><td>—</td><td>Motivo cuando el responsable la rechaza.</td></tr>
+  <tr><td>cargo_cancelacion</td><td>DECIMAL(12,2)</td><td>Sí</td><td>—</td><td>5% del total si se canceló estando confirmada; 0 si estaba por validar.</td></tr>
+  <tr><td>fecha_creacion</td><td>DATETIME</td><td>No</td><td>Default CURRENT_TIMESTAMP</td><td>Cuándo el cliente aceptó.</td></tr>
+  <tr><td>fecha_validacion</td><td>DATETIME</td><td>Sí</td><td>—</td><td>Cuándo se confirmó o rechazó.</td></tr>
+  <tr><td>fecha_cancelacion</td><td>DATETIME</td><td>Sí</td><td>—</td><td>Cuándo la canceló el cliente.</td></tr>
+</table>
+
+<!-- ================================================================== -->
+<h2 id="api">11. Anexo: rutas de la API REST</h2>
+<p>Base: <code>http://localhost:8080/api</code>. Las rutas privadas requieren la cabecera <code>Authorization: Bearer &lt;token&gt;</code>.</p>
+<table>
+  <tr><th>Método y ruta</th><th style="width:28%">Quién</th><th>Qué hace</th></tr>
+  <tr><td>POST /auth/registro, /auth/login</td><td>Público</td><td>Registrar un cliente e iniciar sesión.</td></tr>
+  <tr><td>GET /categorias, /servicios, /servicios/{id}</td><td>Público</td><td>Catálogo (filtros: categoria, texto).</td></tr>
+  <tr><td>GET, PUT /usuarios/me · PATCH /usuarios/me/password</td><td>Cualquier sesión</td><td>Mi cuenta y cambio de contraseña.</td></tr>
+  <tr><td>GET, POST /admin/usuarios · PATCH /admin/usuarios/{id}/estatus</td><td>Administrador</td><td>Cuentas de cualquier rol.</td></tr>
+  <tr><td>GET /agentes, /agentes/{id}</td><td>Administrador, Supervisor</td><td>Consultar agentes.</td></tr>
+  <tr><td>PUT /agentes/{id} · PATCH /agentes/{id}/estatus</td><td>Administrador</td><td>Cambio y baja lógica.</td></tr>
+  <tr><td>POST /solicitudes · GET /solicitudes/mias</td><td>Cliente</td><td>Crear y listar sus solicitudes.</td></tr>
+  <tr><td>GET /solicitudes[?estatus=]</td><td>Agente, Supervisor, Admin, Auditor</td><td>Bandeja de solicitudes.</td></tr>
+  <tr><td>GET /solicitudes/{id}</td><td>Dueño o empleado</td><td>Detalle con cotizaciones.</td></tr>
+  <tr><td>POST /cotizaciones</td><td>Agente activo</td><td>Enviar cotización.</td></tr>
+  <tr><td>POST /cotizaciones/{id}/aceptar, /rechazar</td><td>Cliente dueño</td><td>Responder cotización.</td></tr>
+  <tr><td>GET /reservaciones/mias</td><td>Cliente</td><td>Sus reservaciones.</td></tr>
+  <tr><td>GET /reservaciones[?estatus=]</td><td>Resp. reservaciones, Supervisor, Admin, Auditor</td><td>Bandeja de reservaciones.</td></tr>
+  <tr><td>GET /reservaciones/{id}</td><td>Dueño o empleado</td><td>Comprobante.</td></tr>
+  <tr><td>POST /reservaciones/{id}/confirmar, /rechazar</td><td>Resp. reservaciones, Supervisor</td><td>Validar.</td></tr>
+  <tr><td>POST /reservaciones/{id}/cancelar</td><td>Cliente dueño</td><td>Cancelar (regla de 3 días y 5%).</td></tr>
+</table>
+<p style="color:var(--gris);font-size:9.5pt;margin-top:30px">Documento generado a partir del código y de los scripts de base de datos del proyecto. Para pasarlo a Word: abre este archivo en Word (Archivo &gt; Abrir) y guárdalo como .docx, o imprímelo a PDF desde el navegador.</p>
+</main>
+</body>
+</html>

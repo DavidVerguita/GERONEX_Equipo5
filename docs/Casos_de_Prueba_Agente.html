@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GERONEX - Casos de prueba de Agente</title>
+<style>
+  body { font-family:'Segoe UI', Arial, sans-serif; color:#222; margin:0; font-size:10pt; }
+  main { max-width:1100px; margin:0 auto; padding:24px; }
+  h1 { color:#002B5B; margin-bottom:4px; } h2 { color:#002B5B; border-bottom:3px solid #F07B3F; padding-bottom:4px; margin-top:28px; }
+  table { width:100%; border-collapse:collapse; margin:10px 0; }
+  th { background:#002B5B; color:#fff; text-align:left; padding:6px; font-size:9pt; }
+  th.capa { background:#2D4059; font-size:10.5pt; }
+  td { border:1px solid #d8d2c4; padding:5px 6px; vertical-align:top; font-size:9pt; }
+  tr { page-break-inside:avoid; }
+  .id { font-weight:700; color:#F07B3F; white-space:nowrap; } .pre { color:#6b7280; font-size:8.5pt; margin-top:3px; }
+  .obt { font-family:Consolas, monospace; font-size:8pt; color:#2D4059; word-break:break-word; }
+  .si { color:#1f7a4d; font-weight:700; } .no { color:#b3282a; font-weight:700; }
+  .resumen { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; }
+  .resumen div { background:#F9F5EB; border-top:4px solid #002B5B; border-radius:8px; padding:10px 14px; min-width:150px; }
+  .resumen b { display:block; font-size:20pt; color:#002B5B; }
+  .nota { background:#F9F5EB; border-left:4px solid #F07B3F; padding:10px 14px; }
+  @media print { main { padding:0; } }
+</style></head><body><main>
+<h1>Casos de prueba MVC: entidad Agente</h1>
+<p>GERONEX · Laboratorio de Desarrollo de Software III · 5IM8 · Responsable: Vega Beid David</p>
+<div class="resumen">
+  <div><b>36</b>casos (12 por capa)</div>
+  <div><b>36/36</b>pasaron</div>
+  <div><b>4</b>operaciones: altas, bajas, cambios y consultas</div>
+</div>
+<div class="nota">
+  <strong>Qué es la entidad Agente:</strong> la ficha del agente de viajes (tabla <code>agente</code>), ligada 1 a 1 con su cuenta de acceso con rol AGENTE.
+  El alta se hace al crear una cuenta con rol AGENTE (<code>POST /api/admin/usuarios</code>); la consulta, el cambio y la baja lógica, en <code>/api/agentes</code>.
+  La vista es la página <code>admin.html</code>.<br>
+  <strong>Cómo se ejecutaron:</strong> los casos de Controlador y Modelo con <code>node prueba_agente.mjs</code> (carpeta <code>geronex-backend/pruebas</code>), el 17/11/2026, 12:58:03 a.m., con el agente de prueba <code>qagkcbz6l</code>.
+  Los de Vista, en <code>admin.html</code> con sesión de administrador contra el backend real, el 17/11/2026, 12:59:08 a.m., con el agente <code>qavccsgf</code>.
+  La columna "Resultado obtenido" es la respuesta real que se registró.
+</div>
+<h2>Matriz de casos</h2>
+<table>
+<tr><th style="width:5%">ID</th><th style="width:7%">Operación</th><th style="width:20%">Caso</th><th style="width:18%">Pasos / datos</th><th style="width:18%">Resultado esperado</th><th>Resultado obtenido</th><th style="width:6%">Estado</th></tr>
+<tr><th colspan="7" class="capa">Vista (web: admin.html)</th></tr><tr><td class="id">V-01</td><td>Alta</td><td><strong>El campo Teléfono solo aparece para el rol Agente</strong><div class="pre">Precondición: Sesión de administrador en admin.html</div></td>
+<td>Elegir el rol Supervisor y después Agente en "Crear cuenta".</td><td>Con Supervisor el campo queda oculto; con Agente se muestra.</td><td class="obt">Con rol Supervisor el campo Teléfono queda oculto; con rol Agente, visible.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-02</td><td>Alta</td><td><strong>Alta exitosa de un agente desde el formulario</strong><div class="pre">Precondición: Sesión de administrador</div></td>
+<td>Rol Agente, usuario nuevo, nombre, correo, contraseña de 8+ caracteres y teléfono de 10 dígitos; "Crear cuenta".</td><td>Aviso "Cuenta … creada con rol Agente" y el agente aparece en la tabla de agentes.</td><td class="obt">Aviso: "Cuenta "qavccsgf" creada con rol Agente." y el agente aparece en la tabla de agentes.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-03</td><td>Alta</td><td><strong>Mensaje de error con usuario repetido</strong><div class="pre">Precondición: Existe el usuario que se va a capturar</div></td>
+<td>Capturar el mismo nombre de usuario de V-02 y enviar.</td><td>Mensaje "Ese nombre de usuario ya está en uso"; el formulario conserva los datos.</td><td class="obt">Mensaje: "Ese nombre de usuario ya está en uso"; el formulario conserva los datos capturados.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-04</td><td>Consulta</td><td><strong>La tabla de agentes muestra sus datos</strong><div class="pre">Precondición: Hay al menos un agente</div></td>
+<td>Revisar la tabla "Agentes".</td><td>Columnas Nombre, Usuario, Contacto (correo y teléfono), Estatus y botones Editar / Dar de baja.</td><td class="obt">Encabezados Nombre, Usuario, Contacto y Estatus; fila: Vista Prueba ccsgf · qavccsgf · qavccsgf@prueba.geronex.mx · 5544445555 · Activo · Editar · Dar de baja.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-05</td><td>Consulta</td><td><strong>El resumen cuenta los agentes activos</strong><div class="pre">Precondición: Sesión de administrador</div></td>
+<td>Comparar la tarjeta "Agentes activos" antes y después del alta.</td><td>El número aumenta en 1.</td><td class="obt">La tarjeta "Agentes activos" pasó de 2 a 3 al crear el agente.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-06</td><td>Consulta</td><td><strong>Filtrar cuentas por rol Agente</strong><div class="pre">Precondición: Sesión de administrador</div></td>
+<td>En "Todas las cuentas" elegir el filtro de rol Agente.</td><td>Solo aparecen cuentas con rol Agente y el contador lo indica.</td><td class="obt">Con el filtro de rol Agente la tabla muestra 5 filas, todas con rol Agente (5 de 18 cuentas).</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-07</td><td>Cambio</td><td><strong>Editar abre el formulario con los datos actuales</strong><div class="pre">Precondición: Hay al menos un agente</div></td>
+<td>Elegir "Editar" en la fila del agente.</td><td>Se abre el panel "Editar agente" con nombre, correo y teléfono actuales.</td><td class="obt">El panel Editar agente se abre con nombre "Vista Prueba ccsgf" y teléfono "5544445555".</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-08</td><td>Cambio</td><td><strong>Guardar cambios válidos</strong><div class="pre">Precondición: Panel de edición abierto</div></td>
+<td>Cambiar nombre, correo y teléfono; "Guardar cambios".</td><td>Aviso de confirmación, el panel se cierra y la tabla muestra los datos nuevos.</td><td class="obt">Aviso: "Se guardaron los datos de Vista Editado ccsgf."; la fila muestra el nombre, correo y teléfono nuevos (5566667777).</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-09</td><td>Cambio</td><td><strong>Validación del formulario de edición</strong><div class="pre">Precondición: Panel de edición abierto</div></td>
+<td>Escribir teléfono "12AB" y correo "sin-arroba".</td><td>El navegador no permite enviar e indica el formato correcto.</td><td class="obt">Con teléfono "12AB" el navegador no envía ("Haz coincidir el formato solicitado"); el correo "sin-arroba" también se marca como inválido.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-10</td><td>Baja</td><td><strong>La baja pide confirmación</strong><div class="pre">Precondición: Agente activo</div></td>
+<td>Elegir "Dar de baja" y luego "Cancelar" en la ventana.</td><td>Aparece la ventana de confirmación; al cancelar el agente sigue Activo.</td><td class="obt">Aparece "¿Dar de baja a este agente? Su cuenta quedará inactiva…"; al elegir Cancelar el agente sigue Activo.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-11</td><td>Baja</td><td><strong>Confirmar la baja</strong><div class="pre">Precondición: Agente activo</div></td>
+<td>Elegir "Dar de baja" y confirmar.</td><td>La fila muestra Inactivo, el botón cambia a "Reactivar" y el resumen baja en 1.</td><td class="obt">Al confirmar, la fila muestra Inactivo y el botón Reactivar; agentes activos 3 → 2.</td><td class="si">Pasó</td></tr>
+<tr><td class="id">V-12</td><td>Baja</td><td><strong>Reactivar al agente</strong><div class="pre">Precondición: Agente inactivo</div></td>
+<td>Elegir "Reactivar".</td><td>La fila vuelve a Activo con el botón "Dar de baja".</td><td class="obt">Al elegir Reactivar, la fila vuelve a Activo con el botón Dar de baja.</td><td class="si">Pasó</td></tr>
+<tr><th colspan="7" class="capa">Controlador (API REST de Spring Boot)</th></tr><tr><td class="id">C-01</td><td>Alta</td><td><strong>POST /admin/usuarios con rol AGENTE y datos válidos</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>nombreUsuario, correo, contrasena, rol AGENTE, nombre, telefono 5511112222</td><td>201 Created con rol AGENTE.</td><td class="obt">201 {"idUsuario":17,"nombreUsuario":"qagkcbz6l","correo":"qagkcbz6l@prueba.geronex.mx","nombre":"Agente Prueba kcbz6l","rol":"AGENTE","estatus":</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-02</td><td>Alta</td><td><strong>POST /admin/usuarios con teléfono de 9 dígitos</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>telefono = 551111222</td><td>400 con el error en el campo telefono.</td><td class="obt">400 {"estado":400,"mensaje":"Hay datos inválidos en la solicitud","errores":{"telefono":"El teléfono debe tener exactamente 10 dígitos"},"fecha"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-03</td><td>Alta</td><td><strong>POST /admin/usuarios sin token y con token de agente</strong><div class="pre">Precondición: —</div></td>
+<td>Misma petición sin cabecera Authorization y con el token de un agente.</td><td>401 sin sesión y 403 con sesión de agente.</td><td class="obt">401/403 {"estado":403,"mensaje":"No tienes permiso para realizar esta acción.","errores":{},"fecha":"2026-11-17T06:58:02.874651800Z"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-04</td><td>Consulta</td><td><strong>GET /agentes como administrador</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>—</td><td>200 con la lista de agentes.</td><td class="obt">200 [{"idAgente":2,"idUsuario":8,"nombreUsuario":"qa_agente","nombre":"Agente de Pruebas","correo":"qa_agente@prueba.geronex.mx","telefono":"550</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-05</td><td>Consulta</td><td><strong>GET /agentes/{id} como supervisor; id inexistente</strong><div class="pre">Precondición: Token de supervisor</div></td>
+<td>id del agente creado y id 999999</td><td>200 con el agente; 404 para el inexistente.</td><td class="obt">200/404 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Prueba kcbz6l","correo":"qagkcbz6l@prueba.geronex.mx","telefono":"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-06</td><td>Consulta</td><td><strong>GET /agentes como responsable de reservaciones y como cliente</strong><div class="pre">Precondición: Tokens de esos roles</div></td>
+<td>—</td><td>403 en ambos casos.</td><td class="obt">403/403 {"estado":403,"mensaje":"No tienes permiso para realizar esta acción.","errores":{},"fecha":"2026-11-17T06:58:03.238389400Z"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-07</td><td>Cambio</td><td><strong>PUT /agentes/{id} con datos válidos</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>nombre, correo y teléfono nuevos</td><td>200 con los datos actualizados.</td><td class="obt">200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Editado kcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","telefono"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-08</td><td>Cambio</td><td><strong>PUT /agentes/{id} con nombre vacío</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>nombre = "  "</td><td>400 con el error en el campo nombre.</td><td class="obt">400 {"estado":400,"mensaje":"Hay datos inválidos en la solicitud","errores":{"nombre":"El nombre es obligatorio"},"fecha":"2026-11-17T06:58:03.2</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-09</td><td>Cambio</td><td><strong>PUT /agentes/{id} como supervisor</strong><div class="pre">Precondición: Token de supervisor</div></td>
+<td>Datos válidos</td><td>403 (solo el administrador cambia agentes).</td><td class="obt">403 {"estado":403,"mensaje":"No tienes permiso para realizar esta acción.","errores":{},"fecha":"2026-11-17T06:58:03.303498800Z"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-10</td><td>Baja</td><td><strong>PATCH /agentes/{id}/estatus a INACTIVO</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>estatus = INACTIVO</td><td>200 con estatus INACTIVO.</td><td class="obt">200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Editado kcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","telefono"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-11</td><td>Baja</td><td><strong>PATCH /agentes/{id}/estatus con un estatus inválido</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>estatus = BORRADO</td><td>400 con el error en el campo estatus.</td><td class="obt">400 {"estado":400,"mensaje":"Hay datos inválidos en la solicitud","errores":{"estatus":"El estatus debe ser ACTIVO o INACTIVO"},"fecha":"2026-11</td><td class="si">Pasó</td></tr>
+<tr><td class="id">C-12</td><td>Baja</td><td><strong>PATCH /agentes/{id}/estatus de un agente inexistente</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>id 999999</td><td>404.</td><td class="obt">404 {"estado":404,"mensaje":"El agente no existe","errores":{},"fecha":"2026-11-17T06:58:03.387636700Z"}</td><td class="si">Pasó</td></tr>
+<tr><th colspan="7" class="capa">Modelo (entidad Agente, MySQL)</th></tr><tr><td class="id">M-01</td><td>Alta</td><td><strong>Crear una cuenta AGENTE crea la fila en la tabla agente</strong><div class="pre">Precondición: Alta de C-01</div></td>
+<td>Consultar los agentes y buscar el id de la cuenta.</td><td>Existe la fila ligada a la cuenta (id_usuario) con estatus ACTIVO.</td><td class="obt">200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Prueba kcbz6l","correo":"qagkcbz6l@prueba.geronex.mx","telefono":"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-02</td><td>Alta</td><td><strong>Valores por omisión del agente</strong><div class="pre">Precondición: Token de administrador</div></td>
+<td>Alta con nombre y teléfono vacíos.</td><td>agente.nombre toma el nombre de usuario y telefono queda NULL.</td><td class="obt">201 {"conNombre":"Agente Prueba kcbz6l","sinNombre":"qankcbz6l","telefono":null}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-03</td><td>Alta</td><td><strong>Correo único (UNIQUE) sin registros a medias</strong><div class="pre">Precondición: Existe un agente con ese correo</div></td>
+<td>Alta con otro usuario y el mismo correo.</td><td>409 y el número de agentes no cambia (la transacción no deja nada).</td><td class="obt">409 {"antes":4,"despues":4,"mensaje":"Ese correo ya está registrado"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-04</td><td>Consulta</td><td><strong>Orden de la consulta</strong><div class="pre">Precondición: Varios agentes</div></td>
+<td>GET /agentes</td><td>Los agentes vienen ordenados por nombre.</td><td class="obt">200 ["Agente de Pruebas","Agente Prueba kcbz6l","Laura Méndez","qankcbz6l"]</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-05</td><td>Consulta</td><td><strong>Relación 1 a 1 agente–usuario</strong><div class="pre">Precondición: Varios agentes</div></td>
+<td>GET /agentes</td><td>Cada agente trae idUsuario y nombreUsuario, y ningún usuario se repite.</td><td class="obt">200 [{"idAgente":2,"idUsuario":8,"nombreUsuario":"qa_agente","nombre":"Agente de Pruebas","correo":"qa_agente@prueba.geronex.mx","telefono":"550</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-06</td><td>Consulta</td><td><strong>Coherencia entre agente, usuario y perfil</strong><div class="pre">Precondición: Alta de C-01</div></td>
+<td>Comparar /agentes con /admin/usuarios.</td><td>Correo y nombre iguales en agente, usuario y perfil.</td><td class="obt">200 {"agente":["qagkcbz6l@prueba.geronex.mx","Agente Prueba kcbz6l"],"cuenta":["qagkcbz6l@prueba.geronex.mx","Agente Prueba kcbz6l"]}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-07</td><td>Cambio</td><td><strong>El cambio se propaga a usuario y perfil</strong><div class="pre">Precondición: Cambio de C-07</div></td>
+<td>Consultar la cuenta en /admin/usuarios.</td><td>usuario.correo y perfil.nombre tienen los valores nuevos.</td><td class="obt">200 {"idUsuario":17,"nombreUsuario":"qagkcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","nombre":"Agente Editado kcbz6l","rol":"AGENTE","estatus</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-08</td><td>Cambio</td><td><strong>Correo de otra cuenta</strong><div class="pre">Precondición: Existe la cuenta qa_reserva</div></td>
+<td>PUT con el correo de esa cuenta.</td><td>409 y el correo del agente no cambia.</td><td class="obt">409 {"mensaje":"Ese correo ya está registrado","correoActual":"eqagkcbz6l@prueba.geronex.mx"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-09</td><td>Cambio</td><td><strong>Teléfono vacío se guarda como NULL</strong><div class="pre">Precondición: Agente con teléfono</div></td>
+<td>PUT con telefono vacío.</td><td>200 y telefono = null.</td><td class="obt">200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Editado kcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","telefono"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-10</td><td>Baja</td><td><strong>La baja desactiva también la cuenta</strong><div class="pre">Precondición: Baja de C-10</div></td>
+<td>Consultar la cuenta e intentar iniciar sesión con el agente.</td><td>usuario.estatus = INACTIVO y el inicio de sesión responde 401.</td><td class="obt">401 {"estatusCuenta":"INACTIVO"}</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-11</td><td>Baja</td><td><strong>La baja es lógica</strong><div class="pre">Precondición: Baja de C-10</div></td>
+<td>GET /agentes</td><td>La fila sigue existiendo con estatus INACTIVO (no hay DELETE).</td><td class="obt">200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Editado kcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","telefono"</td><td class="si">Pasó</td></tr>
+<tr><td class="id">M-12</td><td>Baja</td><td><strong>Reactivación</strong><div class="pre">Precondición: Agente inactivo</div></td>
+<td>PATCH estatus ACTIVO e iniciar sesión.</td><td>Agente y cuenta en ACTIVO; el inicio de sesión responde 200.</td><td class="obt">200/200 {"idAgente":3,"idUsuario":17,"nombreUsuario":"qagkcbz6l","nombre":"Agente Editado kcbz6l","correo":"eqagkcbz6l@prueba.geronex.mx","telefono"</td><td class="si">Pasó</td></tr>
+
+</table>
+<h2>Evidencia para capturas</h2>
+<ol>
+  <li>Vista: abre <code>admin.html</code> como administrador y sigue los pasos de V-01 a V-12; toma una captura de cada resultado.</li>
+  <li>Controlador y Modelo: en PowerShell, dentro de <code>geronex-backend/pruebas</code>, ejecuta <code>node prueba_agente.mjs</code> y toma una captura de la salida (debe decir "24 de 24 pasaron"). El detalle queda en <code>resultados_agente.json</code>.</li>
+  <li>Para regenerar este documento con los resultados nuevos: <code>node generar_casos_agente.mjs</code> en la carpeta <code>docs</code>.</li>
+</ol>
+</main></body></html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Playa del Caribe en Cancún">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc8e8"/><stop offset="1" stop-color="#d9f1f7"/></linearGradient>
+    <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1fb5c2"/><stop offset="1" stop-color="#0a7f9e"/></linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#cielo)"/>
+  <circle cx="320" cy="58" r="26" fill="#F9F5EB" opacity=".9"/>
+  <path d="M40 50q12-8 24 0q10-6 20 2" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+  <path d="M200 36q10-6 20 0q8-5 16 1" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+  <rect y="118" width="400" height="60" fill="url(#mar)"/>
+  <path d="M0 140q25-6 50 0t50 0t50 0t50 0t50 0t50 0t50 0t50 0" stroke="#bff0f2" stroke-width="2" fill="none" opacity=".7"/>
+  <path d="M0 160q25-6 50 0t50 0t50 0t50 0t50 0t50 0t50 0t50 0" stroke="#bff0f2" stroke-width="2" fill="none" opacity=".5"/>
+  <path d="M0 176q100-22 200-6t200-4V240H0z" fill="#f3dfb4"/>
+  <path d="M0 200q120-18 240-4t160-6V240H0z" fill="#ead09a"/>
+  <g transform="translate(72 196)">
+    <path d="M0 0q6-60 22-92" stroke="#8a5a2b" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <g fill="#1f7a4d">
+      <path d="M22-92q-34-6-52 14q26-4 52-14z"/><path d="M22-92q-20-24-46-22q24 8 46 22z"/>
+      <path d="M22-92q8-30 34-36q-20 16-34 36z"/><path d="M22-92q36-8 54 10q-28-2-54-10z"/>
+      <path d="M22-92q30 8 36 34q-16-20-36-34z"/>
+    </g>
+  </g>
+  <g transform="translate(282 214)">
+    <path d="M0 0l40-40" stroke="#2D4059" stroke-width="3"/>
+    <path d="M40-40q-46-26-74 14q36-22 74-14z" fill="#EA5455"/>
+    <path d="M40-40q-30-6-50 0" stroke="#F9F5EB" stroke-width="2" fill="none"/>
+  </g>
+  <rect x="300" y="208" width="44" height="6" rx="3" fill="#F07B3F"/>
+</svg>

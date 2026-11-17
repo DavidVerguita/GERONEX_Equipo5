@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1430 1000" width="1430" height="1000" font-family='Segoe UI, Arial, sans-serif'>
+<title>GERONEX - Diagrama entidad-relación</title>
+<defs>
+  <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2D4059"/></marker>
+  <marker id="triangulo" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#2D4059" stroke-width="1.2"/></marker>
+</defs>
+<rect width="1430" height="1000" fill="#ffffff"/>
+<g>
+  <rect x="30" y="60" width="240" height="102" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M30,68 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="150" y="82" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">ROL</text>
+  <text x="42" y="110" font-size="13" fill="#F07B3F" font-weight="700" >id_rol</text>
+  <text x="258" y="110" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="42" y="130" font-size="13" fill="#333"  >nombre</text>
+  <text x="258" y="130" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="42" y="150" font-size="13" fill="#333"  >descripcion</text>
+  <text x="258" y="150" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="300" y="60" width="240" height="202" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M300,68 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="420" y="82" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">USUARIO</text>
+  <text x="312" y="110" font-size="13" fill="#F07B3F" font-weight="700" >id_usuario</text>
+  <text x="528" y="110" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="312" y="130" font-size="13" fill="#333"  >nombre_usuario</text>
+  <text x="528" y="130" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="312" y="150" font-size="13" fill="#333"  >contrasena (hash)</text>
+  <text x="528" y="150" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="170" font-size="13" fill="#333"  >correo</text>
+  <text x="528" y="170" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="312" y="190" font-size="13" fill="#2D4059"  font-style="italic">id_rol</text>
+  <text x="528" y="190" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="312" y="210" font-size="13" fill="#333"  >estatus</text>
+  <text x="528" y="210" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="230" font-size="13" fill="#333"  >fecha_creacion</text>
+  <text x="528" y="230" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="250" font-size="13" fill="#333"  >fecha_actualizacion</text>
+  <text x="528" y="250" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="590" y="60" width="240" height="102" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M590,68 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="710" y="82" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">PERFIL</text>
+  <text x="602" y="110" font-size="13" fill="#F07B3F" font-weight="700" >id_perfil</text>
+  <text x="818" y="110" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="602" y="130" font-size="13" fill="#2D4059"  font-style="italic">id_usuario</text>
+  <text x="818" y="130" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK UK</text>
+  <text x="602" y="150" font-size="13" fill="#333"  >nombre</text>
+  <text x="818" y="150" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="1160" y="60" width="240" height="282" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M1160,68 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="1280" y="82" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">RESERVACION</text>
+  <text x="1172" y="110" font-size="13" fill="#F07B3F" font-weight="700" >id_reservacion</text>
+  <text x="1388" y="110" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="1172" y="130" font-size="13" fill="#333"  >folio</text>
+  <text x="1388" y="130" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="1172" y="150" font-size="13" fill="#2D4059"  font-style="italic">id_cotizacion</text>
+  <text x="1388" y="150" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK UK</text>
+  <text x="1172" y="170" font-size="13" fill="#2D4059"  font-style="italic">id_usuario (cliente)</text>
+  <text x="1388" y="170" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="1172" y="190" font-size="13" fill="#2D4059"  font-style="italic">id_responsable</text>
+  <text x="1388" y="190" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="1172" y="210" font-size="13" fill="#333"  >total</text>
+  <text x="1388" y="210" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="230" font-size="13" fill="#333"  >estatus</text>
+  <text x="1388" y="230" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="250" font-size="13" fill="#333"  >motivo_rechazo</text>
+  <text x="1388" y="250" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="270" font-size="13" fill="#333"  >cargo_cancelacion</text>
+  <text x="1388" y="270" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="290" font-size="13" fill="#333"  >fecha_creacion</text>
+  <text x="1388" y="290" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="310" font-size="13" fill="#333"  >fecha_validacion</text>
+  <text x="1388" y="310" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="330" font-size="13" fill="#333"  >fecha_cancelacion</text>
+  <text x="1388" y="330" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="300" y="360" width="240" height="162" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M300,368 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="420" y="382" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">AGENTE</text>
+  <text x="312" y="410" font-size="13" fill="#F07B3F" font-weight="700" >id_agente</text>
+  <text x="528" y="410" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="312" y="430" font-size="13" fill="#2D4059"  font-style="italic">id_usuario</text>
+  <text x="528" y="430" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK UK</text>
+  <text x="312" y="450" font-size="13" fill="#333"  >nombre</text>
+  <text x="528" y="450" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="470" font-size="13" fill="#333"  >correo</text>
+  <text x="528" y="470" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="312" y="490" font-size="13" fill="#333"  >telefono</text>
+  <text x="528" y="490" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="510" font-size="13" fill="#333"  >estatus</text>
+  <text x="528" y="510" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="590" y="360" width="240" height="282" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M590,368 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="710" y="382" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">SOLICITUD_VIAJE</text>
+  <text x="602" y="410" font-size="13" fill="#F07B3F" font-weight="700" >id_solicitud</text>
+  <text x="818" y="410" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="602" y="430" font-size="13" fill="#2D4059"  font-style="italic">id_usuario (cliente)</text>
+  <text x="818" y="430" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="602" y="450" font-size="13" fill="#2D4059"  font-style="italic">id_agente</text>
+  <text x="818" y="450" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="602" y="470" font-size="13" fill="#333"  >destino</text>
+  <text x="818" y="470" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="490" font-size="13" fill="#333"  >fecha_inicio</text>
+  <text x="818" y="490" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="510" font-size="13" fill="#333"  >fecha_fin</text>
+  <text x="818" y="510" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="530" font-size="13" fill="#333"  >num_personas</text>
+  <text x="818" y="530" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="550" font-size="13" fill="#333"  >presupuesto</text>
+  <text x="818" y="550" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="570" font-size="13" fill="#333"  >necesidades</text>
+  <text x="818" y="570" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="590" font-size="13" fill="#333"  >estatus</text>
+  <text x="818" y="590" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="610" font-size="13" fill="#333"  >fecha_creacion</text>
+  <text x="818" y="610" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="630" font-size="13" fill="#333"  >fecha_actualizacion</text>
+  <text x="818" y="630" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="880" y="360" width="240" height="202" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M880,368 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="1000" y="382" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">COTIZACION</text>
+  <text x="892" y="410" font-size="13" fill="#F07B3F" font-weight="700" >id_cotizacion</text>
+  <text x="1108" y="410" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="892" y="430" font-size="13" fill="#2D4059"  font-style="italic">id_solicitud</text>
+  <text x="1108" y="430" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="892" y="450" font-size="13" fill="#2D4059"  font-style="italic">id_agente</text>
+  <text x="1108" y="450" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="892" y="470" font-size="13" fill="#333"  >total</text>
+  <text x="1108" y="470" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="490" font-size="13" fill="#333"  >notas</text>
+  <text x="1108" y="490" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="510" font-size="13" fill="#333"  >estatus</text>
+  <text x="1108" y="510" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="530" font-size="13" fill="#333"  >fecha_creacion</text>
+  <text x="1108" y="530" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="550" font-size="13" fill="#333"  >fecha_respuesta</text>
+  <text x="1108" y="550" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="30" y="690" width="240" height="102" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M30,698 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="150" y="712" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">CATEGORIA_SERVICIO</text>
+  <text x="42" y="740" font-size="13" fill="#F07B3F" font-weight="700" >id_categoria</text>
+  <text x="258" y="740" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="42" y="760" font-size="13" fill="#333"  >nombre</text>
+  <text x="258" y="760" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="42" y="780" font-size="13" fill="#333"  >descripcion</text>
+  <text x="258" y="780" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="300" y="690" width="240" height="142" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M300,698 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="420" y="712" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">PROVEEDOR</text>
+  <text x="312" y="740" font-size="13" fill="#F07B3F" font-weight="700" >id_proveedor</text>
+  <text x="528" y="740" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="312" y="760" font-size="13" fill="#333"  >nombre</text>
+  <text x="528" y="760" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">UK</text>
+  <text x="312" y="780" font-size="13" fill="#333"  >telefono</text>
+  <text x="528" y="780" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="800" font-size="13" fill="#333"  >correo</text>
+  <text x="528" y="800" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="312" y="820" font-size="13" fill="#333"  >estatus</text>
+  <text x="528" y="820" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="590" y="690" width="240" height="222" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M590,698 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="710" y="712" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">SERVICIO</text>
+  <text x="602" y="740" font-size="13" fill="#F07B3F" font-weight="700" >id_servicio</text>
+  <text x="818" y="740" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="602" y="760" font-size="13" fill="#2D4059"  font-style="italic">id_categoria</text>
+  <text x="818" y="760" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="602" y="780" font-size="13" fill="#2D4059"  font-style="italic">id_proveedor</text>
+  <text x="818" y="780" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="602" y="800" font-size="13" fill="#333"  >nombre</text>
+  <text x="818" y="800" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="820" font-size="13" fill="#333"  >descripcion</text>
+  <text x="818" y="820" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="840" font-size="13" fill="#333"  >destino</text>
+  <text x="818" y="840" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="860" font-size="13" fill="#333"  >precio</text>
+  <text x="818" y="860" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="880" font-size="13" fill="#333"  >unidad</text>
+  <text x="818" y="880" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="602" y="900" font-size="13" fill="#333"  >estatus</text>
+  <text x="818" y="900" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="880" y="690" width="240" height="162" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M880,698 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="1000" y="712" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">DETALLE_COTIZACION</text>
+  <text x="892" y="740" font-size="13" fill="#F07B3F" font-weight="700" >id_detalle</text>
+  <text x="1108" y="740" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="892" y="760" font-size="13" fill="#2D4059"  font-style="italic">id_cotizacion</text>
+  <text x="1108" y="760" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="892" y="780" font-size="13" fill="#2D4059"  font-style="italic">id_servicio</text>
+  <text x="1108" y="780" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK</text>
+  <text x="892" y="800" font-size="13" fill="#333"  >cantidad</text>
+  <text x="1108" y="800" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="820" font-size="13" fill="#333"  >precio_unitario</text>
+  <text x="1108" y="820" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="892" y="840" font-size="13" fill="#333"  >subtotal</text>
+  <text x="1108" y="840" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<g>
+  <rect x="1160" y="690" width="240" height="122" rx="8" fill="#fff" stroke="#2D4059" stroke-width="1.5"/>
+  <path d="M1160,698 a8,8 0 0 1 8,-8 h224 a8,8 0 0 1 8,8 v26 h-240 z" fill="#002B5B"/>
+  <text x="1280" y="712" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">DISPONIBILIDAD</text>
+  <text x="1172" y="740" font-size="13" fill="#F07B3F" font-weight="700" >id_disponibilidad</text>
+  <text x="1388" y="740" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">PK</text>
+  <text x="1172" y="760" font-size="13" fill="#2D4059"  font-style="italic">id_servicio</text>
+  <text x="1388" y="760" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700">FK UK</text>
+  <text x="1172" y="780" font-size="13" fill="#333"  >cupo_total</text>
+  <text x="1388" y="780" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+  <text x="1172" y="800" font-size="13" fill="#333"  >cupo_disponible</text>
+  <text x="1388" y="800" font-size="11" text-anchor="end" fill="#6b7280" font-weight="700"></text>
+</g>
+<path d="M270,95 H300" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="276" y="88" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="290" y="88" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M540,95 H590" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="546" y="88" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="580" y="88" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<path d="M420,262 V360" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="428" y="278" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="428" y="352" font-size="12" font-weight="700" fill="#EA5455">0..1</text>
+<path d="M540,200 H560 V420 H590" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="546" y="193" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="578" y="412" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M540,410 H590" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="546" y="403" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="580" y="403" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M830,410 H880" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="836" y="403" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="870" y="403" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M460,522 V650 H860 V520 H880" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="468" y="540" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="870" y="512" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M1000,562 V690" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="1008" y="584" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="1008" y="682" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M830,760 H880" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="836" y="753" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="870" y="753" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M540,740 H590" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="546" y="733" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="580" y="733" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M150,792 V930 H650 V912" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="158" y="810" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="658" y="912" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<path d="M760,912 V950 H1280 V812" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="768" y="935" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="1288" y="830" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<path d="M1120,390 H1140 V300 H1160" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="1126" y="383" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="1148" y="292" font-size="12" font-weight="700" fill="#EA5455">0..1</text>
+<path d="M480,60 V30 H1300 V60" fill="none" stroke="#2D4059" stroke-width="1.6"/>
+<text x="488" y="50" font-size="12" font-weight="700" fill="#EA5455">1</text>
+<text x="1308" y="52" font-size="12" font-weight="700" fill="#EA5455">N</text>
+<text x="700" y="22" font-size="12" fill="#6b7280" text-anchor="middle">usuario 1 — N reservación (como cliente y como responsable que valida)</text>
+<text x="30" y="985" font-size="12" fill="#6b7280">PK = llave primaria · FK = llave foránea · UK = valor único · Las cardinalidades se leen de la tabla "1" a la tabla "N". Base de datos MySQL 8 "geronex".</text>
+</svg>

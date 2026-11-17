@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustracion de la CDMX (Angel de la Independencia). Version vectorial de img/destinos/cdmx.svg de la web -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp" android:height="240dp"
+    android:viewportWidth="400" android:viewportHeight="240">
+    <path android:fillColor="#F7C9A4" android:pathData="M0,0h400v120h-400z"/>
+    <path android:fillColor="#F9F5EB" android:pathData="M0,120h400v120h-400z"/>
+    <path android:fillColor="#C9B8C8" android:fillAlpha="0.55" android:pathData="M0,150l60,-40 40,22 50,-48 60,50 40,-24 70,46 80,-30v114H0z"/>
+    <path android:fillColor="#2D4059" android:pathData="M18,120h34v120h-34zM58,96h28v144h-28zM92,132h40v108h-40zM270,110h36v130h-36zM312,80h30v160h-30zM348,128h40v112h-40z"/>
+    <path android:fillColor="#F07B3F" android:fillAlpha="0.75" android:pathData="M24,130h6v8h-6zM38,146h6v8h-6zM64,108h6v8h-6zM74,126h6v8h-6zM100,146h6v8h-6zM278,124h6v8h-6zM320,94h6v8h-6zM330,116h6v8h-6zM356,140h6v8h-6z"/>
+    <path android:fillColor="#002B5B" android:pathData="M150,204h100v36h-100zM160,190h80v16h-80zM188,88h24v104h-24zM182,82h36v10h-36z"/>
+    <path android:strokeColor="#002B5B" android:strokeWidth="5" android:pathData="M200,80v-22"/>
+    <path android:fillColor="#F07B3F" android:pathData="M200,30l6,14 10,-6 -6,16h-20l-6,-16 10,6zM190,46q-18,-8 -26,2q14,-2 26,6zM210,46q18,-8 26,2q-14,-2 -26,6z"/>
+    <path android:fillColor="#1F7A4D" android:fillAlpha="0.8" android:pathData="M0,228h400v12h-400z"/>
+</vector>

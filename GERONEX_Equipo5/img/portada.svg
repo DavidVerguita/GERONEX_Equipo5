@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Atardecer sobre el mar con un avión">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#002B5B"/><stop offset=".45" stop-color="#2D4059"/><stop offset=".75" stop-color="#EA5455"/><stop offset="1" stop-color="#F07B3F"/>
+    </linearGradient>
+    <linearGradient id="mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d4e79"/><stop offset="1" stop-color="#002B5B"/></linearGradient>
+    <radialGradient id="sol" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#F9F5EB"/><stop offset=".6" stop-color="#F9F5EB" stop-opacity=".9"/><stop offset="1" stop-color="#F07B3F" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="600" fill="url(#cielo)"/>
+  <g fill="#F9F5EB" opacity=".7">
+    <circle cx="120" cy="60" r="2"/><circle cx="260" cy="110" r="1.5"/><circle cx="420" cy="40" r="2"/><circle cx="610" cy="90" r="1.5"/>
+    <circle cx="980" cy="50" r="2"/><circle cx="1180" cy="100" r="1.5"/><circle cx="1360" cy="40" r="2"/><circle cx="1500" cy="120" r="1.5"/>
+  </g>
+  <circle cx="1060" cy="420" r="150" fill="url(#sol)"/>
+  <path d="M0 420l120-70 90 40 140-110 120 90 80-40 110 80H0z" fill="#1b2a3d" opacity=".85"/>
+  <path d="M1250 420l90-60 80 30 100-80 80 60v50z" fill="#1b2a3d" opacity=".85"/>
+  <rect y="420" width="1600" height="180" fill="url(#mar)"/>
+  <g stroke="#F07B3F" stroke-linecap="round" opacity=".75">
+    <path d="M960 440h200" stroke-width="5"/><path d="M990 466h140" stroke-width="4"/><path d="M1020 492h80" stroke-width="3"/><path d="M1040 518h40" stroke-width="3"/>
+  </g>
+  <g stroke="#F9F5EB" stroke-width="2" opacity=".25" fill="none">
+    <path d="M0 470q100-10 200 0t200 0t200 0t200 0"/><path d="M800 540q100-10 200 0t200 0t200 0t200 0"/>
+  </g>
+  <path d="M280 300q400-220 900-150" stroke="#F9F5EB" stroke-width="3" stroke-dasharray="6 14" fill="none" opacity=".55"/>
+  <g transform="translate(1230 140) rotate(-8) scale(2.2)" fill="#F9F5EB">
+    <path d="M-30 0h56q8 0 8 4t-8 4h-56z"/><path d="M-4 4l-14 22h8l22-22z"/><path d="M-4 4l-14-20h8l22 20z"/><path d="M-28 4l-6-12h6l8 12z"/>
+  </g>
+  <g transform="translate(150 470)">
+    <path d="M0 130q10-90 34-140" stroke="#0e1a29" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <g fill="#0e1a29">
+      <path d="M34-10q-56-10-86 22q42-6 86-22z"/><path d="M34-10q-32-40-76-36q40 14 76 36z"/>
+      <path d="M34-10q14-50 56-60q-32 26-56 60z"/><path d="M34-10q60-12 90 16q-46-4-90-16z"/><path d="M34-10q50 14 60 56q-26-32-60-56z"/>
+    </g>
+  </g>
+</svg>

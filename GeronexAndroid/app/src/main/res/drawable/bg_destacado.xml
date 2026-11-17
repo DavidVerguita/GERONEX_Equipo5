@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Recuadro naranja para la cotizacion que el cliente debe responder -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/naranja_claro"/>
+    <stroke android:width="2dp" android:color="@color/naranja"/>
+    <corners android:radius="12dp"/>
+</shape>
