@@ -1,0 +1,14 @@
+/* Estilos propios de agente.html (los generales están en geronex.css) */
+.filtros { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; align-items:center; }
+.filtros select, .filtros label, .filtros input { font-size:.88rem; }
+.filtros select, .filtros input[type=search] { padding:.45rem; border:1px solid #ccc; border-radius:4px; }
+.filtros input[type=search] { flex:1 1 160px; min-width:0; }
+.catalogo-mini { max-height:340px; overflow-y:auto; border:1px solid var(--borde); border-radius:6px; }
+.catalogo-mini .tabla td { padding:.45rem .6rem; }
+.resumen { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:1rem; padding:1rem; background:var(--bg-color); border-radius:6px; }
+.lista-seleccionable .panel { padding:1rem 1.2rem; }
+.edad { font-size:.75rem; font-weight:700; color:var(--ambar); }
+.barra-presupuesto { height:8px; background:#eee; border-radius:4px; overflow:hidden; margin-top:.4rem; max-width:260px; }
+.barra-presupuesto div { height:100%; transition:width .3s, background .3s; }
+#cotizador { position:sticky; top:90px; }
+@media (max-width:900px) { #cotizador { position:static; } }

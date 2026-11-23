@@ -6,26 +6,7 @@
     <title>GERONEX - Iniciar Sesión / Registro</title>
     <link rel="icon" href="img/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/geronex.css">
-    <style>
-        .acceso { max-width:960px; margin:2.5rem auto; display:grid; grid-template-columns:1fr 1fr; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 12px 30px rgba(0,43,91,.15); }
-        .acceso-lado { background:linear-gradient(rgba(0,43,91,.55), rgba(0,43,91,.85)), url('img/portada.svg') center/cover; color:#fff; padding:2.5rem; display:flex; flex-direction:column; justify-content:flex-end; min-height:460px; }
-        .acceso-lado h2 { color:var(--bg-color); font-size:1.8rem; margin-bottom:.6rem; }
-        .acceso-lado ul { list-style:none; margin-top:1rem; }
-        .acceso-lado li { margin:.45rem 0; font-size:.95rem; color:#e8eef5; }
-        .acceso-form { padding:2.5rem; }
-        .acceso-form h2 { color:var(--navy); margin-bottom:.3rem; }
-        .acceso-form .pestanas { width:100%; }
-        .acceso-form .pestanas button { flex:1; }
-        .clave { position:relative; }
-        .clave input { padding-right:3.2rem; }
-        .ver-clave { position:absolute; right:.4rem; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:.8rem; color:var(--navy); font-weight:600; padding:.3rem .4rem; }
-        .fuerza { height:6px; border-radius:3px; background:#eee; margin-top:.4rem; overflow:hidden; }
-        .fuerza div { height:100%; width:0; transition:width .3s, background .3s; }
-        .ayuda { font-size:.8rem; color:var(--gris); margin-top:.3rem; }
-        .error-msg { color:var(--coral); font-size:.85rem; margin-top:.3rem; display:none; }
-        [hidden] { display:none !important; }
-        @media (max-width:800px) { .acceso { grid-template-columns:1fr; margin:1rem; } .acceso-lado { min-height:200px; padding:1.5rem; } .acceso-form { padding:1.5rem; } }
-    </style>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <nav>
@@ -55,9 +36,9 @@
                 </div>
 
                 <!-- Inicio de sesión -->
-                <form id="form-login" onsubmit="handleLogin(event)">
+                <form id="form-login">
                     <h2>¡Hola de nuevo!</h2>
-                    <p class="meta" style="margin-bottom:1.2rem">Entra con tu usuario y contraseña.</p>
+                    <p class="meta mb-12">Entra con tu usuario y contraseña.</p>
                     <div class="form-group">
                         <label for="login-user">Nombre de usuario</label>
                         <input type="text" id="login-user" maxlength="15" required placeholder="Ej. usuario123" autocomplete="username">
@@ -71,13 +52,13 @@
                     </div>
                     <button type="submit" class="btn-submit">Entrar</button>
                     <div id="login-msg" class="msg"></div>
-                    <p class="meta" style="margin-top:1rem;text-align:center">¿No tienes cuenta? <a href="#registro" data-ir="registro">Crea una aquí</a></p>
+                    <p class="meta pie-form">¿No tienes cuenta? <a href="#registro" data-ir="registro">Crea una aquí</a></p>
                 </form>
 
                 <!-- Registro -->
-                <form id="form-registro" onsubmit="handleRegister(event)" hidden>
+                <form id="form-registro" hidden>
                     <h2>Crea tu cuenta</h2>
-                    <p class="meta" style="margin-bottom:1.2rem">Es gratis y solo toma un minuto.</p>
+                    <p class="meta mb-12">Es gratis y solo toma un minuto.</p>
                     <div class="form-group">
                         <label for="reg-user">Nombre de usuario (máx. 15 caracteres)</label>
                         <input type="text" id="reg-user" maxlength="15" required placeholder="Elige tu usuario" autocomplete="username">
@@ -101,9 +82,9 @@
                         <input type="password" id="reg-pass-confirm" minlength="8" maxlength="50" required placeholder="Repite tu contraseña" autocomplete="new-password">
                         <div id="pass-error" class="error-msg">Las contraseñas no coinciden.</div>
                     </div>
-                    <button type="submit" class="btn-submit" style="background-color: var(--navy);">Crear cuenta</button>
+                    <button type="submit" class="btn-submit btn-navy">Crear cuenta</button>
                     <div id="reg-msg" class="msg"></div>
-                    <p class="meta" style="margin-top:1rem;text-align:center">¿Ya tienes cuenta? <a href="#" data-ir="entrar">Inicia sesión</a></p>
+                    <p class="meta pie-form">¿Ya tienes cuenta? <a href="#" data-ir="entrar">Inicia sesión</a></p>
                 </form>
             </section>
         </div>
@@ -112,102 +93,6 @@
     <footer><p>&copy; 2026 GERONEX - Todos los derechos reservados.</p></footer>
 
     <script src="js/geronex.js"></script>
-    <script>
-        prepararNav();
-        // Si venía del catálogo con un destino, al entrar como cliente se lleva a "Mis viajes" con ese destino
-        const destinoPendiente = new URLSearchParams(location.search).get('destino');
-        function destinoTras(rol) {
-            if (rol === 'CLIENTE' && destinoPendiente) return 'cliente.html?destino=' + encodeURIComponent(destinoPendiente);
-            return inicioPorRol(rol);
-        }
-        if (Sesion.token() && Sesion.usuario()) location.href = destinoTras(Sesion.rol());
-
-        // ------------------------------------------------ pestañas
-        function mostrarPestana(cual) {
-            const registro = cual === 'registro';
-            document.getElementById('form-login').hidden = registro;
-            document.getElementById('form-registro').hidden = !registro;
-            document.getElementById('tab-entrar').classList.toggle('activo', !registro);
-            document.getElementById('tab-registro').classList.toggle('activo', registro);
-            document.getElementById('tab-entrar').setAttribute('aria-selected', String(!registro));
-            document.getElementById('tab-registro').setAttribute('aria-selected', String(registro));
-            document.getElementById(registro ? 'reg-user' : 'login-user').focus();
-        }
-        document.getElementById('tab-entrar').onclick = () => mostrarPestana('entrar');
-        document.getElementById('tab-registro').onclick = () => mostrarPestana('registro');
-        document.querySelectorAll('[data-ir]').forEach(a => a.addEventListener('click', ev => { ev.preventDefault(); mostrarPestana(a.dataset.ir); }));
-        if (location.hash === '#registro') mostrarPestana('registro');
-
-        // Mostrar u ocultar la contraseña
-        document.querySelectorAll('[data-ver]').forEach(b => b.addEventListener('click', () => {
-            const input = document.getElementById(b.dataset.ver);
-            const ver = input.type === 'password';
-            input.type = ver ? 'text' : 'password';
-            b.textContent = ver ? 'Ocultar' : 'Ver';
-        }));
-
-        // Indicador de qué tan segura es la contraseña (solo orienta; la regla real es 8 a 50)
-        document.getElementById('reg-pass').addEventListener('input', ev => {
-            const v = ev.target.value;
-            let puntos = 0;
-            if (v.length >= 8) puntos++;
-            if (v.length >= 12) puntos++;
-            if (/[a-z]/.test(v) && /[A-Z]/.test(v)) puntos++;
-            if (/\d/.test(v)) puntos++;
-            if (/[^A-Za-z0-9]/.test(v)) puntos++;
-            const niveles = [['0%', '#ccc', 'Usa letras, números y algún símbolo.'], ['25%', '#EA5455', 'Débil'], ['50%', '#F07B3F', 'Regular'],
-                ['75%', '#e0a030', 'Buena'], ['100%', '#1f7a4d', 'Muy segura']];
-            const [ancho, color, texto] = niveles[Math.min(4, v.length < 8 ? (v ? 1 : 0) : Math.max(1, puntos - 1))];
-            const barra = document.getElementById('fuerza-barra');
-            barra.style.width = ancho; barra.style.background = color;
-            document.getElementById('fuerza-texto').textContent = v && v.length < 8 ? 'Faltan ' + (8 - v.length) + ' caracteres.' : texto;
-        });
-
-        // ------------------------------------------------ envío
-        async function iniciarSesion(nombreUsuario, contrasena) {
-            const r = await api("/auth/login", { method: "POST", body: JSON.stringify({ nombreUsuario, contrasena }) });
-            Sesion.guardar(r.token, r.usuario);
-            location.href = destinoTras(r.usuario.rol); // cada rol entra a su página de trabajo
-        }
-
-        async function handleLogin(e) {
-            e.preventDefault();
-            const boton = botonDe(e); boton.disabled = true;
-            ocultarMensaje("login-msg");
-            try {
-                await iniciarSesion(document.getElementById("login-user").value.trim(), document.getElementById("login-pass").value);
-            } catch (err) {
-                mostrarMensaje("login-msg", textoError(err), "error");
-                boton.disabled = false;
-            }
-        }
-
-        async function handleRegister(e) {
-            e.preventDefault();
-            const usuario = document.getElementById("reg-user").value.trim();
-            const correo = document.getElementById("reg-correo").value.trim();
-            const pass = document.getElementById("reg-pass").value;
-            const errorDiv = document.getElementById("pass-error");
-            if (pass !== document.getElementById("reg-pass-confirm").value) {
-                errorDiv.style.display = "block";
-                return;
-            }
-            errorDiv.style.display = "none";
-            const boton = botonDe(e); boton.disabled = true;
-            try {
-                await api("/auth/registro", { method: "POST", body: JSON.stringify({ nombreUsuario: usuario, correo, contrasena: pass }) });
-            } catch (err) {
-                mostrarMensaje("reg-msg", textoError(err), "error");
-                boton.disabled = false;
-                return;
-            }
-            try {
-                await iniciarSesion(usuario, pass); // cuenta creada: entra directo
-            } catch (err) {
-                mostrarMensaje("reg-msg", "Tu cuenta se creó. Ahora inicia sesión.", "ok");
-                boton.disabled = false;
-            }
-        }
-    </script>
+    <script src="js/login.js"></script>
 </body>
 </html>

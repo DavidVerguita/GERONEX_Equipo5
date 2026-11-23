@@ -1,7 +1,7 @@
 // Utilidades compartidas de GERONEX: comunicación con la API, sesión, navegación por rol y formato.
-// En producción se cambia por la URL real (con HTTPS).
-// servidor_web.mjs define window.GERONEX_API = '/api' para usar la API desde el mismo origen.
-const API = window.GERONEX_API || 'http://localhost:8080/api';
+// Desde IntelliJ (puerto 63342) la página y la API están en puertos distintos: se usa localhost:8080.
+// En cualquier otro caso (servidor_web.mjs en 8090 o nginx en Azure) la API sale del mismo origen: /api.
+const API = window.GERONEX_API || (location.port === '63342' || location.protocol === 'file:' ? 'http://localhost:8080/api' : '/api');
 
 // El token vive en sessionStorage: es distinto en cada pestaña y se borra al cerrarla.
 // Por eso en una sola computadora se puede tener una pestaña de cliente, otra de agente, etc.

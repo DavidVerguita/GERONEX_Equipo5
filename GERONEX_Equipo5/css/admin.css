@@ -1,0 +1,4 @@
+/* Estilos propios de admin.html (los generales están en geronex.css) */
+.tabla select { padding:.3rem; border:1px solid #ccc; border-radius:4px; font-size:.85rem; }
+#panel-editar { display:none; border:2px solid var(--orange); }
+#panel-editar.visible { display:block; }

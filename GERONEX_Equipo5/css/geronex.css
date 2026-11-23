@@ -244,3 +244,15 @@ nav.abierto .nav-menu span:nth-child(3) { transform:translateY(-6px) rotate(-45d
   .comprobante { box-shadow:none; margin:0; max-width:none; }
   .comprobante-cabecera { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
+
+/* ---------- Utilidades pequeñas (antes eran style="..." dentro del HTML) ---------- */
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 1rem !important; }
+.mb-12 { margin-bottom: 1.2rem !important; }
+.mt-0 { margin-top: 0 !important; }
+.txt-der { text-align: right !important; }
+.txt-navy { color: var(--navy) !important; }
+.centrar-v { align-items: center !important; }
+.btn-navy, .btn-navy:hover { background: var(--navy) !important; }
+.ancho-precio { width: 130px !important; }
+.pie-form { margin-top: 1rem !important; text-align: center !important; }
