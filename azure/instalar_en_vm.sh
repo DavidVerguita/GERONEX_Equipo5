@@ -36,15 +36,32 @@ fi
 
 # ---------------------------------------------------------------------
 paso "2/7 Paquetes: Java 21, MySQL, nginx"
-if ! command -v java >/dev/null || ! command -v mysql >/dev/null || ! command -v nginx >/dev/null; then
-    sudo apt-get update -y
+JAVA21=/usr/lib/jvm/java-21-openjdk-amd64/bin/java
+FALTAN=""
+[ -x "$JAVA21" ] || FALTAN="$FALTAN openjdk-21-jre-headless"
+command -v mysql >/dev/null || FALTAN="$FALTAN mysql-server"
+command -v nginx >/dev/null || FALTAN="$FALTAN nginx"
+for p in curl python3 openssl; do command -v $p >/dev/null || FALTAN="$FALTAN $p"; done
+# Apache ocupa el puerto 80 (en esta VM solo mostraba la página por defecto): se detiene, no se desinstala
+if systemctl is-active --quiet apache2; then
+    sudo systemctl disable --now apache2
+    echo "Apache detenido (el puerto 80 ahora es de nginx). Para regresarlo: sudo systemctl enable --now apache2"
+fi
+if [ -n "$FALTAN" ]; then
+    # Si otro repositorio de la VM falla (p. ej. una llave vencida), se sigue con los de Ubuntu
+    sudo apt-get update -y || echo "Aviso: algún repositorio no se pudo actualizar; se sigue con los demás."
     if ! apt-cache show openjdk-21-jre-headless >/dev/null 2>&1; then
         echo "ERROR: esta versión de Ubuntu no tiene Java 21 (se necesita Ubuntu 22.04 o más nueva)."
         exit 1
     fi
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-21-jre-headless mysql-server nginx curl python3 openssl
+    JAVA_ANTES="$(readlink -f /usr/bin/java 2>/dev/null || true)"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $FALTAN
+    # El "java" por defecto de la VM se deja como estaba; el servicio usa Java 21 con ruta completa
+    if [ -n "$JAVA_ANTES" ] && [ "$JAVA_ANTES" != "$(readlink -f /usr/bin/java)" ]; then
+        sudo update-alternatives --set java "$JAVA_ANTES"
+    fi
 fi
-java -version 2>&1 | head -1
+"$JAVA21" -version 2>&1 | head -1
 
 # ---------------------------------------------------------------------
 paso "3/7 Secretos (se generan una sola vez, nadie los escribe a mano)"
@@ -74,18 +91,26 @@ CLAVE_DB="$(sudo grep '^DB_PASSWORD=' "$ENV_FILE" | cut -d= -f2-)"
 # ---------------------------------------------------------------------
 paso "4/7 Base de datos"
 sudo systemctl enable --now mysql
-BASE_NUEVA=0
-if ! sudo mysql -N -e "SHOW DATABASES LIKE 'geronex'" | grep -q geronex; then
+# Entrar a MySQL como administrador: sin contraseña si root usa auth_socket; si root tiene
+# contraseña, con la cuenta de mantenimiento de Ubuntu (debian-sys-maint)
+if sudo mysql -e "SELECT 1" >/dev/null 2>&1; then
+    mysql_admin() { sudo mysql "$@"; }
+elif sudo test -f /etc/mysql/debian.cnf; then
+    mysql_admin() { sudo mysql --defaults-file=/etc/mysql/debian.cnf "$@"; }
+else
+    echo "ERROR: no puedo entrar a MySQL como administrador (root tiene contraseña y no hay /etc/mysql/debian.cnf)."
+    exit 1
+fi
+if ! mysql_admin -N -e "SHOW DATABASES LIKE 'geronex'" | grep -q geronex; then
     for f in 01_esquema_cuentas.sql 03_esquema_negocio.sql 04_datos_ejemplo.sql; do
         echo "Ejecutando $f"
-        sudo mysql < "$DIR/db/$f"
+        mysql_admin < "$DIR/db/$f"
     done
-    BASE_NUEVA=1
 else
     echo "La base geronex ya existe: no se toca."
 fi
 # Mismo permiso que 02_usuario_aplicacion.sql: SELECT, INSERT y UPDATE (sin DELETE)
-sudo mysql -e "CREATE USER IF NOT EXISTS 'geronex_app'@'localhost' IDENTIFIED BY '$CLAVE_DB';
+mysql_admin -e "CREATE USER IF NOT EXISTS 'geronex_app'@'localhost' IDENTIFIED BY '$CLAVE_DB';
                ALTER USER 'geronex_app'@'localhost' IDENTIFIED BY '$CLAVE_DB';
                GRANT SELECT, INSERT, UPDATE ON geronex.* TO 'geronex_app'@'localhost';
                FLUSH PRIVILEGES;"
@@ -102,7 +127,7 @@ Requires=mysql.service
 
 [Service]
 EnvironmentFile=/etc/geronex/geronex.env
-ExecStart=/usr/bin/java -Xmx400m -jar /opt/geronex/geronex-backend.jar --server.address=127.0.0.1
+ExecStart=/usr/lib/jvm/java-21-openjdk-amd64/bin/java -Xmx400m -jar /opt/geronex/geronex-backend.jar --server.address=127.0.0.1
 DynamicUser=yes
 Restart=always
 RestartSec=5
@@ -156,16 +181,17 @@ if sudo ufw status 2>/dev/null | grep -q "Status: active"; then sudo ufw allow 8
 
 # ---------------------------------------------------------------------
 paso "7/7 Cuentas de demo"
-if [ "$BASE_NUEVA" = 1 ]; then
+# Se crean si todavía no hay ninguna cuenta (también si una corrida anterior se interrumpió)
+if [ "$(mysql_admin -N -e "SELECT COUNT(*) FROM geronex.usuario")" = 0 ]; then
     API=http://127.0.0.1:8080/api
     post() { curl -s -m 10 -H 'Content-Type: application/json' "$@"; }
     post -d @"$DIR/semilla/registro_admin.json" "$API/auth/registro" >/dev/null
     post -d @"$DIR/semilla/registro_cliente.json" "$API/auth/registro" >/dev/null
-    sudo mysql < "$DIR/db/05_primer_administrador.sql" >/dev/null
+    mysql_admin < "$DIR/db/05_primer_administrador.sql" >/dev/null
     TOKEN="$(post -d @"$DIR/semilla/login_admin.json" "$API/auth/login" | python3 -c 'import sys,json; print(json.load(sys.stdin)["token"])')"
     post -H "Authorization: Bearer $TOKEN" -d @"$DIR/semilla/crear_agente.json" "$API/admin/usuarios" >/dev/null
     post -H "Authorization: Bearer $TOKEN" -d @"$DIR/semilla/crear_responsable.json" "$API/admin/usuarios" >/dev/null
-    sudo mysql -e "SELECT u.nombre_usuario, r.nombre AS rol FROM geronex.usuario u JOIN geronex.rol r ON r.id_rol = u.id_rol"
+    mysql_admin -e "SELECT u.nombre_usuario, r.nombre AS rol FROM geronex.usuario u JOIN geronex.rol r ON r.id_rol = u.id_rol"
 else
     echo "Ya existían: no se crean de nuevo."
 fi

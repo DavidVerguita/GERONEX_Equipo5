@@ -113,7 +113,7 @@ Las respuestas de solicitud traen sus `cotizaciones[]` con `detalles[]`, y si ha
 
 ### Actualización del 23 de noviembre (madrugada)
 - Web: CSS y JS de cada página separados en `css/<página>.css` y `js/<página>.js` (idéntica píxel por píxel; 92/92 y 24/24).
-- Azure: `azure/subir_a_azure.ps1` (laptop) + `azure/instalar_en_vm.sh` (VM). **No se ha corrido en la VM**: estaba apagada.
+- Azure: `azure/subir_a_azure.ps1` (laptop) + `azure/instalar_en_vm.sh` (VM). **Montado y probado el 23 nov**: http://20.69.91.86, 92/92 y 24/24 contra Azure. La VM ya tenía Apache (detenido), Java 17 (se dejó; el servicio usa Java 21 con ruta completa), MySQL con contraseña en root (se entra con `/etc/mysql/debian.cnf`) y política de contraseñas MEDIUM. Falta probar el APK azure en el teléfono.
 - Android: variantes `debug` (localhost) y `azure` (http://20.69.91.86/api). `Config.BASE_URL = BuildConfig.BASE_URL`.
 - Documentos: `docs/Presentacion_GERONEX_Final.pptx`, GUIA_PROYECTO.md, GUIA_CODIGO.md, GUIA_AZURE.md, COMO_ENCENDER.md.
 

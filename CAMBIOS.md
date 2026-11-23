@@ -9,7 +9,11 @@
 
 ## Azure
 - `azure/subir_a_azure.ps1` + `azure/instalar_en_vm.sh`: nginx (80) + backend como servicio (127.0.0.1:8080) + MySQL.
-  Probado en la laptop hasta juntar los archivos (`-SoloPreparar`); **falta correrlo en la VM** (estaba apagada). Ver GUIA_AZURE.md.
+  **Montado en la VM el 23 nov (tarde):** http://20.69.91.86 funciona; pruebas contra Azure 92/92 y 24/24. Ver GUIA_AZURE.md.
+- `instalar_en_vm.sh` ajustado a la VM real, que ya tenía cosas: detiene Apache (puerto 80) sin desinstalarlo,
+  instala Java 21 sin cambiar el `java` por defecto (17), entra a MySQL con `debian.cnf` cuando root tiene contraseña,
+  sigue aunque un repositorio de apt tenga la llave vencida y crea las cuentas de demo si la tabla `usuario` está vacía.
+  La política MEDIUM de MySQL obligó a usar la contraseña elegida con la primera letra en mayúscula.
 
 ## Android
 - Variante `azure` (`app-azure.apk`, http://20.69.91.86/api) además de `debug` (localhost). Compiladas las dos; **no probadas en teléfono**.

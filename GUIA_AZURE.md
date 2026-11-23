@@ -1,24 +1,26 @@
 # GERONEX en Azure: guía paso a paso
 
-> **Estado (23 de noviembre, madrugada):** los scripts están listos y probados en la laptop
-> (compilan el backend y juntan los archivos), pero **todavía no se han corrido en la VM**:
-> la VM `20.69.91.86` no respondía (ni SSH ni web). Lo más probable es que esté **apagada**.
+> **Estado (23 de noviembre):** **montado y probado en la VM** `20.69.91.86` (Ubuntu 22.04).
+> - http://20.69.91.86 muestra la web y http://20.69.91.86/api/salud responde `"estado":"OK"`.
+> - Pruebas automáticas contra Azure: `prueba_api.mjs` **92 de 92** y `prueba_agente.mjs` **24 de 24**.
+> - Falta: probar la app Android versión **azure** en el teléfono.
+>
+> **Para la exposición:** la VM debe estar **encendida** (portal → Iniciar). Al encenderla, todo
+> (MySQL, backend y nginx) arranca solo; espera 1 o 2 minutos y abre http://20.69.91.86.
 
-## Lo único que necesita Claude para terminar (elige una opción)
-
-**Opción A (5 minutos, la más rápida):**
-1. En https://portal.azure.com → tu VM → **Iniciar**.
-2. **Redes** → que existan reglas de entrada para **SSH (22)** y **HTTP (80)** (paso 2 de abajo).
-3. Revisa que la IP pública siga siendo `20.69.91.86` (si cambió, dile la nueva).
-4. Escríbele a Claude: **"ya está encendida"**. Él se conecta con la llave que ya tiene, instala todo
-   con la contraseña de MySQL que elegiste y te dice cuando esté listo (unos 10 minutos).
-
-**Opción B (si quieres que Claude haga también lo del portal):** abre el portal de Azure en el
-**navegador integrado de la app de Claude** (panel del navegador), inicia sesión tú mismo y dile
-"ya inicié sesión". Él enciende la VM, abre los puertos y lo instala todo.
-
-> Claude dejó un "vigilante" revisando cada minuto si la VM responde: si la enciendes y la sesión de
-> Claude sigue abierta, empieza solo.
+### Lo que ya tenía esta VM (y qué se hizo con eso)
+La VM no estaba vacía. No se borró nada:
+- **Apache** mostraba la página por defecto de Ubuntu en el puerto 80: se **detuvo** (no se desinstaló)
+  para que nginx use el 80. Para regresarlo: `sudo systemctl enable --now apache2` (y detener nginx).
+- **Java 17** era el `java` por defecto: se dejó así. Se instaló Java 21 aparte y el servicio `geronex`
+  lo usa con ruta completa (`/usr/lib/jvm/java-21-openjdk-amd64/bin/java`).
+- **MySQL** ya estaba instalado y `root` tiene contraseña: el script entra como administrador con la
+  cuenta de mantenimiento de Ubuntu (`/etc/mysql/debian.cnf`), sin usar la contraseña de root.
+  MySQL tiene activa la regla de contraseñas **MEDIUM** (8 caracteres, mayúscula, minúscula, número y
+  símbolo): por eso la contraseña de `geronex_app` es la que elegiste **con la primera letra en mayúscula**.
+- El repositorio de paquetes de MySQL (`repo.mysql.com`) tiene la llave vencida: el script lo ignora y
+  usa los de Ubuntu. No se modificó.
+- La carpeta `~/Workspace/Web-1` (otro proyecto) no se tocó.
 
 ---
 
@@ -36,7 +38,7 @@
   cuentas de demo `admin`, `agente1`, `reserva1` y `cliente1` (contraseña `Demo12345`).
 - Los **secretos** viven solo en la VM, en `/etc/geronex/geronex.env` (solo root los lee):
   la contraseña de `geronex_app` (la que elija el equipo, o una al azar) y `JWT_SECRET` (siempre al azar).
-  El usuario `root` de MySQL no usa contraseña: solo entra quien ya es administrador de la VM (`sudo mysql`).
+  Para administrar MySQL desde la VM: `sudo mysql --defaults-file=/etc/mysql/debian.cnf` (en esta VM `root` tiene contraseña).
 - Solo se abren los puertos **22** (SSH) y **80** (web). El 8080 y el 3306 quedan cerrados hacia internet.
 
 ---
@@ -119,6 +121,7 @@ y **no toca la base** (los datos se conservan).
 | `No hay conexión SSH` | La VM está apagada o falta la regla del puerto 22 (pasos 1 y 2) |
 | `Permission denied (publickey)` | El usuario no es `azureuser` o la llave no es la de esta VM. Revisa en el portal: VM → **Conectar** |
 | `ERROR: esta versión de Ubuntu no tiene Java 21` | La VM es Ubuntu 20.04: hay que crear otra con 22.04 o 24.04 |
+| `ERROR 1819 … password does not satisfy the current policy` | La contraseña de MySQL no cumple la regla MEDIUM: usa una con mayúscula, minúscula, número y símbolo |
 | `ERROR: el backend no arrancó` | Mira el detalle (comando de abajo) y avísame qué dice |
 | La web abre pero sin datos | El backend no está corriendo: revisa el servicio (comandos de abajo) |
 | http://IP no abre nada | Falta la regla del puerto 80 en el NSG (paso 2) |
