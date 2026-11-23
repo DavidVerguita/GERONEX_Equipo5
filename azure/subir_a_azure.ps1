@@ -11,7 +11,10 @@ param(
     [string]$Ip = "20.69.91.86",
     [string]$Usuario = "azureuser",
     [string]$Llave = "D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem",
-    [switch]$SoloPreparar          # solo compila y junta los archivos, sin conectarse a la VM
+    [switch]$SoloPreparar,         # solo compila y junta los archivos, sin conectarse a la VM
+    # Contraseña del usuario geronex_app de MySQL en la VM. Si no se da, se pregunta (Enter = una al azar).
+    # Nunca se guarda en el repositorio: viaja en un archivo temporal que la VM borra al usarlo.
+    [string]$ClaveBD = $env:GERONEX_DB_PASSWORD
 )
 $ErrorActionPreference = "Stop"
 $raiz = Split-Path -Parent $PSScriptRoot           # carpeta Geronex2
@@ -26,7 +29,7 @@ Paso "1/5 Revisando la llave y la conexión con $Ip"
 if (-not (Test-Path $Llave)) { throw "No encuentro la llave en: $Llave" }
 # OpenSSH de Windows rechaza llaves que otros usuarios pueden leer: se deja solo para ti.
 icacls $Llave /inheritance:r /grant:r "$($env:USERNAME):R" | Out-Null
-$ssh = @("-i", $Llave, "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=15")
+$ssh = @("-i", $Llave, "-o", "StrictHostKeyChecking=accept-new", "-o", "ConnectTimeout=15", "-o", "BatchMode=yes")
 & ssh @ssh "$Usuario@$Ip" "echo conectado a `$(hostname)"
 if ($LASTEXITCODE -ne 0) { throw "No hay conexión SSH. ¿La VM está encendida y el puerto 22 abierto en el NSG?" }
 
@@ -63,10 +66,20 @@ Copy-Item "$PSScriptRoot\instalar_en_vm.sh" $subida
 
 if ($SoloPreparar) { Write-Host "Archivos listos en $subida"; exit 0 }
 
+# Contraseña de MySQL: la VM la usa y borra el archivo; aquí se borra al terminar la copia.
+if (-not $ClaveBD -and [Environment]::UserInteractive) {
+    $segura = Read-Host "Contraseña para MySQL en la VM (Enter = generar una al azar)" -AsSecureString
+    $ClaveBD = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($segura))
+}
+$archivoClave = Join-Path $subida "clave_bd.txt"
+if ($ClaveBD) { [IO.File]::WriteAllText($archivoClave, $ClaveBD) }
+
 Paso "4/5 Copiando a la VM (el JAR pesa ~60 MB, puede tardar)"
 & ssh @ssh "$Usuario@$Ip" "rm -rf ~/geronex_subida"
 & scp @ssh -r -q $subida "$Usuario@${Ip}:geronex_subida"
-if ($LASTEXITCODE -ne 0) { throw "Falló la copia con scp." }
+$copia = $LASTEXITCODE
+Remove-Item $archivoClave -Force -ErrorAction SilentlyContinue
+if ($copia -ne 0) { throw "Falló la copia con scp." }
 
 Paso "5/5 Instalando en la VM"
 & ssh @ssh "$Usuario@$Ip" "sed -i 's/\r$//' ~/geronex_subida/instalar_en_vm.sh && bash ~/geronex_subida/instalar_en_vm.sh $Ip"

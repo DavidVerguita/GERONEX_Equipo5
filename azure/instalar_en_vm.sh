@@ -55,10 +55,21 @@ if ! sudo test -f "$ENV_FILE"; then
     sudo chmod 600 "$ENV_FILE"
     echo "Creado $ENV_FILE"
 fi
+# Contraseña elegida por el equipo (si subir_a_azure.ps1 la mandó): reemplaza la generada y se borra el archivo
+if [ -f "$DIR/clave_bd.txt" ]; then
+    CLAVE_ELEGIDA="$(cat "$DIR/clave_bd.txt")"
+    shred -u "$DIR/clave_bd.txt" 2>/dev/null || rm -f "$DIR/clave_bd.txt"
+    case "$CLAVE_ELEGIDA" in
+        *[\'\"\\\$\`\ ]*|"") echo "ERROR: la contraseña no puede estar vacía ni tener comillas, \\, \$, \` o espacios."; exit 1 ;;
+    esac
+    sudo sed -i '/^DB_PASSWORD=/d' "$ENV_FILE"
+    printf 'DB_PASSWORD=%s\n' "$CLAVE_ELEGIDA" | sudo tee -a "$ENV_FILE" >/dev/null
+    echo "Se usará la contraseña elegida para geronex_app."
+fi
 # Orígenes web permitidos para CORS (la web por nginx no lo necesita, pero no estorba)
 sudo sed -i '/^CORS_ORIGENES=/d' "$ENV_FILE"
 echo "CORS_ORIGENES=http://${IP_PUBLICA:-localhost},http://localhost:63342,http://localhost:8090" | sudo tee -a "$ENV_FILE" >/dev/null
-CLAVE_DB="$(sudo grep '^DB_PASSWORD=' "$ENV_FILE" | cut -d= -f2)"
+CLAVE_DB="$(sudo grep '^DB_PASSWORD=' "$ENV_FILE" | cut -d= -f2-)"
 
 # ---------------------------------------------------------------------
 paso "4/7 Base de datos"

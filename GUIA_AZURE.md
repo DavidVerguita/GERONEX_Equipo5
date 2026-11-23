@@ -3,7 +3,24 @@
 > **Estado (23 de noviembre, madrugada):** los scripts están listos y probados en la laptop
 > (compilan el backend y juntan los archivos), pero **todavía no se han corrido en la VM**:
 > la VM `20.69.91.86` no respondía (ni SSH ni web). Lo más probable es que esté **apagada**.
-> Sigue los pasos 1 y 2 en el portal y luego el paso 3 lo deja todo montado con un solo comando.
+
+## Lo único que necesita Claude para terminar (elige una opción)
+
+**Opción A (5 minutos, la más rápida):**
+1. En https://portal.azure.com → tu VM → **Iniciar**.
+2. **Redes** → que existan reglas de entrada para **SSH (22)** y **HTTP (80)** (paso 2 de abajo).
+3. Revisa que la IP pública siga siendo `20.69.91.86` (si cambió, dile la nueva).
+4. Escríbele a Claude: **"ya está encendida"**. Él se conecta con la llave que ya tiene, instala todo
+   con la contraseña de MySQL que elegiste y te dice cuando esté listo (unos 10 minutos).
+
+**Opción B (si quieres que Claude haga también lo del portal):** abre el portal de Azure en el
+**navegador integrado de la app de Claude** (panel del navegador), inicia sesión tú mismo y dile
+"ya inicié sesión". Él enciende la VM, abre los puertos y lo instala todo.
+
+> Claude dejó un "vigilante" revisando cada minuto si la VM responde: si la enciendes y la sesión de
+> Claude sigue abierta, empieza solo.
+
+---
 
 ## Cómo queda montado
 
@@ -17,8 +34,9 @@
 - **Backend**: el JAR de Spring Boot corre como servicio `geronex` (systemd). Si la VM se reinicia, arranca solo.
 - **MySQL**: base `geronex` con los scripts `01`, `03` y `04`, el usuario `geronex_app` (sin DELETE) y las
   cuentas de demo `admin`, `agente1`, `reserva1` y `cliente1` (contraseña `Demo12345`).
-- Los **secretos** (contraseña de MySQL y `JWT_SECRET`) se generan al azar **dentro de la VM**
-  en `/etc/geronex/geronex.env` (solo root los lee). Nadie tiene que escribirlos ni pegarlos.
+- Los **secretos** viven solo en la VM, en `/etc/geronex/geronex.env` (solo root los lee):
+  la contraseña de `geronex_app` (la que elija el equipo, o una al azar) y `JWT_SECRET` (siempre al azar).
+  El usuario `root` de MySQL no usa contraseña: solo entra quien ya es administrador de la VM (`sudo mysql`).
 - Solo se abren los puertos **22** (SSH) y **80** (web). El 8080 y el 3306 quedan cerrados hacia internet.
 
 ---
@@ -57,14 +75,17 @@ cd "D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2"
 ```powershell
 powershell -ExecutionPolicy Bypass -File azure\subir_a_azure.ps1
 ```
-3. Qué va a pasar (tarda entre 5 y 10 minutos la primera vez):
+3. Antes de copiar, te pide la **contraseña para MySQL** (no se ve al escribirla). Escribe la que elegiste
+   para la base, o pulsa Enter para que genere una al azar. No se guarda en el repositorio: viaja en un
+   archivo temporal que la VM borra en cuanto la usa.
+4. Qué va a pasar (tarda entre 5 y 10 minutos la primera vez):
    - `1/5` revisa la llave y se conecta por SSH (la primera vez acepta solo la huella del servidor).
    - `2/5` compila el backend (JAR).
    - `3/5` junta la web, los scripts SQL y las cuentas de demo.
    - `4/5` copia todo a la VM (unos 60 MB).
    - `5/5` en la VM: crea swap si hay poca RAM, instala Java 21, MySQL y nginx, crea la base, el servicio
      `geronex`, configura nginx y crea las cuentas de demo.
-4. Al final debe decir: `LISTO. Abre en el navegador: http://20.69.91.86`.
+5. Al final debe decir: `LISTO. Abre en el navegador: http://20.69.91.86`.
 
 > El script usa tu llave `D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem` y le quita el
 > permiso de lectura a otros usuarios de Windows (OpenSSH lo exige). No la copia a ningún lado.
@@ -127,3 +148,70 @@ powershell -ExecutionPolicy Bypass -File azure\subir_a_azure.ps1 -Ip 1.2.3.4
 ## Para no gastar créditos
 Cuando no la uses, en el portal pulsa **Detener** en la VM (queda *desasignada* y no cobra cómputo).
 **Enciéndela antes de presentar** y comprueba el paso 4. Si la IP no es estática, puede cambiar al encenderla.
+
+---
+
+## Cómo explicar la conexión a Azure (para la exposición)
+
+### La idea en 30 segundos
+> "Rentamos una computadora en la nube de Microsoft (una máquina virtual con Linux). Tiene una dirección
+> pública, `20.69.91.86`, que cualquiera en internet puede alcanzar. Un firewall de Azure solo deja pasar
+> dos puertas: la 80, para la web, y la 22, para administrarla nosotros con una llave. Adentro, un programa
+> llamado nginx recibe todo lo que llega por la 80: si piden una página, la entrega; si piden algo de `/api`,
+> se lo pasa a nuestro backend de Spring Boot, que consulta MySQL en la misma máquina. Así la web y la app
+> usan una sola dirección, y la base de datos nunca está expuesta a internet."
+
+### Qué pasa cuando alguien abre http://20.69.91.86 (paso a paso)
+1. **El navegador** se conecta a la IP `20.69.91.86` por el **puerto 80** (HTTP).
+2. **Azure** recibe el paquete y lo revisa con el **NSG** (*Network Security Group*, el firewall de Azure):
+   hay una regla que permite el 80, así que lo deja pasar a la VM. Si alguien intenta el 3306 (MySQL) o el
+   8080, no hay regla y Azure lo bloquea antes de que llegue.
+3. **nginx** (dentro de la VM, escuchando en el 80) ve la ruta:
+   - `/index.html`, `/css/…`, `/js/…`, `/img/…` → entrega el archivo de `/var/www/geronex`.
+   - `/api/…` → actúa como **proxy inverso**: reenvía la petición a `http://127.0.0.1:8080`.
+4. **Spring Boot** escucha solo en `127.0.0.1:8080` (*localhost*: solo acepta conexiones de la misma
+   máquina). Procesa la petición igual que en la laptop: revisa el token, aplica las reglas y consulta MySQL.
+5. **MySQL** escucha en `localhost:3306`. Solo el backend lo usa, con el usuario `geronex_app`.
+6. La respuesta (JSON) regresa por el mismo camino: Spring Boot → nginx → internet → navegador.
+
+### Y la app Android
+Es lo mismo: la versión **azure** del APK tiene `BASE_URL = http://20.69.91.86/api`. El teléfono (con datos
+o Wi-Fi) manda sus peticiones a esa dirección; nginx las pasa al backend. No necesita cable ni `adb reverse`.
+Android bloquea HTTP sin cifrar por defecto; el archivo `network_security_config.xml` lo permite solo para
+esa IP (y localhost para pruebas).
+
+### Por qué la web y la API comparten dirección
+Como la web y la API salen del mismo sitio (`http://20.69.91.86`), el navegador no tiene que hacer peticiones
+a "otro origen", así que no hace falta CORS. En el código, `js/geronex.js` usa `/api` cuando no está en
+IntelliJ: funciona igual en la laptop (servidor del 8090) y en Azure.
+
+### Cómo administramos la VM (SSH con llave)
+- Nos conectamos con **SSH** (puerto 22) usando una **llave privada** (`.pem`) en lugar de contraseña. Azure
+  guardó la llave pública en la VM al crearla; solo quien tiene la privada puede entrar.
+- El script `subir_a_azure.ps1` usa **`scp`** (copia por SSH) para subir el JAR, la web y los scripts SQL, y
+  **`ssh`** para ejecutar `instalar_en_vm.sh` dentro de la VM.
+
+### Qué hace que siga funcionando sola
+- El backend es un **servicio de systemd** (`geronex.service`): arranca al encender la VM y, si se cae, se
+  reinicia a los 5 segundos.
+- nginx y MySQL también son servicios que arrancan solos.
+- Los secretos se leen de `/etc/geronex/geronex.env` (como las variables de entorno de IntelliJ en la laptop).
+
+### Comparación laptop vs. Azure (para responder rápido)
+| | Laptop | Azure |
+|---|---|---|
+| Web | IntelliJ (63342) o `servidor_web.mjs` (8090) | nginx en el 80 |
+| Backend | IntelliJ, puerto 8080 | servicio systemd, 127.0.0.1:8080 |
+| MySQL | Windows, localhost:3306 | Ubuntu, localhost:3306 |
+| Variables | Configuración de ejecución de IntelliJ | `/etc/geronex/geronex.env` |
+| Teléfono | Cable USB + `adb reverse` (APK debug) | Internet (APK azure) |
+| Quién puede entrar | Solo la laptop | Cualquiera por el 80; nosotros por el 22 con llave |
+
+### Preguntas posibles
+- **¿Por qué no abrir el 8080 directamente?** Porque así el backend y la base no quedan expuestos; nginx es la
+  única puerta. Además, nginx podría servir HTTPS o repartir carga entre varios backends en el futuro.
+- **¿Qué es el NSG?** El firewall de Azure: una lista de reglas de qué puertos pueden entrar a la VM.
+- **¿Qué pasa si se reinicia la VM?** systemd vuelve a arrancar MySQL, el backend y nginx. Si la IP es dinámica,
+  podría cambiar; por eso conviene hacerla estática.
+- **¿Es seguro?** Falta HTTPS (sin dominio no hay certificado); todo lo demás está cerrado: solo 22 con llave y 80.
+  Las contraseñas de usuarios van en BCrypt y la base no es accesible desde fuera.
