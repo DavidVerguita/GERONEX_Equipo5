@@ -1,3 +1,25 @@
+# GERONEX: preparación final (23 de noviembre de 2026, madrugada)
+
+## Web
+- Cada HTML quedó limpio: sus bloques `<style>` y `<script>` pasaron a `css/<página>.css` y `js/<página>.js`;
+  los `style="..."` sueltos, a clases en `geronex.css`; los `onsubmit` del login, a `addEventListener`.
+  **Comprobado:** las 9 páginas se ven idénticas píxel por píxel a la versión anterior, y las pruebas siguen 92/92 y 24/24.
+- `geronex.js` usa `/api` del mismo sitio salvo en IntelliJ (63342): así funciona igual en el 8090 y en Azure.
+- `CORS_ORIGENES` ahora acepta por defecto 63342 y 8090 aunque no se defina la variable.
+
+## Azure
+- `azure/subir_a_azure.ps1` + `azure/instalar_en_vm.sh`: nginx (80) + backend como servicio (127.0.0.1:8080) + MySQL.
+  Probado en la laptop hasta juntar los archivos (`-SoloPreparar`); **falta correrlo en la VM** (estaba apagada). Ver GUIA_AZURE.md.
+
+## Android
+- Variante `azure` (`app-azure.apk`, http://20.69.91.86/api) además de `debug` (localhost). Compiladas las dos; **no probadas en teléfono**.
+
+## Documentos
+- `docs/Presentacion_GERONEX_Final.pptx` (19 diapositivas, guion en las notas del orador), GUIA_PROYECTO.md,
+  GUIA_CODIGO.md, GUIA_AZURE.md, COMO_ENCENDER.md y los scripts `1_abrir_web.cmd` y `2_conectar_telefono.cmd`.
+
+---
+
 # GERONEX: documentación y casos de prueba (17 de noviembre de 2026, madrugada)
 
 ## Documentación escolar (carpeta `docs/`)

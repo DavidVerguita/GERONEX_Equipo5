@@ -1,5 +1,8 @@
 # Cómo encender GERONEX (backend, web y Android)
 
+> Esto es para correr todo **en la laptop**. Para la versión en la nube: **GUIA_AZURE.md**.
+> Cómo funciona el proyecto y guion de la exposición: **GUIA_PROYECTO.md**. Código: **GUIA_CODIGO.md**.
+
 Siempre en este orden: **MySQL → backend → web → teléfono**. Si el backend no está encendido, la web y la app no cargan nada.
 
 Cuentas de demo (contraseña `Demo12345`): `admin`, `agente1`, `reserva1` y `cliente1`.
@@ -47,7 +50,7 @@ Elige **una** de las dos formas.
 2. Conecta el cable. Si el teléfono pregunta "¿Permitir depuración USB?", pulsa **Permitir**.
 3. Doble clic en **`2_conectar_telefono.cmd`** (carpeta `Geronex2`).
    - Debe aparecer tu teléfono en la lista y el mensaje `Listo: en el telefono, localhost:8080 ahora llega a esta computadora`.
-   - Te pregunta si quieres instalar la app: escribe **S** la primera vez (o si cambiaste el código). Debe terminar en `Success`.
+   - Te pregunta qué app instalar: **1 = Local** (usa esta laptop por el cable) o **2 = Azure** (usa la VM por internet; ver GUIA_AZURE.md). Elige **3** si ya está instalada. Debe terminar en `Success`.
 4. Abre la app **GERONEX** en el teléfono e inicia sesión con `cliente1`.
 
 > **Cada vez que desconectes y vuelvas a conectar el cable, repite el paso 3** (el script). Si no lo haces, la app dice que no puede conectarse.
