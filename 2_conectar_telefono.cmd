@@ -9,11 +9,16 @@ echo Telefonos conectados:
 "%ADB%" reverse tcp:8080 tcp:8080 || (echo. & echo No hay telefono listo. Revisa el cable, la depuracion USB y acepta el aviso en el telefono. & pause & exit /b 1)
 echo Listo: en el telefono, localhost:8080 ahora llega a esta computadora.
 
-set APK=%~dp0GeronexAndroid\app\build\outputs\apk\debug\app-debug.apk
+set APKS=%~dp0GeronexAndroid\app\build\outputs\apk
 echo.
-choice /m "Instalar o actualizar la app GERONEX en el telefono"
-if errorlevel 2 goto fin
-if not exist "%APK%" (echo No existe el APK. Compilalo en Android Studio con Build ^> Build APK. & goto fin)
+echo Que app quieres instalar?
+echo   1 = Local: usa el backend de esta laptop por el cable (app-debug.apk)
+echo   2 = Azure: usa la VM de Azure por internet (app-azure.apk)
+echo   3 = Ninguna, ya esta instalada
+choice /c 123 /m "Elige"
+if errorlevel 3 goto fin
+if errorlevel 2 (set APK=%APKS%\azure\app-azure.apk) else (set APK=%APKS%\debug\app-debug.apk)
+if not exist "%APK%" (echo No existe "%APK%". Compilalo en Android Studio: Build ^> Build APK. & goto fin)
 "%ADB%" install -r "%APK%"
 :fin
 pause

@@ -4,11 +4,12 @@ package com.example.geronex;
 public final class Config {
 
     /**
-     * Telefono fisico por USB con "adb reverse tcp:8080 tcp:8080": localhost llega a tu computadora.
-     * Emulador: usa http://10.0.2.2:8080/api
-     * Produccion: la URL real con https://
+     * Sale de app/build.gradle.kts segun la variante que se compile:
+     *  - debug: http://localhost:8080/api (telefono por USB con "adb reverse tcp:8080 tcp:8080")
+     *  - azure: http://20.69.91.86/api (la VM de Azure)
+     * Emulador: http://10.0.2.2:8080/api. Produccion: la URL real con https://
      */
-    public static final String BASE_URL = "http://localhost:8080/api";
+    public static final String BASE_URL = BuildConfig.BASE_URL;
 
     private Config() {
     }

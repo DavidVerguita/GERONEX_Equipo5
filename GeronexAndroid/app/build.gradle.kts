@@ -16,9 +16,22 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Dirección del backend. debug = laptop por USB (adb reverse); azure = la VM de Azure.
+        buildConfigField("String", "BASE_URL", "\"http://localhost:8080/api\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
+        // APK que habla con la VM de Azure (por nginx en el puerto 80)
+        create("azure") {
+            initWith(getByName("debug"))
+            buildConfigField("String", "BASE_URL", "\"http://20.69.91.86/api\"")
+            matchingFallbacks += "debug"
+        }
         release {
             optimization {
                 enable = false
