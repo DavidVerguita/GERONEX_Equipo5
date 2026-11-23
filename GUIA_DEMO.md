@@ -5,6 +5,8 @@ conectadas al mismo tiempo en la misma laptop. **Importante:** abre cada pestañ
 (Ctrl+T y pega la dirección). No uses "abrir en pestaña nueva" sobre un enlace, porque eso copia la sesión.
 
 ## Antes de presentar
+> Paso a paso detallado (con scripts de doble clic y qué hacer si algo falla): **COMO_ENCENDER.md**.
+
 1. Enciende MySQL y el backend en IntelliJ (debe decir "Started GeronexApplication").
 2. Abre la web: con el navegador integrado de IntelliJ, o con `node servidor_web.mjs` (en `GERONEX_Equipo5`)
    y luego http://localhost:8090.
