@@ -78,7 +78,8 @@ cd "D:\A S U S\batiz2\GERONEX\geronexes de claude\Geronex2"
 powershell -ExecutionPolicy Bypass -File azure\subir_a_azure.ps1
 ```
 3. Antes de copiar, te pide la **contraseña para MySQL** (no se ve al escribirla). Escribe la que elegiste
-   para la base, o pulsa Enter para que genere una al azar. No se guarda en el repositorio: viaja en un
+   para la base, o pulsa Enter para dejar la que ya tiene la VM (la primera vez, Enter genera una al azar).
+   Recuerda que MySQL en la VM exige mayúscula, minúscula, número y símbolo. No se guarda en el repositorio: viaja en un
    archivo temporal que la VM borra en cuanto la usa.
 4. Qué va a pasar (tarda entre 5 y 10 minutos la primera vez):
    - `1/5` revisa la llave y se conecta por SSH (la primera vez acepta solo la huella del servidor).
@@ -111,9 +112,56 @@ Si cambiaste código de Android, primero recompila la versión azure: en Android
 
 ---
 
-## Actualizar después de cambiar código
-Vuelve a correr el paso 3. La segunda vez es más rápida: solo reemplaza el JAR y la web, reinicia el servicio
-y **no toca la base** (los datos se conservan).
+## Hacer cambios y que se vean en Azure
+**No hay que apagar la VM.** Al contrario: debe estar **encendida**, porque el script entra por SSH.
+Siempre: primero cambias y pruebas **en la laptop** (COMO_ENCENDER.md) y, cuando ya funciona, lo subes.
+
+### Cambios en la web (HTML, CSS, JS) o en el backend (Java)
+1. Haz el cambio y pruébalo en la laptop.
+2. Con la VM encendida, en PowerShell, desde la carpeta `Geronex2`:
+```powershell
+powershell -ExecutionPolicy Bypass -File azure\subir_a_azure.ps1
+```
+3. Cuando pida la contraseña de MySQL, pulsa **Enter** (deja la actual).
+4. Tarda 2 a 4 minutos: compila, sube, reemplaza el JAR y la web y reinicia el servicio.
+   La página deja de responder unos 30 segundos mientras el backend arranca.
+5. Debe terminar en `LISTO`. Recarga http://20.69.91.86 con **Ctrl+F5**.
+
+El script **no toca la base**: los usuarios, solicitudes y reservaciones se conservan.
+
+### Cambios en la app Android
+- Si solo cambiaste la web o el backend, la app **no** se recompila: ya usa el backend nuevo.
+- Si cambiaste código de Android: en Android Studio, **Build → Select Build Variant… → app: azure**,
+  luego **Build → Build APK(s)**, e instálala con `2_conectar_telefono.cmd` (opción **2**).
+
+### Cambios en la base de datos (tablas, columnas o datos)
+El script nunca modifica una base que ya existe, así que estos cambios se hacen **a mano**, una vez en la
+laptop y otra en la VM. Ojo: el backend usa `ddl-auto=validate`, así que si cambias una tabla y el código
+no coincide (o al revés), **el backend no arranca**.
+
+Orden correcto:
+1. Escribe el cambio en un archivo `.sql` nuevo dentro de `db/` (por ejemplo `db/06_cambio_x.sql`), con
+   `USE geronex;` en la primera línea. Pruébalo en la laptop (Workbench) junto con el código que lo usa.
+2. Copia el archivo a la VM (desde `Geronex2`):
+```powershell
+scp -i "D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem" db\06_cambio_x.sql azureuser@20.69.91.86:
+```
+3. Ejecútalo en la VM como administrador de MySQL (el usuario `geronex_app` no puede cambiar tablas):
+```powershell
+ssh -i "D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem" azureuser@20.69.91.86 "sudo mysql --defaults-file=/etc/mysql/debian.cnf < 06_cambio_x.sql"
+```
+   Si no sale nada, funcionó. Si sale `ERROR`, lee el mensaje: no se aplicó.
+4. **Después** sube el código nuevo con `subir_a_azure.ps1` (sección de arriba).
+
+> Si agregas una tabla nueva, `geronex_app` ya tiene permiso sobre ella (el permiso es para todo `geronex.*`).
+
+### Empezar la base de cero (borra TODOS los datos de Azure)
+Solo si quieres volver a los datos de ejemplo. Se pierden las cuentas y viajes creados en Azure.
+```powershell
+ssh -i "D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem" azureuser@20.69.91.86 "sudo mysql --defaults-file=/etc/mysql/debian.cnf -e 'DROP DATABASE geronex'"
+```
+Luego corre `subir_a_azure.ps1`: como ya no hay base, la crea con los scripts `01`, `03` y `04` y vuelve a
+crear `admin`, `agente1`, `reserva1` y `cliente1`.
 
 ## Si algo falla
 | Qué ves | Qué hacer |

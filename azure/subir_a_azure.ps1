@@ -12,7 +12,7 @@ param(
     [string]$Usuario = "azureuser",
     [string]$Llave = "D:\A S U S\batiz2\GERONEX\cosas de azure\DavidVerguita_key.pem",
     [switch]$SoloPreparar,         # solo compila y junta los archivos, sin conectarse a la VM
-    # Contraseña del usuario geronex_app de MySQL en la VM. Si no se da, se pregunta (Enter = una al azar).
+    # Contraseña del usuario geronex_app de MySQL en la VM. Si no se da, se pregunta (Enter = dejar la que ya tiene la VM; la primera vez, una al azar).
     # Nunca se guarda en el repositorio: viaja en un archivo temporal que la VM borra al usarlo.
     [string]$ClaveBD = $env:GERONEX_DB_PASSWORD
 )
@@ -68,7 +68,7 @@ if ($SoloPreparar) { Write-Host "Archivos listos en $subida"; exit 0 }
 
 # Contraseña de MySQL: la VM la usa y borra el archivo; aquí se borra al terminar la copia.
 if (-not $ClaveBD -and [Environment]::UserInteractive) {
-    $segura = Read-Host "Contraseña para MySQL en la VM (Enter = generar una al azar)" -AsSecureString
+    $segura = Read-Host "Contraseña para MySQL en la VM (Enter = dejar la actual)" -AsSecureString
     $ClaveBD = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($segura))
 }
 $archivoClave = Join-Path $subida "clave_bd.txt"
