@@ -4,13 +4,13 @@
     <item android:left="4dp" android:top="4dp">
         <shape>
             <solid android:color="@color/azul_grisaceo"/>
-            <corners android:radius="14dp"/>
+            <corners android:radius="4dp"/>
         </shape>
     </item>
     <item android:right="4dp" android:bottom="4dp">
         <shape>
             <solid android:color="@color/verde"/>
-            <corners android:radius="14dp"/>
+            <corners android:radius="4dp"/>
         </shape>
     </item>
 </layer-list>

@@ -1,3 +1,18 @@
+# GERONEX: entrega final (24 de noviembre de 2026)
+
+- **Equipo de 3**: Omar Yoel Cárdenas (base de datos), David Vega (backend, web y Azure) y Yael Sebastián Portillo (Android).
+  María Elizabeth Sánchez ya no está en el equipo (seguía en documentos viejos).
+- **Web más sobria**: sin emojis (íconos de categoría, sugerencias, avisos), esquinas de 3-4 px en lugar de "píldoras",
+  tarjetas con borde fino en lugar de sombras flotantes, sin gradientes en categorías ni zoom al pasar el mouse.
+- **Android igual**: sin emojis en textos y chips (`Formato.iconoCategoria` eliminado) y esquinas de 4 dp en los
+  drawables `bg_*`. APK debug y azure recompilados; **no probados en el teléfono**.
+- **Presentación nueva** `docs/Presentacion_GERONEX_Final.pptx`: 27 diapositivas en 3 partes (una por integrante), datos
+  con fuente (INEGI, SaleCycle, Google, Expedia), análisis de iamonos.com (recorrido del 24 nov), objetivos, tabla antes
+  y después, diseño plano y transiciones (desvanecer; empujar en las portadas de cada parte). Unos 18 minutos.
+- **Guía del equipo** `docs/Guia_del_Equipo_GERONEX.docx` (33 páginas): glosario, cuentas de demo y cómo se crearon,
+  cada parte del sistema, cada botón de la web y de la app, preguntas probables por integrante, guion completo con
+  tiempos y lista del día.
+
 # GERONEX: preparación final (23 de noviembre de 2026, madrugada)
 
 ## Web

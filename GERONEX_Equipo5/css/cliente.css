@@ -1,10 +1,10 @@
 /* Estilos propios de cliente.html (los generales están en geronex.css) */
 .sugerencias { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.5rem; }
-.sugerencias button { border:1px solid var(--borde); background:var(--bg-color); color:var(--slate); border-radius:999px; padding:.25rem .7rem; font-size:.8rem; cursor:pointer; }
+.sugerencias button { border:1px solid var(--borde); background:var(--bg-color); color:var(--slate); border-radius:3px; padding:.25rem .7rem; font-size:.8rem; cursor:pointer; }
 .sugerencias button:hover { border-color:var(--orange); }
-.resumen-viaje { background:var(--bg-color); border-radius:6px; padding:.6rem .8rem; font-size:.88rem; margin-bottom:1rem; }
+.resumen-viaje { background:var(--bg-color); border-radius:4px; padding:.6rem .8rem; font-size:.88rem; margin-bottom:1rem; }
 details.anterior { margin-top:1rem; border-top:1px solid var(--borde); padding-top:.6rem; }
 details.anterior summary { cursor:pointer; color:var(--gris); font-size:.88rem; }
-.cotizacion-nueva { border:2px solid var(--orange); border-radius:8px; padding:1rem; margin-top:1rem; background:#fffaf5; }
+.cotizacion-nueva { border:2px solid var(--orange); border-radius:4px; padding:1rem; margin-top:1rem; background:#fffaf5; }
 .faltan { font-size:.78rem; color:var(--gris); }
 .faltan.pronto { color:var(--orange); font-weight:700; }

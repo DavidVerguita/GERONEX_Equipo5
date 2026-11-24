@@ -117,6 +117,11 @@ Las respuestas de solicitud traen sus `cotizaciones[]` con `detalles[]`, y si ha
 - Android: variantes `debug` (localhost) y `azure` (http://20.69.91.86/api). `Config.BASE_URL = BuildConfig.BASE_URL`.
 - Documentos: `docs/Presentacion_GERONEX_Final.pptx`, GUIA_PROYECTO.md, GUIA_CODIGO.md, GUIA_AZURE.md, COMO_ENCENDER.md.
 
+### Actualización del 24 de noviembre
+- Equipo real de 3: Omar Yoel Cárdenas (BD, parte 1), David Vega (backend, web y Azure, parte 2), Yael Sebastián Portillo (Android, parte 3).
+- Web y Android sin emojis y con menos redondeo (pedido del usuario: "que no parezca hecha con IA"). Ya no existe `ICONO_CATEGORIA` (web) ni `Formato.iconoCategoria` (Android).
+- Presentación v2 (27 diapositivas, 3 partes, transiciones) y `docs/Guia_del_Equipo_GERONEX.docx` (guía fácil + guion). Los generadores viven en el scratchpad de Claude, no en el repo.
+
 ## 8. Lo que sigue
 1. Reiniciar el backend en IntelliJ y probar la app en el teléfono (adb reverse) con el guion de GUIA_DEMO.md.
 2. Prueba cruzada: una cuenta creada en la web se usa en Android y al revés.

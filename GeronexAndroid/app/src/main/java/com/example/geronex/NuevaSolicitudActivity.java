@@ -87,7 +87,7 @@ public class NuevaSolicitudActivity extends BaseActivity {
                 LinearLayout cont = findViewById(R.id.contSugerencias);
                 cont.removeAllViews();
                 for (String d : destinos) {
-                    TextView c = chip("📍 " + d, false);
+                    TextView c = chip(d, false);
                     c.setOnClickListener(v -> {
                         etDestino.setText(d);
                         etDestino.setSelection(d.length());
@@ -122,15 +122,15 @@ public class NuevaSolicitudActivity extends BaseActivity {
             String iso = Formato.iso(c);
             if (ida) {
                 fechaIda = iso;
-                btnIda.setText("📅  " + Formato.fecha(iso));
+                btnIda.setText(Formato.fecha(iso));
                 // Si el regreso quedo antes de la nueva ida, se mueve a la misma fecha
                 if (fechaRegreso != null && fechaRegreso.compareTo(fechaIda) < 0) {
                     fechaRegreso = fechaIda;
-                    btnRegreso.setText("📅  " + Formato.fecha(fechaRegreso));
+                    btnRegreso.setText(Formato.fecha(fechaRegreso));
                 }
             } else {
                 fechaRegreso = iso;
-                btnRegreso.setText("📅  " + Formato.fecha(iso));
+                btnRegreso.setText(Formato.fecha(iso));
             }
             pintarResumen();
         }, inicial.get(Calendar.YEAR), inicial.get(Calendar.MONTH), inicial.get(Calendar.DAY_OF_MONTH));
@@ -148,9 +148,9 @@ public class NuevaSolicitudActivity extends BaseActivity {
         }
         int noches = Formato.noches(fechaIda, fechaRegreso);
         int faltan = Formato.diasPara(fechaIda);
-        String texto = "🗓️  " + noches + " noche(s) · " + personas + " persona(s) · sales en " + faltan + " día(s)";
+        String texto = noches + " noche(s) · " + personas + " persona(s) · sales en " + faltan + " día(s)";
         if (faltan < 3) {
-            texto += "\n⚠️  Con menos de 3 días de anticipación ya no podrás cancelar la reservación.";
+            texto += "\nAviso: con menos de 3 días de anticipación ya no podrás cancelar la reservación.";
         }
         tvResumen.setText(texto);
     }

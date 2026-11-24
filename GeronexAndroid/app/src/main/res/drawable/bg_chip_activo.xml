@@ -2,5 +2,5 @@
 <!-- Filtro (chip) seleccionado -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/azul_marino"/>
-    <corners android:radius="20dp"/>
+    <corners android:radius="4dp"/>
 </shape>

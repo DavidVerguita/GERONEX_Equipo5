@@ -73,8 +73,8 @@ if (requerirRol('AGENTE', 'SUPERVISOR', 'AUDITOR')) {
                         <div class="fila-titulo"><h3>${esc(s.destino)}</h3>${badge(s.estatus)}</div>
                         <div class="meta">#${s.idSolicitud} · <strong>${esc(s.clienteNombre)}</strong> · ${fecha(s.fechaInicio)} al ${fecha(s.fechaFin)} · ${s.numPersonas} pers.</div>
                         <div class="meta">${s.presupuesto != null ? 'Presupuesto ' + dinero(s.presupuesto) + ' · ' : ''}Recibida ${fechaHora(s.fechaCreacion)}${s.agente ? ' · Agente: ' + esc(s.agente) : ''}</div>
-                        ${s.estatus === 'NUEVA' && faltan <= 0 ? `<div class="edad" style="color:#b3282a">✖ Fecha vencida: ya no se puede cotizar</div>`
-                            : s.estatus === 'NUEVA' && faltan <= 7 ? `<div class="edad">⏰ El viaje es en ${faltan} día(s)</div>` : ''}
+                        ${s.estatus === 'NUEVA' && faltan <= 0 ? `<div class="edad" style="color:#b3282a">Fecha vencida: ya no se puede cotizar</div>`
+                            : s.estatus === 'NUEVA' && faltan <= 7 ? `<div class="edad">El viaje es en ${faltan} día(s)</div>` : ''}
                     </div>
                 </div>
             </article>`;
@@ -124,7 +124,7 @@ if (requerirRol('AGENTE', 'SUPERVISOR', 'AUDITOR')) {
                 <div><span>Personas</span>${s.numPersonas}</div>
                 <div><span>Presupuesto</span>${s.presupuesto != null ? dinero(s.presupuesto) : 'No indicó'}</div>
             </div>
-            ${s.necesidades ? `<p class="aviso aviso-ambar" style="margin-top:0">📝 ${esc(s.necesidades)}</p>` : ''}`;
+            ${s.necesidades ? `<p class="aviso aviso-ambar" style="margin-top:0"><strong>Necesidades:</strong> ${esc(s.necesidades)}</p>` : ''}`;
     }
 
     function htmlHistorial(s) {
@@ -149,8 +149,8 @@ if (requerirRol('AGENTE', 'SUPERVISOR', 'AUDITOR')) {
             <div class="filtros">
                 <input type="search" id="cat-texto" placeholder="Buscar servicio" aria-label="Buscar servicio en el catálogo">
                 <select id="cat-filtro" aria-label="Tipo de servicio"><option value="">Todos los tipos</option>
-                    <option value="HOTEL">🏨 Hoteles</option><option value="VUELO">✈️ Vuelos</option>
-                    <option value="TRANSPORTE">🚌 Transporte</option><option value="PAQUETE">🧭 Paquetes</option></select>
+                    <option value="HOTEL">Hoteles</option><option value="VUELO">Vuelos</option>
+                    <option value="TRANSPORTE">Transporte</option><option value="PAQUETE">Paquetes</option></select>
                 <label><input type="checkbox" id="solo-destino" checked> Solo “${esc(s.destino)}”</label>
             </div>
             <div class="catalogo-mini" id="catalogo-mini"><div class="vacio">Cargando catálogo…</div></div>
@@ -213,7 +213,7 @@ if (requerirRol('AGENTE', 'SUPERVISOR', 'AUDITOR')) {
             return;
         }
         cont.innerHTML = `<table class="tabla"><tbody>${lista.map(s => `<tr>
-            <td>${ICONO_CATEGORIA[s.categoria] || ''} <strong>${esc(s.nombre)}</strong><div class="meta">${esc(s.destino)} · ${esc(s.proveedor)} · ${s.cupoDisponible} disp. · sugerido ×${cantidadSugerida(s)}</div></td>
+            <td><strong>${esc(s.nombre)}</strong><div class="meta">${esc(s.destino)} · ${esc(s.proveedor)} · ${s.cupoDisponible} disp. · sugerido ×${cantidadSugerida(s)}</div></td>
             <td class="num">${dinero(s.precio)}<div class="meta">${esc(s.unidad)}</div></td>
             <td class="num">${partidas.has(s.idServicio) ? '<span class="meta">✔ Agregado</span>'
                 : `<button class="btn btn-claro btn-chico" data-agregar="${s.idServicio}" ${s.cupoDisponible < 1 ? 'disabled title="Agotado"' : ''}>+ Agregar</button>`}</td>
@@ -227,7 +227,7 @@ if (requerirRol('AGENTE', 'SUPERVISOR', 'AUDITOR')) {
             <thead><tr><th>Servicio</th><th class="num">Precio</th><th class="num">Cantidad</th><th class="num">Subtotal</th><th></th></tr></thead>
             <tbody>${[...partidas].map(([id, cant]) => {
                 const s = catalogo.find(x => x.idServicio === id);
-                return `<tr><td>${ICONO_CATEGORIA[s.categoria] || ''} ${esc(s.nombre)}<div class="meta">Máx. ${s.cupoDisponible} disponibles</div></td>
+                return `<tr><td>${esc(s.nombre)}<div class="meta">Máx. ${s.cupoDisponible} disponibles</div></td>
                     <td class="num">${dinero(s.precio)}<div class="meta">${esc(s.unidad)}</div></td>
                     <td class="num"><input type="number" min="1" max="${Math.min(100, s.cupoDisponible)}" value="${cant}" data-cantidad="${id}" aria-label="Cantidad de ${esc(s.nombre)}"></td>
                     <td class="num" data-subtotal="${id}">${dinero(s.precio * cant)}</td>

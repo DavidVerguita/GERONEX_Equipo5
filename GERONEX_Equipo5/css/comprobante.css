@@ -1,6 +1,6 @@
 /* Estilos propios de comprobante.html (los generales están en geronex.css) */
 .comprobante-foto { height:150px; background-size:cover; background-position:center; }
 .marca { display:flex; align-items:center; gap:.6rem; }
-.marca img { width:40px; height:40px; border-radius:10px; }
-.cuenta-regresiva { display:inline-block; margin-top:.4rem; background:var(--orange); color:#fff; border-radius:999px; padding:.2rem .7rem; font-size:.8rem; font-weight:700; }
+.marca img { width:40px; height:40px; border-radius:4px; }
+.cuenta-regresiva { display:inline-block; margin-top:.4rem; background:var(--orange); color:#fff; border-radius:3px; padding:.2rem .7rem; font-size:.8rem; font-weight:700; }
 @media print { .comprobante-foto { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }

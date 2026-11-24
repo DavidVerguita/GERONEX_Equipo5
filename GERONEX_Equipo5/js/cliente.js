@@ -27,7 +27,7 @@ if (requerirRol('CLIENTE')) {
         if (!inicio.value || !fin.value) { $('resumen-viaje').textContent = 'Elige tus fechas para ver la duración del viaje.'; return; }
         const n = nochesEntre(inicio.value, fin.value);
         const p = Number($('s-personas').value) || 1;
-        $('resumen-viaje').innerHTML = `🗓️ <strong>${n} noche(s)</strong> · ${p} persona(s) · sales en ${diasPara(inicio.value)} día(s)`
+        $('resumen-viaje').innerHTML = `<strong>${n} noche(s)</strong> · ${p} persona(s) · sales en ${diasPara(inicio.value)} día(s)`
             + (diasPara(inicio.value) < 3 ? '<br><span style="color:#b3282a">Ojo: con menos de 3 días de anticipación ya no podrás cancelar.</span>' : '');
     }
 
@@ -38,7 +38,7 @@ if (requerirRol('CLIENTE')) {
     api('/servicios', { publica: true }).then(servicios => {
         const destinos = [...new Set(servicios.map(s => s.destino))];
         $('destinos-catalogo').innerHTML = destinos.map(d => `<option value="${esc(d)}">`).join('');
-        $('sugerencias').innerHTML = destinos.map(d => `<button type="button" data-sugerencia="${esc(d)}">📍 ${esc(d)}</button>`).join('');
+        $('sugerencias').innerHTML = destinos.map(d => `<button type="button" data-sugerencia="${esc(d)}">${esc(d)}</button>`).join('');
     }).catch(() => {});
     $('sugerencias').addEventListener('click', ev => {
         const b = ev.target.closest('[data-sugerencia]');
@@ -76,7 +76,7 @@ if (requerirRol('CLIENTE')) {
             <thead><tr><th>Servicio</th><th>Tipo</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Subtotal</th></tr></thead>
             <tbody>${detalles.map(d => `<tr>
                 <td>${esc(d.servicio)}<div class="meta">${esc(d.proveedor)}</div></td>
-                <td>${ICONO_CATEGORIA[d.categoria] || ''} ${esc(d.categoria)}</td>
+                <td>${esc(d.categoria)}</td>
                 <td class="num">${d.cantidad}</td>
                 <td class="num">${dinero(d.precioUnitario)}<div class="meta">${esc(d.unidad)}</div></td>
                 <td class="num">${dinero(d.subtotal)}</td></tr>`).join('')}</tbody>
@@ -132,7 +132,7 @@ if (requerirRol('CLIENTE')) {
                 </div>
             </div>
             ${htmlPasos(s)}
-            ${s.necesidades ? `<p class="meta" style="margin-top:.4rem">📝 ${esc(s.necesidades)}</p>` : ''}
+            ${s.necesidades ? `<p class="meta" style="margin-top:.4rem"><strong>Necesidades:</strong> ${esc(s.necesidades)}</p>` : ''}
             ${s.estatus === 'NUEVA' ? `<p class="aviso aviso-ambar">${s.cotizaciones.length ? 'Tu agente está preparando una nueva propuesta.' : 'Un agente está preparando tu cotización.'}</p>` : ''}
             ${vigente ? `<div class="${pendiente ? 'cotizacion-nueva' : ''}" style="${pendiente ? '' : 'border-top:1px solid var(--borde);margin-top:1rem;padding-top:1rem'}">${htmlCotizacion(vigente, s)}</div>` : ''}
             ${anteriores.length ? `<details class="anterior"><summary>Ver ${anteriores.length} cotización(es) anterior(es)</summary>

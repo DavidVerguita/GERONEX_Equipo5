@@ -49,7 +49,7 @@ if (requerirRol()) {
                 <div class="tabla-wrap"><table class="tabla">
                     <thead><tr><th>Servicio</th><th>Proveedor</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Subtotal</th></tr></thead>
                     <tbody>${r.detalles.map(d => `<tr>
-                        <td>${ICONO_CATEGORIA[d.categoria] || ''} ${esc(d.servicio)}</td>
+                        <td>${esc(d.servicio)}</td>
                         <td>${esc(d.proveedor)}</td>
                         <td class="num">${d.cantidad}</td>
                         <td class="num">${dinero(d.precioUnitario)}<div class="meta">${esc(d.unidad)}</div></td>

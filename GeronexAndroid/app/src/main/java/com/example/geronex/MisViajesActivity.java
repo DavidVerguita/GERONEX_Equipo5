@@ -90,7 +90,7 @@ public class MisViajesActivity extends BaseActivity {
                 if (cotizacionesVistas != null) {
                     for (Integer id : pendientes) {
                         if (!cotizacionesVistas.contains(id)) {
-                            Toast.makeText(MisViajesActivity.this, "🔔 ¡Tu agente te envió una nueva cotización!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MisViajesActivity.this, "Tu agente te envió una nueva cotización.", Toast.LENGTH_LONG).show();
                             break;
                         }
                     }
@@ -185,7 +185,7 @@ public class MisViajesActivity extends BaseActivity {
         String necesidades = Formato.texto(s, "necesidades");
         if (!necesidades.isEmpty()) {
             TextView tvN = t.findViewById(R.id.tvNecesidades);
-            tvN.setText("📝 " + necesidades);
+            tvN.setText("Necesidades: " + necesidades);
             tvN.setVisibility(View.VISIBLE);
         }
 
@@ -203,8 +203,8 @@ public class MisViajesActivity extends BaseActivity {
 
         if ("NUEVA".equals(estatus)) {
             TextView aviso = t.findViewById(R.id.tvAviso);
-            aviso.setText(lista.isEmpty() ? "⏳ Un agente está preparando tu cotización."
-                    : "⏳ Tu agente está preparando una nueva propuesta.");
+            aviso.setText(lista.isEmpty() ? "Un agente está preparando tu cotización."
+                    : "Tu agente está preparando una nueva propuesta.");
             aviso.setTextColor(getColor(R.color.ambar));
             aviso.setBackground(fondo(R.color.ambar_claro, 8));
             aviso.setVisibility(View.VISIBLE);
@@ -323,7 +323,7 @@ public class MisViajesActivity extends BaseActivity {
             JSONObject d = detalles.optJSONObject(i);
             LinearLayout renglon = new LinearLayout(this);
             renglon.setPadding(0, dp(8), 0, 0);
-            TextView izq = texto(Formato.iconoCategoria(d.optString("categoria")) + " " + d.optString("servicio")
+            TextView izq = texto(d.optString("servicio")
                     + "\n" + d.optInt("cantidad") + " × " + Formato.dinero(d.opt("precioUnitario")) + " " + d.optString("unidad")
                     + " · " + d.optString("proveedor"), 13, R.color.azul_grisaceo, false);
             izq.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));

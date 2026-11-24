@@ -3,4 +3,4 @@
 .falta { color:#b3282a; font-weight:600; white-space:nowrap; }
 .alerta-cupo { border-left:4px solid var(--coral); }
 .motivos { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.6rem; }
-.motivos button { border:1px solid var(--borde); background:var(--bg-color); border-radius:999px; padding:.25rem .7rem; font-size:.8rem; cursor:pointer; color:var(--slate); }
+.motivos button { border:1px solid var(--borde); background:var(--bg-color); border-radius:3px; padding:.25rem .7rem; font-size:.8rem; cursor:pointer; color:var(--slate); }

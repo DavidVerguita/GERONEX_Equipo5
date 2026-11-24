@@ -1,5 +1,5 @@
 /* Estilos propios de cotizacion.html (los generales están en geronex.css) */
 .comprobante-foto { height:140px; background-size:cover; background-position:center; }
 .marca { display:flex; align-items:center; gap:.6rem; }
-.marca img { width:40px; height:40px; border-radius:10px; }
+.marca img { width:40px; height:40px; border-radius:4px; }
 @media print { .comprobante-foto { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }

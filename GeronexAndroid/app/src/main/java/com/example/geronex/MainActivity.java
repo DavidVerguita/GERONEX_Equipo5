@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity {
                 tvKpiCurso.setText(String.valueOf(enCurso));
                 tvKpiResponder.setText(String.valueOf(porResponder));
                 if (porResponder > 0) {
-                    tvAvisoCotizacion.setText("🔔  Tienes " + porResponder + (porResponder == 1
+                    tvAvisoCotizacion.setText("Tienes " + porResponder + (porResponder == 1
                             ? " cotización por responder. Tócala para verla." : " cotizaciones por responder. Tócalas para verlas."));
                     tvAvisoCotizacion.setVisibility(View.VISIBLE);
                 } else {
@@ -264,9 +264,9 @@ public class MainActivity extends BaseActivity {
     private void mostrarMenuFiltros(View anchor) {
         String[] categorias = {"HOTEL", "VUELO", "TRANSPORTE", "PAQUETE"};
         PopupMenu menu = new PopupMenu(this, anchor);
-        menu.getMenu().add(0, -1, 0, "🌎 Todo el catálogo");
+        menu.getMenu().add(0, -1, 0, "Todo el catálogo");
         for (int i = 0; i < categorias.length; i++) {
-            menu.getMenu().add(0, i, i + 1, Formato.iconoCategoria(categorias[i]) + " " + Formato.nombreCategoria(categorias[i]));
+            menu.getMenu().add(0, i, i + 1, Formato.nombreCategoria(categorias[i]));
         }
         menu.setOnMenuItemClickListener(item -> {
             String texto = ((EditText) findViewById(R.id.etBuscar)).getText().toString().trim();

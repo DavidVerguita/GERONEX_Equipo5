@@ -253,7 +253,6 @@ function badge(estatus) {
   return `<span class="badge badge-${esc(estatus)}">${esc(TEXTO_ESTATUS[estatus] || estatus)}</span>`;
 }
 
-const ICONO_CATEGORIA = { HOTEL: '🏨', VUELO: '✈️', TRANSPORTE: '🚌', PAQUETE: '🧭' };
 const NOMBRE_CATEGORIA = { HOTEL: 'Hoteles', VUELO: 'Vuelos', TRANSPORTE: 'Transporte', PAQUETE: 'Paquetes y tours' };
 
 // "Cancún" -> "cancun": minúsculas y sin acentos (para buscar sin importar cómo se escriba).

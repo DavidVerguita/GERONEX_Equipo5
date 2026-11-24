@@ -18,7 +18,7 @@ if (requerirRol('RESPONSABLE_RESERVACIONES', 'SUPERVISOR', 'ADMINISTRADOR', 'AUD
             const cupo = cupos.get(d.idServicio);
             const estadoCupo = !porValidar || cupo == null ? ''
                 : cupo >= d.cantidad ? `<span class="alcanza">✔ ${cupo} disp.</span>` : `<span class="falta">✖ solo ${cupo} disp.</span>`;
-            return `<tr><td>${ICONO_CATEGORIA[d.categoria] || ''} ${esc(d.servicio)}<div class="meta">${esc(d.proveedor)}</div></td>
+            return `<tr><td>${esc(d.servicio)}<div class="meta">${esc(d.proveedor)}</div></td>
                 <td class="num">${d.cantidad}</td><td class="num">${dinero(d.subtotal)}</td><td class="num">${estadoCupo}</td></tr>`;
         }).join('');
         const todoAlcanza = r.detalles.every(d => (cupos.get(d.idServicio) ?? 0) >= d.cantidad);

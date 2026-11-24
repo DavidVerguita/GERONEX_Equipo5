@@ -86,12 +86,12 @@ public class ComprobanteActivity extends BaseActivity {
         TextView aviso = findViewById(R.id.tvAviso);
         switch (estatus) {
             case "POR_VALIDAR":
-                pintarAviso(aviso, "⏳ Tu reservación está registrada. El equipo de reservaciones está validando la disponibilidad con los proveedores.",
+                pintarAviso(aviso, "Tu reservación está registrada. El equipo de reservaciones está validando la disponibilidad con los proveedores.",
                         R.color.ambar_claro, R.color.ambar);
                 break;
             case "CONFIRMADA":
                 String quien = Formato.texto(r, "responsable");
-                pintarAviso(aviso, "✅ ¡Reservación confirmada!" + (quien.isEmpty() ? "" : " La validó " + quien)
+                pintarAviso(aviso, "Reservación confirmada." + (quien.isEmpty() ? "" : " La validó " + quien)
                         + " el " + Formato.fechaHora(r.optString("fechaValidacion")) + ".", R.color.verde_claro, R.color.verde);
                 break;
             case "RECHAZADA":
@@ -133,7 +133,7 @@ public class ComprobanteActivity extends BaseActivity {
             LinearLayout renglon = new LinearLayout(this);
             renglon.setPadding(0, dp(6), 0, dp(6));
             TextView izq = new TextView(this);
-            izq.setText(Formato.iconoCategoria(d.optString("categoria")) + " " + d.optString("servicio") + "\n"
+            izq.setText(d.optString("servicio") + "\n"
                     + d.optInt("cantidad") + " × " + Formato.dinero(d.opt("precioUnitario")) + " " + d.optString("unidad")
                     + " · " + d.optString("proveedor"));
             izq.setTextColor(getColor(R.color.azul_grisaceo));

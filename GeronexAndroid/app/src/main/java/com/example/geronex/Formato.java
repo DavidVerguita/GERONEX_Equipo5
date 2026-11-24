@@ -152,18 +152,6 @@ public final class Formato {
         }
     }
 
-    public static String iconoCategoria(String categoria) {
-        if (categoria == null) {
-            return "🌎";
-        }
-        switch (categoria) {
-            case "HOTEL": return "🏨";
-            case "VUELO": return "✈️";
-            case "TRANSPORTE": return "🚌";
-            case "PAQUETE": return "🧭";
-            default: return "🌎";
-        }
-    }
 
     public static String nombreCategoria(String categoria) {
         if (categoria == null) {

@@ -54,8 +54,8 @@ async function cargarCategorias() {
     try {
         const categorias = await api('/categorias', { publica: true });
         const chips = $('chips');
-        chips.innerHTML = '<button class="chip activo" data-cat="">🌎 Todos</button>' + categorias.map(c =>
-            `<button class="chip" data-cat="${esc(c.nombre)}">${ICONO_CATEGORIA[c.nombre] || ''} ${esc(NOMBRE_CATEGORIA[c.nombre] || capital(c.nombre))}</button>`).join('');
+        chips.innerHTML = '<button class="chip activo" data-cat="">Todos</button>' + categorias.map(c =>
+            `<button class="chip" data-cat="${esc(c.nombre)}">${esc(NOMBRE_CATEGORIA[c.nombre] || capital(c.nombre))}</button>`).join('');
         $('buscar-categoria').insertAdjacentHTML('beforeend', categorias.map(c =>
             `<option value="${esc(c.nombre)}">${esc(NOMBRE_CATEGORIA[c.nombre] || capital(c.nombre))}</option>`).join(''));
     } catch (e) { /* si falla, el catálogo mostrará el error */ }
@@ -104,10 +104,10 @@ function pintarCatalogo() {
     $('grid').innerHTML = lista.map(s => `
         <article class="card">
             <div class="card-imagen"><img src="${imagenDestino(s.destino)}" alt="${esc(s.destino)}" loading="lazy">
-                <span class="etiqueta">${ICONO_CATEGORIA[s.categoria] || ''} ${esc(s.categoria)}</span>${etiquetaCupo(s)}</div>
+                <span class="etiqueta">${esc(s.categoria)}</span>${etiquetaCupo(s)}</div>
             <div class="card-content">
                 <h3>${esc(s.nombre)}</h3>
-                <div class="meta" style="margin-bottom:.4rem">📍 ${esc(s.destino)} · ${esc(s.proveedor)}</div>
+                <div class="meta" style="margin-bottom:.4rem">${esc(s.destino)} · ${esc(s.proveedor)}</div>
                 <p>${esc(s.descripcion || '')}</p>
                 <div class="precio">${dinero(s.precio)} <small>${esc(s.unidad)}</small></div>
                 <div class="acciones">
@@ -140,7 +140,7 @@ function abrirDetalle(id) {
     d.className = 'dialogo detalle-servicio';
     d.innerHTML = `<img src="${imagenDestino(s.destino)}" alt="${esc(s.destino)}">
         <div class="cuerpo">
-            <div class="fila-titulo"><h3>${esc(s.nombre)}</h3><span class="badge">${ICONO_CATEGORIA[s.categoria] || ''} ${esc(s.categoria)}</span></div>
+            <div class="fila-titulo"><h3>${esc(s.nombre)}</h3><span class="badge">${esc(s.categoria)}</span></div>
             <p style="margin:.4rem 0 1rem">${esc(s.descripcion || 'Sin descripción.')}</p>
             <div class="datos-grid">
                 <div><span>Destino</span>${esc(s.destino)}</div>

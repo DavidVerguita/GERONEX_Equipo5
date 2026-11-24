@@ -79,7 +79,7 @@ public class CatalogoActivity extends BaseActivity {
         // Chips de tipo de servicio
         LinearLayout contChips = findViewById(R.id.contChips);
         for (String c : CATEGORIAS) {
-            TextView chip = chip(Formato.iconoCategoria(c) + " " + Formato.nombreCategoria(c), equals(c, categoria));
+            TextView chip = chip(Formato.nombreCategoria(c), equals(c, categoria));
             chip.setOnClickListener(v -> {
                 categoria = c;
                 for (int i = 0; i < chips.size(); i++) marcarChip(chips.get(i), equals(CATEGORIAS[i], categoria));
@@ -204,7 +204,7 @@ public class CatalogoActivity extends BaseActivity {
             int cupo = s.optInt("cupoDisponible");
             imagenDestino(t.findViewById(R.id.ivImagen), destino);
             TextView tvCategoria = t.findViewById(R.id.tvCategoria);
-            tvCategoria.setText(Formato.iconoCategoria(s.optString("categoria")) + " " + s.optString("categoria"));
+            tvCategoria.setText(s.optString("categoria"));
             tvCategoria.setBackground(fondo(R.color.azul_marino, 20));
             TextView tvCupo = t.findViewById(R.id.tvCupo);
             if (cupo <= 0) {
@@ -221,7 +221,7 @@ public class CatalogoActivity extends BaseActivity {
                 tvCupo.setBackground(fondo(R.color.white, 20));
             }
             ((TextView) t.findViewById(R.id.tvNombre)).setText(s.optString("nombre"));
-            ((TextView) t.findViewById(R.id.tvLugar)).setText("📍 " + destino + " · " + s.optString("proveedor"));
+            ((TextView) t.findViewById(R.id.tvLugar)).setText(destino + " · " + s.optString("proveedor"));
             ((TextView) t.findViewById(R.id.tvDescripcion)).setText(Formato.texto(s, "descripcion"));
             ((TextView) t.findViewById(R.id.tvPrecio)).setText(Formato.dinero(s.opt("precio")) + "  " + s.optString("unidad"));
             View btn = t.findViewById(R.id.btnSolicitar);
@@ -240,7 +240,7 @@ public class CatalogoActivity extends BaseActivity {
         String descripcion = Formato.texto(s, "descripcion");
         ((TextView) vista.findViewById(R.id.tvDescripcion)).setText(descripcion.isEmpty() ? "Sin descripción." : descripcion);
         LinearLayout datos = vista.findViewById(R.id.contDatos);
-        datos.addView(filaDato("Tipo", Formato.iconoCategoria(s.optString("categoria")) + " " + Formato.nombreCategoria(s.optString("categoria"))));
+        datos.addView(filaDato("Tipo", Formato.nombreCategoria(s.optString("categoria"))));
         datos.addView(filaDato("Destino", destino));
         datos.addView(filaDato("Proveedor", s.optString("proveedor")));
         datos.addView(filaDato("Precio", Formato.dinero(s.opt("precio")) + " " + s.optString("unidad")));

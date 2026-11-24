@@ -99,7 +99,7 @@
                         android:focusable="true"
                         android:gravity="center_vertical"
                         android:paddingStart="14dp"
-                        android:text="📅  Elegir"
+                        android:text="Elegir fecha"
                         android:textColor="@color/azul_marino"
                         android:textSize="15sp"/>
                 </LinearLayout>
@@ -127,7 +127,7 @@
                         android:focusable="true"
                         android:gravity="center_vertical"
                         android:paddingStart="14dp"
-                        android:text="📅  Elegir"
+                        android:text="Elegir fecha"
                         android:textColor="@color/azul_marino"
                         android:textSize="15sp"/>
                 </LinearLayout>
